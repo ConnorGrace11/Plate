@@ -1,3 +1,3 @@
 # ReactNativeBasics
 
-### Maintenance project for Software Development II
+* Maintenance project for Software Development II
