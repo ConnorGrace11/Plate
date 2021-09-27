@@ -1,5 +1,7 @@
+
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,41 +11,109 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
+  FlatList,
 } from "react-native";
 
-export default function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+function HomeScreen({ navigation }) {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    return (
+
+      <View style={styles.container}>
+        <Image style={styles.image} source={require("./assets/plate.png")} />
+
+        <StatusBar style="auto" />
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Email."
+            placeholderTextColor="#003f5c"
+            onChangeText={(email) => setEmail(email)}
+          />
+        </View>
+
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.TextInput}
+            placeholder="Password."
+            placeholderTextColor="#003f5c"
+            secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.forgot_button} onPress={() => Alert.alert('That sucks.')}>
+          <Text style={styles.forgot_button}>Forgot Password?</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Movies')}>
+          <Text style={styles.loginText}>LOGIN</Text>
+        </TouchableOpacity>
+      </View>
+
+
+  );
+}
+
+function MoviesScreen() {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  const getMovies = async () => {
+    try {
+      const response = await fetch('https://reactnative.dev/movies.json');
+      const json = await response.json();
+      setData(json.movies);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <Image style={styles.image} source={require("./assets/plate.png")} />
-
-      <StatusBar style="auto" />
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+    <View style={{ flex: 1, padding: 24 }}>
+      {isLoading ? <ActivityIndicator/> : (
+        <FlatList
+          data={data}
+          keyExtractor={({ id }, index) => id}
+          renderItem={({ item }) => (
+          <Text>{item.title}, {item.releaseYear}</Text>
+          )}
         />
-      </View>
-
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-      </View>
-      <TouchableOpacity style={styles.loginBtn} onPress={() => Alert.alert('This is your Login Info!')}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
+      )}
     </View>
   );
 }
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Movies" component={MoviesScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+<Stack.Screen
+  name="Home"
+  component={HomeScreen}
+  options={{ title: 'Overview' }}
+/>
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
@@ -73,6 +143,11 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     color: 'black'
+  },
+
+  forgot_button: {
+    height: 30,
+    marginBottom: 30,
   },
 
   loginBtn: {
