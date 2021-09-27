@@ -1,0 +1,24 @@
+{
+  "name": "reactnativebasics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConnorGrace11/ReactNativeBasics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ConnorGrace11/ReactNativeBasics/issues"
+  },
+  "homepage": "https://github.com/ConnorGrace11/ReactNativeBasics#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
