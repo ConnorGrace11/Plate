@@ -1,0 +1,16 @@
+GET http://localhost:3000/api/
+
+###
+
+GET http://localhost:3000/api/61528c79edd5cc0158f4f0a3
+
+###
+
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "username": "me",
+    "email": "me@me.com",
+    "password": "12345"
+}
