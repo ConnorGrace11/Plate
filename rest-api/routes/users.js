@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user')
-const control = require('../controllers/user.controller')
-const middleware = require('../middlewares/middleware')
+const User = require('../models/user');
+const control = require('../controllers/user.controller');
+const middleware = require('../middlewares/middleware');
 
 router.get('/', control.getAll);
 router.get('/:id', middleware.getUsers, control.getOne);
