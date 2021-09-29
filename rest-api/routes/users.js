@@ -12,5 +12,6 @@ router.post('/', control.createOne);
 router.patch('/:id', middleware.getId, control.updateOne);
 
 router.delete('/:id', middleware.getId, control.deleteOne);
+//test
 
 module.exports = router
