@@ -1,18 +1,29 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
-    username: {
+const RestaurantSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
-    email: {
+    location: {
         type: String,
         required: true
     },
-    password: {
-        type: String,
+    rating: {
+        type: Number,
         required: true
     }
 })
 
-module.exports = mongoose.model('Users', UserSchema)
+function validateRestaurant(restaurant) {
+    const schema = {
+      name: Joi.string().min(2).max(50).required(),
+      location: Joi.string().min(2).max(100).required(),
+      rating: Joi.number().min(1).required(),
+    };
+    return Joi.validate(restaurant, schema);
+  }
+
+module.exports = mongoose.model('Restaurant', RestaurantSchema);
+exports.validate = validateRestaurant;

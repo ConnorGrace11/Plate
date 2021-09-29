@@ -1,9 +1,8 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const router = express.Router();
-const User = require('../models/user');
-const control = require('../controllers/user.controller');
-const middleware = require('../middlewares/userMiddleware');
+const Restaurants = require('../models/restaurant');
+const control = require('../controllers/restaurant.controller');
+const middleware = require('../middlewares/restaurantMiddleware');
 
 router.get('/', control.getAll);
 router.get('/:id', middleware.getId, control.getOne);
