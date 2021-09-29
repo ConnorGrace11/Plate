@@ -1,5 +1,5 @@
 const authUser = require('../models/user.auth')
-const middleware = require('../middlewares/middleware');
+const middleware = require('../middlewares/middleware.user');
 const bcrypt = require('bcrypt');
 const rounds = 10;
 
@@ -21,27 +21,27 @@ exports.getUsers = async (req, res) => {
         const users = await authUser.find()
         res.status(200).json(users);
     } catch (error) {
-        res.status(400).json({ message: error.message })
+        return res.status(400).json({ message: error.message })
     }
         // res.status(200).json({ id: req.params.id, email: req.body.email });
 };
 
 exports.getUserById = async (req, res) => {
     let required = req.headers.authorization
-    try {
-        const user = await authUser.findById()
-        res.status(200).send(user);
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
 
     if(!required) {
         return res.status(500).json({ message: "no token provided" })
     } else {
         jwt.verify(required.split(' ')[1], tokenSecret, (err, value) => {
             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = value.data
+            req.user = value.data   
         })
+    }
+    try {
+        const user = await authUser.findById(req.params.id)
+        res.status(200).send(user);
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
     }
 };
 
@@ -51,9 +51,9 @@ exports.logIn = (req, res) => {
             if (!user) return res.status(404).json({ error: 'no user with that email found' })
             else {
                 bcrypt.compare(req.body.password, user.password, (error, match) => {
-                    if (error) res.status(500).json(error)
+                    if (error) return res.status(500).json(error)
                     else if (match) res.status(200).json({ status: 'Successful login', token: generateToken(user) })
-                    else res.status(403).json({ error: 'passwords do not match' })
+                    else return res.status(403).json({ error: 'passwords do not match' })
                 })
             }
         })
@@ -81,9 +81,9 @@ exports.signUp = (req, res) => {
     });
 };
 
-exports.tester = (req, res) => {
-    res.status(200).json(req.user);
-};
+// exports.tester = (req, res) => {
+//     res.status(200).json(req.user);
+// };
 
 function generateToken(user) {
     return jwt.sign({ data: user }, tokenSecret, { expiresIn: '24h' });

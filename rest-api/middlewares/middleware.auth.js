@@ -1,9 +1,9 @@
-const User = require('../models/user')
+const auth = require('../models/user.auth')
 
-exports.getId = async (req, res, next) => {
+exports.getAuthId = async (req, res, next) => {
     let user;
     try {
-        user = await User.findById(req.params.id)
+        user = await auth.findById(req.params.id)
         if(user == null) {
             return res.status(404).json({ message: 'cant find user' })
         }
@@ -14,4 +14,3 @@ exports.getId = async (req, res, next) => {
     res.user = user
     next()
 }
-

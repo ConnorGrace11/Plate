@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
-const bodyParser = require('body-parser');
+const meals = require('./routes/meal');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -18,9 +18,9 @@ db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('Connected to database!'))
 
 app.use(express.json());
-app.use(bodyParser());
 app.use('/api', users);
 app.use('/api/auth', auth);
+app.use('/api/meals', meals);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
