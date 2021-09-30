@@ -7,7 +7,6 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const meals = require('./routes/meal');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -21,10 +20,7 @@ db.once('open', () => console.log('Connected to database!'))
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: false
-}));
+
 app.use('/api', users);
 app.use('/api/auth', auth);
 app.use('/api/meals', meals);
