@@ -1,16 +1,21 @@
 require('dotenv').config()
 
+const config = require('config');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const items = require('./routes/items');
+const restaurants = require('./routes/restaurants');
 const bodyParser = require('body-parser');
 
+if (!config.get('jwtPrivateKey')) {
+  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+  process.exit(1);
+}
+
 mongoose.connect('mongodb://localhost/playground')
- .then(() => console.log('Connected to MongoDB...'))
- .catch(err => console.error('Could not connect to MongoDB...', err))
 
 const db = mongoose.connection;
 
@@ -23,6 +28,7 @@ app.use(bodyParser.urlencoded({
   }));
 app.use(bodyParser.json());
 app.use('/items', items);
+app.use('/restaurants', restaurants);
 app.use('/api', users);
 app.use('/api/auth', auth);
 
