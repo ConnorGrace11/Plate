@@ -21,12 +21,6 @@ router.post('/', async (req, res) => {
     })
 
     try {
-        const exists = Meal.find(newMeal)
-        console.log(exists.id)
-        if(exists.body.id == req.body.id) {
-            return res.status(404);
-        }
-
         const meal = await newMeal.save();
         res.json(meal);
     } catch (error) {
