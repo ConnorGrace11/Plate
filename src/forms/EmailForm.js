@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, TextInput, Button, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, TextInput, Button, Text, Image } from 'react-native';
 import { setToken } from '../api/token';
 
 const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
@@ -18,6 +18,7 @@ const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Image style={styles.image} source={require("./plate.png")} />
       <TextInput
         style={styles.input}
         onChangeText={(text) => onChangeEmail(text)}
@@ -30,7 +31,7 @@ const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
         value={password}
         secureTextEntry
       />
-      <Button title={buttonText} onPress={submit}/>
+      <Button title={buttonText} onPress={submit} />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
       {children}
     </ScrollView>
@@ -49,8 +50,13 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 20,
+    marginBottom: 20
+  },
+  image: {
     marginBottom: 20,
   },
+
 });
 
 export default EmailForm;
+
