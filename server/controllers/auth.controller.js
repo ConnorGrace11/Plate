@@ -1,11 +1,8 @@
 const authUser = require('../models/user.auth')
-const middleware = require('../middlewares/middleware.user');
 const bcrypt = require('bcrypt');
 const rounds = 10;
 
 const jwt = require('jsonwebtoken');
-const user = require('../models/user');
-const userAuth = require('../models/user.auth');
 const tokenSecret = process.env.SECRET;
 
 exports.getUsers = async (req, res) => {
@@ -21,7 +18,8 @@ exports.getUsers = async (req, res) => {
 
     try {
         const users = await authUser.find()
-        res.status(200).json(users);
+        
+        res.status(200).json(users)
     } catch (error) {
         return res.status(400).json({ message: error.message })
     }
