@@ -48,11 +48,15 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.logIn = (req, res) => {
-    authUser.findOne({ email: req.body.email })
+    
+    const email = req.body.email;
+    const password = req.body.password;
+
+    authUser.findOne({ email: email })
         .then(user => {
             if (!user) return res.status(404).json({ error: 'no user with that email found' })
             else {
-                bcrypt.compare(req.body.password, user.password, (error, match) => {
+                bcrypt.compare(password, user.password, (error, match) => {
                     if (error) return res.status(500).json(error)
                     else if (match) res.status(200).json({ status: 'Successful login', token: generateToken(user) })
                     else return res.status(403).json({ error: 'passwords do not match' })
