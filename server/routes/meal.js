@@ -3,6 +3,15 @@ const router = express.Router();
 const control = require('../controllers/auth.controller');
 const Meal = require('../models/meals')
 
+router.get('/', async (req, res) => {
+    try {
+        const grabMeals = await Meal.find();
+        res.status(201).json(grabMeals);
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
+
 router.post('/', async (req, res) => {
     const newMeal = new Meal({
         id: req.body.id,
@@ -12,6 +21,12 @@ router.post('/', async (req, res) => {
     })
 
     try {
+        const exists = Meal.find(newMeal)
+        console.log(exists.id)
+        if(exists.body.id == req.body.id) {
+            return res.status(404);
+        }
+
         const meal = await newMeal.save();
         res.json(meal);
     } catch (error) {

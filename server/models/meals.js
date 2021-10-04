@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const mealSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     name: {
         type: String,
         required: true
@@ -16,6 +12,11 @@ const mealSchema = new mongoose.Schema({
     todo: {
         type: String,
         required: true
+    },
+    img:
+    {
+        data: Buffer,
+        contentType: String
     }
 })
 
