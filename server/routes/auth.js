@@ -3,8 +3,8 @@ const router = express.Router();
 const control = require('../controllers/auth.controller');
 const middleware = require('../middlewares/middleware.auth');
 
+// auth routes
 router.post('/login', control.logIn);
-
 router.post('/signup', control.signUp);
 
 router.get('/users', control.getUsers);

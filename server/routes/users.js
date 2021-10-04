@@ -4,6 +4,7 @@ const User = require('../models/user');
 const control = require('../controllers/user.controller');
 const middleware = require('../middlewares/middleware.user');
 
+// testing route, was used for basics
 router.get('/', control.getAll);
 router.get('/:id', middleware.getId, control.getOne);
 
