@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,60 +7,17 @@ import {
   Text,
   useColorScheme,
   View,
-<<<<<<< Updated upstream
 } from 'react-native';
-=======
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import ProfileScreen from "./components/Profile"
-import mainPage from "./components/mainPage";
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
->>>>>>> Stashed changes
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+function App({ navigation }) {
   return (
-<<<<<<< Updated upstream
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-=======
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={HomeScreen} />
@@ -77,7 +25,7 @@ const Section = ({children, title}): Node => {
         <Stack.Screen name="main" component={mainPage} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 
 function HomeScreen({ navigation }) {
@@ -120,54 +68,9 @@ function HomeScreen({ navigation }) {
       </View>
 
 
->>>>>>> Stashed changes
   );
 };
 
-<<<<<<< Updated upstream
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'light';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.lighter : Colors.darker,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.white : Colors.black,
-          }}>
-          <Section title="Step One">
-            Edit HelloWorld! to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-=======
 // function MoviesScreen() {
 //   const [isLoading, setLoading] = useState(true);
 //   const [data, setData] = useState([]);
@@ -209,7 +112,7 @@ const styles = StyleSheet.create({
   options={{ title: 'Overview' }}
 /> */}
 
-export default App;
+// export default App;
 
 const styles = StyleSheet.create({
   container: {
@@ -217,18 +120,11 @@ const styles = StyleSheet.create({
     backgroundColor: "lightblue",
     alignItems: "center",
     justifyContent: "center",
->>>>>>> Stashed changes
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
   },
-<<<<<<< Updated upstream
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-=======
 
   inputView: {
     backgroundColor: "orange",
@@ -270,7 +166,6 @@ const styles = StyleSheet.create({
   forgot_button: {
     height: 30,
     marginBottom: 30,
->>>>>>> Stashed changes
   },
   highlight: {
     fontWeight: '700',
