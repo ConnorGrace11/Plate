@@ -2,6 +2,10 @@ import React from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { getUsers } from '../api/mock';
 import { setToken } from '../api/token';
+import { useEffect , useState} from "react"; 
+import { View, Text, Button, TouchableOpacity, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+const mealCat = "www.themealdb.com/api/json/v1/1/categories.php"
 
 export default class HomeScreen extends React.Component {
   state = { users: [], hasLoadedUsers: false, userLoadingErrorMessage: '' };
@@ -49,6 +53,13 @@ export default class HomeScreen extends React.Component {
     await setToken('');
     this.props.navigation.navigate('Login');
   }
+  // const [isLoading, setLoading] = useState(true);
+  // const [data, setData] = useState([]);
+  
+  // useEffect(() => {
+  //   fetch(mealCat).then((response) => response.json()).then((json => setData(json.categories)).catch((error) => alert(error)).finally((setLoading) => False));
+  // }
+
 
   render() {
     const{ users, userLoadingErrorMessage } = this.state;
@@ -61,9 +72,16 @@ export default class HomeScreen extends React.Component {
         {userLoadingErrorMessage ? (
           <Text>{userLoadingErrorMessage}</Text>
         ) : null}
-        <Button title="Admin Login" onPress={() => this.props.navigation.navigate('Admin')} />
         <Button title="Log out" onPress={this.logOut} />
-        
+        {/* {isLoading ? <ActivityIndicator /> : <FlatList 
+        data = {data} keyExtractor = {({id}, index) => id}
+        renderItem= {({item}) => {
+          return(
+            <Text>{item.title}</Text>
+          )
+        }
+    
+      }/>} */}
         </View>
       );
     }

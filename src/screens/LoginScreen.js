@@ -10,11 +10,13 @@ const LoginScreen = ({ navigation }) => {
       onSubmit={login}
       onAuthentication={() => navigation.navigate('Home')}
     >
+      <Button title="Admin Login" onPress={() => navigation.navigate('Admin')} />
       <Button
         title="Create account"
         onPress={() => navigation.navigate('CreateAccount')}
       />
     </EmailForm>
+    
   );
 };
 
