@@ -5,6 +5,9 @@ const app = express();
 const mongoose = require('mongoose');
 const auth = require('./routes/auth');
 const meals = require('./routes/meal');
+// const fs = require('fs');
+// const path = require('path');
+// const multer = require('multer');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -22,3 +25,4 @@ app.use('/meals', meals);
 
 const PORT = process.env.PORT || 3031;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+

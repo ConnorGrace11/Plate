@@ -14,7 +14,8 @@ exports.createMeal = async (req, res) => {
         id: req.body.id,
         name: req.body.name,
         category: req.body.category,
-        todo: req.body.todo
+        todo: req.body.todo,
+        // img: req.file.filename
     })
 
     try {
