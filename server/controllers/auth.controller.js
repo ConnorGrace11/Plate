@@ -1,32 +1,29 @@
-const authUser = require('../models/user.auth')
-const middleware = require('../middlewares/middleware.user');
+const authUserLogin = require('../models/user.auth.login')
+const authUserSignup = require('../models/user.auth.signup')
 const bcrypt = require('bcrypt');
 const rounds = 10;
-
 const jwt = require('jsonwebtoken');
-const user = require('../models/user');
-const userAuth = require('../models/user.auth');
 const tokenSecret = process.env.SECRET;
 
-exports.getUsers = async (req, res) => {
-    let required = req.headers.authorization
-    if(!required) {
-        return res.status(500).json({ message: "no token provided" })
-    } else {
-        jwt.verify(required.split(' ')[1], tokenSecret, (err, value) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = value.data
-        })
-    }
+// exports.getUsers = async (req, res) => {
+//     let required = req.headers.authorization
+//     if(!required) {
+//         return res.status(500).json({ message: "no token provided" })
+//     } else {
+//         jwt.verify(required.split(' ')[1], tokenSecret, (err, value) => {
+//             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
+//             req.user = value.data
+//         })
+//     }
 
-    try {
-        const users = await authUser.find()
-        res.status(200).json(users);
-    } catch (error) {
-        return res.status(400).json({ message: error.message })
-    }
-        // res.status(200).json({ id: req.params.id, email: req.body.email });
-};
+//     await authUserLogin.find()
+//         .then(user => {
+//             res.status(200).json({ email: user.email })
+//         })
+//         .catch(error => {
+//             res.status(500).json(error)
+//         })
+// };
 
 exports.getUserById = async (req, res) => {
     let required = req.headers.authorization
@@ -40,7 +37,7 @@ exports.getUserById = async (req, res) => {
         })
     }
     try {
-        const user = await authUser.findById(req.params.id)
+        const user = await authUserLogin.findById(req.params.id)
         res.status(200).send(user);
     } catch (error) {
         return res.status(400).json({ message: error.message })
@@ -48,7 +45,7 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.logIn = (req, res) => {
-    authUser.findOne({ email: req.body.email })
+    authUserLogin.findOne({ email: req.body.email })
         .then(user => {
             if (!user) return res.status(404).json({ error: 'no user with that email found' })
             else {
@@ -61,27 +58,27 @@ exports.logIn = (req, res) => {
         })
         .catch(error => {
             return res.status(500).json({ message: error.message })
-        });
+        })
 };
 
 exports.signUp = (req, res) => {
+    
     bcrypt.hash(req.body.password, rounds, (error, hash) => {
-        const exists = authUser.findOne({ email: req.body.email })
         if (error) return res.status(500).json({ message: error.message })
+        // if (req.body.email == authUserSignup.find(req.body.email)) return res.status(401).json({ message: 'email already exists' })
         else {
-            const newUser = authUser({ email: req.body.email, password: hash })
-            if(req.body.email == exists) return res.status(401).json({ message: error.message})
+            const newUser = authUserSignup({ username: req.body.username, email: req.body.email, password: hash })
             newUser.save()
                 .then(user => {
-                    res.status(200).json({ status: 'SUCCESS', message: 'successful signup', data: user, token: generateToken(user) })
+                    res.status(200).json({ status: 'SUCCESS', message: 'successful signup', username: user.username, email: user.email, token: generateToken(user) })
                 })
-                .catch(error => {
-                    res.status(500).json(error)
+                .catch( error => {
+                    res.status(500).json(error.message)
                 })
             }
-        }
-)};
-
+        })
+};
+            
 // exports.tester = (req, res) => {
 //     res.status(200).json(req.user);
 // };

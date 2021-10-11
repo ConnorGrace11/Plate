@@ -24,3 +24,32 @@ exports.createMeal = async (req, res) => {
         return res.status(500).send({ message: error.message })
     }
 };
+
+exports.editMeal = async (req, res) => {
+    if(req.body.name != null) {
+        res.editMeal.name = req.body.name
+    }
+    if(req.body.category != null) {
+        res.editMeal.category = req.body.category
+    }
+    if(req.body.todo != null) {
+        res.editMeal.todo = req.body.todo
+    }
+    try{
+        const modifiedMeal = await res.editMeal.save();
+        res.json(modifiedMeal)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+};
+
+exports.deleteMeal = async (req, res) => {
+    
+    try {
+        await res.editMeal.remove();
+        res.json({ message: "meal has been removed" })
+
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}

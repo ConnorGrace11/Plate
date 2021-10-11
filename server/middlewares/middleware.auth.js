@@ -1,4 +1,4 @@
-const auth = require('../models/user.auth')
+const auth = require('../models/user.auth.login')
 
 exports.getAuthId = async (req, res, next) => {
     let user;
