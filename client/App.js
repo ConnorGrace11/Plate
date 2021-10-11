@@ -2,9 +2,9 @@ import "./App.css"
 import LoginForm from './components/LoginForm';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AllMeals from "./components/AllMeals";
+// import AllMeals from "./components/AllMeals";
 import FormSignup from "./components/FormSignup";
 
 function App() {

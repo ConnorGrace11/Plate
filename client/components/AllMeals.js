@@ -27,8 +27,7 @@ const AllMeals = () => {
             <h1>MEALS!</h1>
         </div>
         <div className="allmeals">
-            {loading && 
-            meals.map( (item) => (
+            {loading && meals.map((item) => (
                 <div className="meal">
                     <h2>{ item.name }</h2>
                     <h5>{ item.category }</h5>

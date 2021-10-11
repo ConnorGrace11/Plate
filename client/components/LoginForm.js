@@ -5,11 +5,9 @@ const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [error, setError] = useState("");
-
     useEffect(() => {
         loginUser();
-    }, [])
+    })
     
 
     const submitHandler = e => {
@@ -33,10 +31,9 @@ const LoginForm = () => {
 // if an error is equal to nothing then it is going to pass the div class
     
         return (
-            <form onSubmit={loginUser}>
+            <form onSubmit={loginUser, submitHandler}>
                 <div>
                     <h2>Login</h2>
-                    {(error !== "") ? (<div className="error"> {error} </div> ) : ""}
                     <div className="form-group">
                         <label htmlFor="email">Email: </label>
                         <input type="email" name="email" id="email" onChange={e => setEmail({ email: e.target.value })} />

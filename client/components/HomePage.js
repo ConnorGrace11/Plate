@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 import AllMeals from './AllMeals';
 
 function HomePage(){
