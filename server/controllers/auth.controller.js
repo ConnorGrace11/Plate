@@ -38,7 +38,12 @@ exports.getUserById = async (req, res) => {
 
     try {
         const user = await authUsers.findById(req.params.id)
-        res.status(200).send(user);
+        if(user.id != req.params.id) {
+            return res.status(400).json({ message: "not authorized" });
+
+        } else {
+            res.status(200).send(user);
+        }
 
     } catch (error) {
         return res.status(400).json({ message: error.message })
@@ -99,5 +104,5 @@ exports.getProtected = (req, res) => {
 // };
 
 function generateToken(user) {
-    return jwt.sign({ data: user }, tokenSecret, { expiresIn: '24h' });
+    return jwt.sign({ data: user }, tokenSecret, { expiresIn: '1h' });
 };
