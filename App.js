@@ -7,18 +7,29 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Adminlogin from './src/screens/Adminlogin';
 import AdminHome from './src/screens/AdminHome';
 import { useEffect , useState} from "react"; 
+import RandomMeals from './src/screens/RandomMeals';
 
 
 const AppNavigator = createStackNavigator(
     {
-      Home: HomeScreen,
-      Login: LoginScreen,
-      CreateAccount: CreateAccountScreen,
-      Admin: Adminlogin,
-      Adhome: AdminHome,
-    },
-    {
-      initialRouteName: 'Home',
+      Login: {
+        screen: LoginScreen,
+      },
+      Home: {
+        screen: HomeScreen,
+      },
+      CreateAccount: {
+        screen: CreateAccountScreen,
+      },
+      Adminlogin: {
+        screen: Adminlogin,
+      },
+      Adhome: {
+        screen: AdminHome,
+      },
+      Meals: {
+        screen: RandomMeals,
+      },
     },
   );
 
