@@ -23,6 +23,6 @@ app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/meals', meals);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3031;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 

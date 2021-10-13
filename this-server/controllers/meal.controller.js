@@ -9,6 +9,15 @@ exports.getAllMeals = async (req, res) => {
     }
 };
 
+exports.getAMeal = async (req, res) => {
+    try {
+        const oneMeal = await Meal.findById(req.params.id)
+        return res.status(200).json({ meal: oneMeal })
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
+};
+
 exports.createMeal = async (req, res) => {
     const newMeal = new Meal({
         id: req.body.id,

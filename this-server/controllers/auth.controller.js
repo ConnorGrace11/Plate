@@ -4,6 +4,8 @@ const rounds = 10;
 const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.SECRET;
 
+
+// need to fix
 exports.getUsers = async (req, res) => {
     let required = req.headers.authorization
     if(!required) {
@@ -38,7 +40,12 @@ exports.getUserById = async (req, res) => {
 
     try {
         const user = await authUsers.findById(req.params.id)
-        res.status(200).send(user);
+        if(user.id != req.params.id) {
+            return res.status(400).json({ message: "not authorized" });
+
+        } else {
+            res.status(200).send(user);
+        }
 
     } catch (error) {
         return res.status(400).json({ message: error.message })
@@ -93,11 +100,22 @@ exports.getProtected = (req, res) => {
     }
 
 }
+
+exports.updateUser = (req, res) => {
+   let userId = req.params.id;
+   if(!userId) return res.status(404).json({ message: "no id provided" }) 
+
+   // patch username , password
+   if(req.body.username != null){
+       res.user.username = req.body.username
+   }
+   
+}
             
 // exports.tester = (req, res) => {
 //     res.status(200).json(req.user);
 // };
 
 function generateToken(user) {
-    return jwt.sign({ data: user }, tokenSecret, { expiresIn: '24h' });
+    return jwt.sign({ data: user }, tokenSecret, { expiresIn: '1h' });
 };
