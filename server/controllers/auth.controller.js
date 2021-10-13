@@ -4,6 +4,8 @@ const rounds = 10;
 const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.SECRET;
 
+
+// need to fix
 exports.getUsers = async (req, res) => {
     let required = req.headers.authorization
     if(!required) {
@@ -97,6 +99,17 @@ exports.getProtected = (req, res) => {
         })
     }
 
+}
+
+exports.updateUser = (req, res) => {
+   let userId = req.params.id;
+   if(!userId) return res.status(404).json({ message: "no id provided" }) 
+
+   // patch username , password
+   if(req.body.username != null){
+       res.user.username = req.body.username
+   }
+   
 }
             
 // exports.tester = (req, res) => {
