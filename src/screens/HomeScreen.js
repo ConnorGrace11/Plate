@@ -1,6 +1,4 @@
 import React from 'react';
-import { getUsers } from '../api/mock';
-import { setToken } from '../api/token';
 import { useEffect , useState} from "react"; 
 import { View, Text, Button, TouchableOpacity, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
 import axios, { Axios } from 'axios';
