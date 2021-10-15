@@ -21,5 +21,4 @@ const RandomMeals = ({ navigation }) => {
   
     );
   };
-  
   export default RandomMeals;
