@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AllMeals.css';
 
-const url = "http://localhost:5000/meals";
-
 const AllMeals = () => {
 
     useEffect(() => {
-        componentDidMount();
+        getMeals()
     }, [])
     
     const [meals, setMeals] = useState("");
     const [loading, setLoading] = useState(false);
 
-    function componentDidMount() {
-        axios.get(url)
-            .then((res) => { console.log(res);
-            setMeals(res.data)
+    const getMeals = async () => {
+        try {
+            const mealResponse = await axios.get("http://localhost:5000/meals")
+            setMeals(mealResponse.data)
             setLoading(true)
-        })
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     return (
