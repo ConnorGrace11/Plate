@@ -4,7 +4,7 @@ import FormSignup from './components/FormSignup';
 import HomePage from './components/HomePage';
 import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import MealPost from "./components/MealPost";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
           <Route exact path="/" component={HomePage}></Route>
           <Route path="/login" component={LoginForm}></Route>
           <Route path="/signup" component={FormSignup}></Route>
+          <Route path="/meals" component={MealPost}></Route>
         </Switch>
       </div>
     </Router>

@@ -13,11 +13,6 @@ const mealSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    img:
-    {
-        data: Buffer,
-        contentType: String
-    }
 })
 
 module.exports = mongoose.model('Meals', mealSchema)

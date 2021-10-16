@@ -1,78 +1,83 @@
 import React from 'react';
-import validate from './validateInfo';
-import useForm from './useForm';
+import { useState } from 'react';
+import axios from 'axios';
+import { Redirect, Route } from 'react-router';
 import './Form.css';
 
-const FormSignup = ({ submitForm }) => {
-  const { handleChange, handleSubmit, values, errors } = useForm(
-    submitForm,
-    validate
-  );
+const FormSignup = () => {
+
+  const [signupDetails, setSignupDetails] = useState({ username: "", email: "", password: "" });
+  const [registered, setRegistered] = useState(false);
+  const [showing, setShowing] = useState(false);
+
+  const handleChange = (e) => {
+      const creds = {...signupDetails}
+      creds[e.target.name] = e.target.value
+      setSignupDetails(creds)
+      console.log(creds)
+  }
+
+  const submitHandler = (e) => {
+      e.preventDefault()
+      axios.post("http://localhost:5000/api/auth/signup", { 
+          username: signupDetails.username,
+          email: signupDetails.email,
+          password: signupDetails.password
+      })
+      .then(response => {
+          console.log(response.data)
+          setRegistered(true)
+          setShowing(true)
+      })
+      .catch(error => {
+          console.log(error.response.data)
+          setRegistered(false)
+          setShowing(true)
+      })
+    
+  }
 
   return (
-    <div className='form-content-right'>
-      <form onSubmit={handleSubmit} className='form' noValidate>
-        <h1>
-          Get started with us today! Create your account by filling out the
-          information below.
-        </h1>
-        <div className='form-inputs'>
-          <label className='form-label'>Username</label>
-          <input
-            className='form-input'
-            type='text'
-            name='username'
-            placeholder='Enter your username'
-            value={values.username}
-            onChange={handleChange}
-          />
-          {errors.username && <p>{errors.username}</p>}
-        </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Email</label>
-          <input
-            className='form-input'
-            type='email'
-            name='email'
-            placeholder='Enter your email'
-            value={values.email}
-            onChange={handleChange}
-          />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Password</label>
-          <input
-            className='form-input'
-            type='password'
-            name='password'
-            placeholder='Enter your password'
-            value={values.password}
-            onChange={handleChange}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Confirm Password</label>
-          <input
-            className='form-input'
-            type='password'
-            name='password2'
-            placeholder='Confirm your password'
-            value={values.password2}
-            onChange={handleChange}
-          />
-          {errors.password2 && <p>{errors.password2}</p>}
-        </div>
-        <button className='form-input-btn' type='submit'>
-          Sign up
-        </button>
-        <span className='form-input-login'>
-          Already have an account? Login <a href='/login'>here</a>
-        </span>
-      </form>
-    </div>
-  );
-};
+    <>
+      <form onSubmit={submitHandler}>
+                <div>
+                    <h2>Signup</h2>
+                    <div className="form-group">
+                        <label htmlFor="username">username: </label>
+                        <input 
+                            type="username" 
+                            name="username" 
+                            id="username" 
+                            placeholder="username" 
+                            onChange={(e) => handleChange(e)} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email">email: </label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            placeholder="email" 
+                            onChange={(e) => handleChange(e)} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password:</label>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            placeholder="password" 
+                            onChange={(e) => handleChange(e)}/>
+                    </div>
+                        <button type="submit" value="LOGIN"> Signup </button>          
+                </div>
+                {showing ? <div> {registered ? <div>Successful Registration</div> : <div>an error occured</div>} </div> :
+                <div></div> }
+                
+            </form>
+    </>
+  )
+  
+}
 
 export default FormSignup;

@@ -1,45 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { Route, Redirect } from 'react-router-dom';
+// reference: https://www.youtube.com/watch?v=9KaMsGSxGno
 
 const LoginForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [showing, setShowing] = useState(false);
 
-    useEffect(() => {
-
-        loginUser();
-    })
-    
-    function handleSubmit (event) {
-        event.preventDefault();
+    const handleChange = (e) => {
+        const creds = {...loginDetails}
+        creds[e.target.name] = e.target.value
+        setLoginDetails(creds)
+        console.log(creds)
     }
 
-    const loginUser = () => {
-        axios.post("http://localhost:5000/api/auth/login", { email: email, password: password }).then(res => {
-            console.log(res.data)
-        }).catch(error => {
-            console.log(error.message)
+    const submitHandler = (e) => {
+        e.preventDefault()
+        axios.post("http://localhost:5000/api/auth/login", { 
+            email: loginDetails.email,
+            password: loginDetails.password
         })
+        .then(response => {
+            console.log(response.data)
+            setLoggedIn(true)
+            setShowing(true)
+        })
+        .catch(error => {
+            console.log(error.response.data)
+            setLoggedIn(false)
+            setShowing(true)
+        })
+      
     }
-    
-// when you change something it pass through the event, calls on the setDetails function
-// ? is a condintional operator
-// if an error is equal to nothing then it is going to pass the div class
     
         return (
-            <form onSubmit={() => {handleSubmit(); loginUser();}}>
+            <form onSubmit={submitHandler}>
                 <div>
                     <h2>Login</h2>
                     <div className="form-group">
-                        <label htmlFor="email">Email: </label>
-                        <input type="email" name="email" id="email" onChange={e => setEmail({ email: e.target.value })} />
+                        <label htmlFor="email">email: </label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            placeholder="email" 
+                            onChange={(e) => handleChange(e)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password:</label>
-                        <input type="password" name="password" id="password" onChange={e => setPassword({ password: e.target.value })}/>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            placeholder="password" 
+                            onChange={(e) => handleChange(e)}/>
                     </div>
-                    <input type="submit" value="LOGIN"/>
+                        <button type="submit" value="LOGIN"> Login </button>          
                 </div>
+                {showing ? <div> {loggedIn ? <Route><Redirect to="/" /><div>Successful Login</div></Route> : <div>email or password is incorrect</div>} </div> :
+                <div></div> }
+                
             </form>
         )
     }
