@@ -1,3 +1,7 @@
+# CurrentStatus
+
+- POST request finally working, now need to do conditional rendering / authorization
+
 # ReactNativeBasics
 
 - Maintenance project for Software Development II
