@@ -7,6 +7,7 @@ const auth = require('./routes/auth');
 const meals = require('./routes/meal');
 const https = require('https');
 const fs = require('fs');
+const cors = require('cors')
 
 const key = fs.readFileSync(process.env.KEY_PATH);
 const cert = fs.readFileSync(process.env.CERT_PATH);
@@ -21,6 +22,7 @@ const db = mongoose.connection;
 db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('Connected to database!'))
 
+app.use(cors());
 app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/meals', meals);

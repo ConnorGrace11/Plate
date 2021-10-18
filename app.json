@@ -4,9 +4,9 @@
     "slug": "navigation",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./plate.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./plate.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
