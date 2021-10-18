@@ -9,8 +9,8 @@ const https = require('https');
 const fs = require('fs');
 const cors = require('cors')
 
-const key = fs.readFileSync(process.env.KEY_PATH);
-const cert = fs.readFileSync(process.env.CERT_PATH);
+// const key = fs.readFileSync(process.env.KEY_PATH);
+// const cert = fs.readFileSync(process.env.CERT_PATH);
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -27,11 +27,9 @@ app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/meals', meals);
 
-const httpsServer = https.createServer({ key, cert }, app)
+// const httpsServer = https.createServer({ key, cert }, app)
 
 const PORT = process.env.PORT || 9443;
-httpsServer.listen(PORT, () => {
-    console.log(`Secured server started on port ${PORT}`)
+app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`)
 });
-
-// app.listen(PORT, () => console.log(Server started on port ${PORT}));

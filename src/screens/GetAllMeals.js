@@ -1,6 +1,8 @@
 import React from 'react';
 import { useEffect , useState} from "react"; 
 import { View, Text, StyleSheet, ScrollView, TextView, Dimensions} from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const GetAllMeals = () => {
 
@@ -9,7 +11,7 @@ const GetAllMeals = () => {
     
     useEffect(()  => {
         setTimeout(function getMeals() {
-        fetch('https://192.168.0.7:5000/meals')
+        fetch('http://192.168.0.8:5000/meals')
             .then((response) => response.json())
             .then((json) => setMeals(json))
             .catch((error) => console.error(error))
@@ -20,11 +22,11 @@ const GetAllMeals = () => {
     return (
         <>         
             {loading ? <Text style={styles.loading}>Loading Meals...</Text> : meals.map((item) => (  
-                <View contentConstainerStyle={styles.container}>
-                    <Text style={styles.header}> { item.name } </Text>
-                    <Text style={styles.subHeader}> { item.category } </Text>  
-                    <Text style={styles.body}> { item.todo } </Text> 
-                </View>    
+                <SafeAreaView contentConstainerStyle={styles.container}>
+                        <Text style={styles.header}> { item.name } </Text> 
+                        <Text style={styles.subHeader}> { item.category } </Text> 
+                        <Text style={styles.body}> { item.todo } </Text> 
+                </SafeAreaView>    
             ))}      
        </>
     )

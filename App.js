@@ -6,7 +6,6 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Adminlogin from './src/screens/Adminlogin';
 import AdminHome from './src/screens/AdminHome';
-import { useEffect , useState} from "react"; 
 import RandomMeals from './src/screens/RandomMeals';
 
 
