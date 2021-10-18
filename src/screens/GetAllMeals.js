@@ -9,7 +9,7 @@ const GetAllMeals = () => {
     
     useEffect(()  => {
         setTimeout(function getMeals() {
-        fetch('http://localhost:5000/meals')
+        fetch('https://192.168.0.7:5000/meals')
             .then((response) => response.json())
             .then((json) => setMeals(json))
             .catch((error) => console.error(error))
