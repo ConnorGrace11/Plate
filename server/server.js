@@ -25,7 +25,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use('/api/auth', auth);
-app.use('/meals', meals);
+app.use('/allmeals', meals);
 
 const PORT = process.env.PORT || 3031;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

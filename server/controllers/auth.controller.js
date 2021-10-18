@@ -2,29 +2,30 @@ const authUsers = require('../models/auth.users')
 const bcrypt = require('bcrypt');
 const rounds = 10;
 const jwt = require('jsonwebtoken');
+const { editMeal } = require('./meal.controller');
 const tokenSecret = process.env.SECRET;
 
 
 // need to fix
-exports.getUsers = async (req, res) => {
-    let required = req.headers.authorization
-    if(!required) {
-        return res.status(500).json({ message: "no token provided" })
-    } else {
-        jwt.verify(required.split(' ')[1], tokenSecret, (err, value) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = value.data
-        })
-    }
+// exports.getUsers = async (req, res) => {
+//     let required = req.headers.authorization
+//     if(!required) {
+//         return res.status(500).json({ message: "no token provided" })
+//     } else {
+//         jwt.verify(required.split(' ')[1], tokenSecret, (err, value) => {
+//             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
+//             req.user = value.data
+//         })
+//     }
 
-    await authUsers.find()
-        .then(user => {
-            res.status(200).json(user);
-        })
-        .catch(error => {
-            res.status(500).json(error);
-        })
-};
+//     await authUsers.find()
+//         .then(user => {
+//             res.status(200).json(user);
+//         })
+//         .catch(error => {
+//             res.status(500).json(error);
+//         })
+// };
 
 exports.getUserById = async (req, res) => {
     let required = req.headers.authorization
@@ -69,22 +70,33 @@ exports.logIn = (req, res) => {
         })
 };
 
-exports.signUp = (req, res) => {
-    
-    bcrypt.hash(req.body.password, rounds, (error, hash) => {
-        if (error) return res.status(500).json({ message: error.message })
-        if (req.body.email == authUsers.find(req.body.email)) return res.status(401).json({ message: 'email already exists' })
-        else {
-            const newUser = authUsers({ username: req.body.username, email: req.body.email, password: hash })
-            newUser.save()
-                .then(user => {
-                    res.status(200).json({ status: 'SUCCESS', message: 'successful signup', id: user.id, username: user.username, email: user.email, token: generateToken(user) })
-                })
-                .catch( error => {
-                    res.status(500).json(error.message)
-                })
-            }
-        })
+exports.signUp = async (req, res) => {
+
+    const usernameExists = await authUsers.exists({ username: req.body.username });
+    const emailExists = await authUsers.exists({ email: req.body.email });
+
+    if (usernameExists) {
+        return res.status(400).json({ message: "username is taken"}) 
+    }
+
+    else if(emailExists) {
+        return res.status(400).json({ message: "email already exists" })
+
+    } else {
+        bcrypt.hash(req.body.password, rounds, (error, hash) => {
+            if (error) return res.status(500).json({ message: error.message })
+            else {
+                const newUser = authUsers({ username: req.body.username, email: req.body.email, password: hash })
+                newUser.save()
+                    .then(user => {
+                        res.status(200).json({ status: 'SUCCESS', message: 'successful signup', id: user.id, username: user.username, email: user.email, token: generateToken(user) })
+                    })
+                    .catch( error => {
+                        res.status(500).json(error.message)
+                    })
+                }
+            })
+        }
 };
 
 exports.getProtected = (req, res) => {
@@ -95,7 +107,7 @@ exports.getProtected = (req, res) => {
     } else {
         jwt.verify(required.split(' ')[1], tokenSecret, (err, userData) => {
             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = userData.data 
+            res.send("authorized");
         })
     }
 
@@ -112,6 +124,25 @@ exports.updateUser = (req, res) => {
    
 }
             
+exports.deleteAccount = async (req, res) => {
+    let required = req.headers.authorization
+
+    if(!required) {
+        return res.status(500).json({ message: "no token provided" })
+    } else {
+        jwt.verify(required.split(' ')[1], tokenSecret, (err, userData) => {
+            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
+            req.user = userData.data 
+        })
+    }
+    
+    try {
+        await res.user.remove()
+        res.status(200).json({ message: "account successfully deleted"})
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
 // exports.tester = (req, res) => {
 //     res.status(200).json(req.user);
 // };
