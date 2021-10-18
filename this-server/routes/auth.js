@@ -5,6 +5,7 @@ const middleware = require('../middlewares/middleware.auth');
 
 // auth routes
 router.post('/login', control.logIn);
+router.post('/user/:id/logout', control.logoutUser);
 router.post('/signup', control.signUp);
 router.get('/users', control.getUsers);
 router.get('/user/:id', middleware.getAuthId, control.getUserById);
