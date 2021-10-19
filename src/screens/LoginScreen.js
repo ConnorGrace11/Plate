@@ -11,10 +11,6 @@ const LoginScreen = ({ navigation }) => {
       onAuthentication={() => navigation.navigate('Home')}
     >
       <Button title="Admin Login" onPress={() => navigation.navigate('Adminlogin')} />
-      <Button
-        title="Create account"
-        onPress={() => navigation.navigate('CreateAccount')}
-      />
     </EmailForm>
   );
 };

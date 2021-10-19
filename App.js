@@ -7,10 +7,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Adminlogin from './src/screens/Adminlogin';
 import AdminHome from './src/screens/AdminHome';
 import RandomMeals from './src/screens/RandomMeals';
-
+import mainScreen from './src/screens/mainScreen';
 
 const AppNavigator = createStackNavigator(
     {
+      mainPg: {
+        screen: mainScreen,
+      },
       Login: {
         screen: LoginScreen,
       },

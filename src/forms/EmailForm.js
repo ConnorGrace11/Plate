@@ -1,22 +1,36 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, TextInput, Button, Text, Image } from 'react-native';
+import { ScrollView, StyleSheet, TextInput, Button, Text, Image, View } from 'react-native';
 import { setToken } from '../api/token';
 
 const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(false);
 
-  const submit = () => {
-    onSubmit(email, password)
-      .then(async (res) => {
-        await setToken(res.auth_token);
-        onAuthentication();
-      })
-      .catch((res) => setErrorMessage(res.error));
-  };
+  async function submit() {
+    console.log(email)
+    console.log(password)
+    try {
+     
+      await fetch('http://192.168.0.8:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })  
+      },setErrorMessage(false));
+    } catch(error) {
+      console.log(error)
+      setErrorMessage(true)
+    }
+  }
 
   return (
+    <>
     <ScrollView contentContainerStyle={styles.container}>
       <Image style={styles.image} source={require("./plate.png")} />
       <TextInput
@@ -32,10 +46,14 @@ const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
         secureTextEntry
       />
       <Button title={buttonText} onPress={submit} />
-      {errorMessage ? <Text>{errorMessage}</Text> : null}
-      {children}
+      
     </ScrollView>
+    <View contentContainerStyle={styles.loginmsg}>
+    {errorMessage ? <Text> success!!!! </Text> : <Text>this is incorrect!</Text> }
+      </View>
+    </> 
   );
+  
 };
 
 const styles = StyleSheet.create({
@@ -55,6 +73,11 @@ const styles = StyleSheet.create({
   image: {
     marginBottom: 20,
   },
+  loginmsg: {
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 
 });
 
