@@ -22,11 +22,11 @@ const GetAllMeals = () => {
     return (
         <>         
             {loading ? <Text style={styles.loading}>Loading Meals...</Text> : meals.map((item) => (  
-                <SafeAreaView contentConstainerStyle={styles.container}>
+                <ScrollView snapToInterval={150} contentConstainerStyle={styles.container}>
                         <Text style={styles.header}> { item.name } </Text> 
                         <Text style={styles.subHeader}> { item.category } </Text> 
                         <Text style={styles.body}> { item.todo } </Text> 
-                </SafeAreaView>    
+                </ScrollView>
             ))}      
        </>
     )
@@ -36,18 +36,21 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 50,
         flex: 1,
+        backgroundColor: 'yellow'
     },
 
     header: {
         textAlign: 'center',
         padding: 15,
-        fontSize: 35,
+        fontSize: 20,
+        backgroundColor: 'darkorange'
     },
     
     subHeader: {
         textAlign: 'center',
         padding: 5,
         fontSize: 20,
+        backgroundColor: 'goldenrod'
     },
 
     body: {

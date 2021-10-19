@@ -7,7 +7,7 @@ const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
   const [password, onChangePassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(false);
 
-  async function submit() {
+  async function submit () {
     console.log(email)
     console.log(password)
     try {
@@ -46,11 +46,9 @@ const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
         secureTextEntry
       />
       <Button title={buttonText} onPress={submit} />
-      
+      {errorMessage ? <Text> success!!!! </Text> : <Text>this is incorrect!</Text> }
     </ScrollView>
-    <View contentContainerStyle={styles.loginmsg}>
-    {errorMessage ? <Text> success!!!! </Text> : <Text>this is incorrect!</Text> }
-      </View>
+    
     </> 
   );
   

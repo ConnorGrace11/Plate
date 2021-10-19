@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TouchableOpacity, onPress, ScrollView, ScrollViewComponent} from 'react-native';
 import { login } from '../api/mock';
 import EmailForm from '../forms/EmailForm';
 
 const LoginScreen = ({ navigation }) => {
   return (
+    <ScrollView>
     <EmailForm
-      buttonText="Log in"
-      onSubmit={login}
-      onAuthentication={() => navigation.navigate('Home')}
+      buttonText="Log in!!"
+      button = {onPress => navigation.navigate('Home')}
     >
-      <Button title="Admin Login" onPress={() => navigation.navigate('Adminlogin')} />
     </EmailForm>
+    </ScrollView>
   );
 };
 

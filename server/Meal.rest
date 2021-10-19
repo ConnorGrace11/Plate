@@ -1,1 +1,1 @@
-GET http://192.168.0.8:5000/meals
+GET http://192.168.0.8:5000/api/auth/login

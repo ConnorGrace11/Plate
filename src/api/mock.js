@@ -12,7 +12,7 @@ import { getToken } from './token';
     });
   };
 
-  export const login = (email, password, shouldSucceed = true) => {
+  export const login = (email, password) => {
     console.log(email, password);
 
   if (!shouldSucceed) {
