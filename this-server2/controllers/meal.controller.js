@@ -19,12 +19,13 @@ exports.getAMeal = async (req, res) => {
 };
 
 exports.createMeal = async (req, res) => {
+    console.log(req.file)
     const newMeal = new Meal({
         id: req.body.id,
         name: req.body.name,
         category: req.body.category,
         todo: req.body.todo,
-        // img: req.file.filename
+        img: req.file.filename
     })
 
     try {
@@ -63,3 +64,16 @@ exports.deleteMeal = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
+
+exports.upload = async (req, res) => {
+    res.json({
+        success : 1,
+        profile_url : `http://localhost:5000/profile/imgMeal/${req.file.filename}`
+    })
+};
+
+exports.getMealImg = async (req, res) => {
+    
+}
+
+// https://www.youtube.com/watch?v=jn3tYh2QQ-g

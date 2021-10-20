@@ -102,14 +102,28 @@ exports.getProtected = (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
-   let userId = req.params.id;
-   if(!userId) return res.status(404).json({ message: "no id provided" }) 
+//     //authorize users token
+//     let required = req.headers.authorization
 
-   // patch username , password
-   if(req.body.username != null){
-       res.user.username = req.body.username
-   }
-   
+//     if(!required) {
+//         return res.status(500).json({ message: "no token provided" })
+//     } else {
+//         jwt.verify(required.split(' ')[1], tokenSecret, (err, userData) => {
+//             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
+//             req.user = userData.data 
+//         })
+//     }
+
+//     //Check what is wanted to be changed
+//     //Check for username
+//     if(req.body.username != null) {
+//         res.auth = req.body.name
+//     }
+//     //Check for email
+//     if(req.body.email != null) {
+//         res.
+//     }
+
 }
             
 // exports.tester = (req, res) => {
