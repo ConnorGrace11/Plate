@@ -7,7 +7,7 @@ const auth = require('./routes/auth');
 const meals = require('./routes/meal');
 const restaurants = require('./routes/restaurant');
 const cors = require('cors');
-// const fs = require('fs');
+const path = require('path')
 // const path = require('path');
 // const multer = require('multer');
 

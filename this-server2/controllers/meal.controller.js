@@ -1,4 +1,6 @@
 const Meal = require('../models/meals')
+const fs = require('fs')
+const path = require('path')
 
 exports.getAllMeals = async (req, res) => {
     try {
@@ -20,12 +22,22 @@ exports.getAMeal = async (req, res) => {
 
 exports.createMeal = async (req, res) => {
     console.log(req.file)
+    // var img = fs.readFileSync(req.file.path)
+    // var encodeImg = img.toString('base64')
+    // var finalImg = {
+    //     contentType: String,
+    //     data: Buffer.from(encodeImg, 'base64')
+    // };
+    //const finalImg = Buffer.from(encodeImg, 'base64')
     const newMeal = new Meal({
         id: req.body.id,
         name: req.body.name,
         category: req.body.category,
         todo: req.body.todo,
-        imgMeal: req.file.filename
+        imgMeal: {
+            data: fs.readFileSync(req.file.path),
+            contentType: 'imgMeal/jpeg'
+        }
     })
 
     try {
@@ -65,9 +77,7 @@ exports.deleteMeal = async (req, res) => {
     }
 }
 
-exports.upload = async (req, res) => {
-    console.log(req.file)
-};
+
 
 exports.getMealImg = async (req, res) => {
     

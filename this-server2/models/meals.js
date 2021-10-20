@@ -13,7 +13,7 @@ const mealSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    img:
+    imgMeal:
     {
         data: Buffer,
         contentType: String

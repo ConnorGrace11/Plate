@@ -26,7 +26,6 @@ router.get('/', control.getAllMeals);
 router.get('/:id', middleware.getMealId, control.getAMeal);
 router.get('/:id', middleware.getMealId, control.getMealImg);
 router.post('/createMeal', upload.single('imgMeal'), control.createMeal);
-router.post('/upload', upload.single('imgMeal'), control.upload);
 router.patch('/:id', middleware.getMealId, control.editMeal);
 router.delete('/:id', middleware.getMealId, control.deleteMeal);
 
