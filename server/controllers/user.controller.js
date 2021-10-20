@@ -97,9 +97,9 @@ exports.authenticateToken = (req, res, next) => {
     if(!required) {
         return res.status(500).json({ message: "no token provided" })
     } else {
-        jwt.verify(required, tokenSecret, (err, userData) => {
+        jwt.verify(required, tokenSecret, (err, user) => {
             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = userData
+            req.user = user
             next()
         })
     }
