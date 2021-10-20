@@ -67,6 +67,10 @@ exports.signUp = async (req, res) => {
         }
 };
 
+function generateToken(user) {
+    return jwt.sign({ _id: user._id, username: user.username, email: user.email }, tokenSecret, { expiresIn: '1h' });
+};
+
 exports.updateUser = (req, res) => {
    let userId = req.params.id;
    if(!userId) return res.status(404).json({ message: "no id provided" }) 
@@ -101,6 +105,3 @@ exports.authenticateToken = (req, res, next) => {
     }
 }
 
-function generateToken(user) {
-    return jwt.sign({ user: user }, tokenSecret, { expiresIn: '1h' });
-};

@@ -58,7 +58,7 @@ const LoginForm = () => {
                     </div>
                         <button type="submit" value="LOGIN"> Login </button>          
                 </div>
-                {showing ? <div> {loggedIn ? <Route><Redirect to="/" /><div>Successful Login</div></Route> : <div>email or password is incorrect</div>} </div> :
+                {showing ? <div> {loggedIn ? <div><Route><Redirect to="/" />Successful Login</Route></div> : <div>email or password is incorrect</div>} </div> :
                 <div></div> }
                 
             </form>
