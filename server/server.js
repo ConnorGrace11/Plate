@@ -1,14 +1,16 @@
 require('dotenv').config()
 
+const users = require('./models/users')
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const auth = require('./routes/auth');
 const meals = require('./routes/meal');
-const https = require('https');
-const fs = require('fs');
-const cors = require('cors')
+const cors = require('cors');
 
+// const fs = require('fs');
+// const path = require('path');
+// const multer = require('multer');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -22,11 +24,10 @@ db.once('open', () => console.log('Connected to database!'))
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 app.use('/api/auth', auth);
 app.use('/meals', meals);
 
+const PORT = process.env.PORT || 3031;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-const PORT = process.env.PORT || 9443;
-app.listen(PORT, () => {
-    console.log(`server started on port ${PORT}`)
-});

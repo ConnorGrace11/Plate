@@ -1,33 +1,39 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, TextInput, Button, Text, Image, View } from 'react-native';
-import { setToken } from '../api/token';
+import { ScrollView, StyleSheet, TextInput, Button, Text, Image, View, SafeAreaView, Alert, } from 'react-native';
+import axios from 'axios';
+import Color from 'color';
 
-const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
+
+
+const EmailForm = ({ buttonText, children, onAuthentication, navigation}) => {
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [showing, setShowing] = useState(false);
+  // const [goHome, setHome] = useState(false);
 
-  async function submit () {
+  async function submit (e) {
+    e.preventDefault()
     console.log(email)
     console.log(password)
-    try {
-     
-      await fetch('http://192.168.0.8:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })  
-      },setErrorMessage(false));
-    } catch(error) {
-      console.log(error)
-      setErrorMessage(true)
+    axios.post("http://192.168.0.8:5000/api/auth/login", { 
+            email: email,
+            password: password
+        })
+        .then(response => {
+            console.log(response.data)
+            setLoggedIn(true)
+            setShowing(true)
+            // setHome(true)
+        })
+        .catch(error => {
+            console.log(error.response.data)
+            setLoggedIn(false)
+            setShowing(true)
+        })
+
     }
-  }
+
 
   return (
     <>
@@ -46,9 +52,9 @@ const EmailForm = ({ buttonText, onSubmit, children, onAuthentication }) => {
         secureTextEntry
       />
       <Button title={buttonText} onPress={submit} />
-      {errorMessage ? <Text> success!!!! </Text> : <Text>this is incorrect!</Text> }
+      
     </ScrollView>
-    
+    {showing ? <Text>{loggedIn ?  <Text style={styles.loginmsg}>Success!!</Text> : <Text style={styles.errormsg}> Your username or Password did not match please try again! </Text> } </Text> : null}
     </> 
   );
   
@@ -73,8 +79,13 @@ const styles = StyleSheet.create({
   },
   loginmsg: {
     marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center'
+    textAlign: 'center',
+    backgroundColor: 'lightgreen'
+  },
+  errormsg: {
+    marginTop: 20,
+    textAlign: 'center',
+    backgroundColor: 'red'
   }
 
 });

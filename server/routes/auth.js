@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const control = require('../controllers/auth.controller');
+const control = require('../controllers/user.controller');
+const control2 = require('../controllers/auth.controller')
 const middleware = require('../middlewares/middleware.auth');
 
 // auth routes
 router.post('/login', control.logIn);
 router.post('/signup', control.signUp);
 
-router.get('/users', control.getUsers);
-router.get('/user/:id', middleware.getAuthId, control.getUserById);
+router.get('/user/:username', middleware.getAuthId, control.authenticateToken, control.getUserByName);
+
+router.patch('/user/:id', middleware.getAuthId, control.authenticateToken, control.updateUser);
+router.delete('/user/:id', middleware.getAuthId, control.authenticateToken, control.deleteAccount);
 
 module.exports = router;

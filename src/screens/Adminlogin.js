@@ -2,7 +2,6 @@ import * as React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import EmailForm from '../forms/EmailForm';
-import { login } from '../api/mock';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 const Adminlogin = ({ navigation }) => {
     return (

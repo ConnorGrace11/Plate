@@ -1,12 +1,7 @@
 import * as React from 'react';
-// import LoginScreen from './src/screens/LoginScreen';
-// import HomeScreen from './src/screens/HomeScreen';
-// import CreateAccountScreen from './src/screens/CreateAccountScreen';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
-import { getUsers } from '../api/mock';
-import { setToken } from '../api/token';
 
 
 export default class AdminHome extends React.Component {
