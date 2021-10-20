@@ -10,7 +10,7 @@
     color: #ffffff;
   }
 
-  h3, h1{
+  .colortext{
     color: #ffffff;
   }
   .navbar .navbar-nav .nav-link::after {

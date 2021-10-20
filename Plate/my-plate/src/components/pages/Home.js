@@ -4,7 +4,7 @@ import platelogo from "./platelogo.png";
 function Home(){
     return(
         <div className="App container py-2">
-        <div class="jumbotron">
+        <div class="jumbotron border border-dark">
             <h1 class="display-4">Plate</h1>
                 <p class="lead">This is where you find food.</p>
             <hr class="my-4"/>
