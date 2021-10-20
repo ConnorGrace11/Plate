@@ -10,7 +10,7 @@ import GetAllMeals from './GetAllMeals';
 
 const RandomMeals = ({ navigation }) => {
     return (
-      <ScrollView >
+      <ScrollView snapToInterval={150}>
         <GetAllMeals />
         
         <Button

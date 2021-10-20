@@ -22,7 +22,7 @@ const GetAllMeals = () => {
     return (
         <>         
             {loading ? <Text style={styles.loading}>Loading Meals...</Text> : meals.map((item) => (  
-                <ScrollView snapToInterval={150} contentConstainerStyle={styles.container}>
+                <ScrollView contentConstainerStyle={styles.container}>
                         <Text style={styles.header}> { item.name } </Text> 
                         <Text style={styles.subHeader}> { item.category } </Text> 
                         <Text style={styles.body}> { item.todo } </Text> 

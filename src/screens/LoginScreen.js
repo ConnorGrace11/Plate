@@ -8,7 +8,8 @@ const LoginScreen = ({ navigation }) => {
     <ScrollView>
     <EmailForm
       buttonText="Log in!!"
-      button = {onPress => navigation.navigate('Home')}
+      onSubmit={login}
+      onAuthentication={() => navigation.navigate('Home')}
     >
     </EmailForm>
     </ScrollView>
