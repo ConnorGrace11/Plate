@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const AuthUsers = new mongoose.Schema({
+const Users = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -15,6 +15,10 @@ const AuthUsers = new mongoose.Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        default: "basic"
+    }
 });
 
-module.exports = mongoose.model('Auth Users', AuthUsers)
+module.exports = mongoose.model('users', Users)

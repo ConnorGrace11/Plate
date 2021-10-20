@@ -1,152 +1,33 @@
-const authUsers = require('../models/auth.users')
-const bcrypt = require('bcrypt');
-const rounds = 10;
-const jwt = require('jsonwebtoken');
-const { editMeal } = require('./meal.controller');
-const tokenSecret = process.env.SECRET;
+const User = require('../models/users')
 
-
-// need to fix
-// exports.getUsers = async (req, res) => {
-//     let required = req.headers.authorization
-//     if(!required) {
-//         return res.status(500).json({ message: "no token provided" })
-//     } else {
-//         jwt.verify(required.split(' ')[1], tokenSecret, (err, value) => {
-//             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-//             req.user = value.data
-//         })
-//     }
-
-//     await authUsers.find()
-//         .then(user => {
-//             res.status(200).json(user);
-//         })
-//         .catch(error => {
-//             res.status(500).json(error);
-//         })
-// };
-
-exports.getUserById = async (req, res) => {
-    let required = req.headers.authorization
-
-    if(!required) {
-        return res.status(500).json({ message: "no token provided" })
-    } else {
-        jwt.verify(required.split(' ')[1], tokenSecret, (err, userData) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = userData.data 
-        })
-    }
-
+exports.grantAccess = async (req, res, next) => {
     try {
-        const user = await authUsers.findById(req.params.id)
-        if(user.id != req.params.id) {
-            return res.status(400).json({ message: "not authorized" });
-
-        } else {
-            res.status(200).send(user);
-        }
-
-    } catch (error) {
-        return res.status(400).json({ message: error.message })
-    }
-};
-
-exports.logIn = (req, res) => {
-    authUsers.findOne({ email: req.body.email })
-        .then(user => {
-            if (!user) return res.status(404).json({ error: 'no user with that email found' })
-            else {
-                bcrypt.compare(req.body.password, user.password, (error, match) => {
-                    if (error) return res.status(500).json(error)
-                    else if (match) res.status(200).json({ status: 'Successful login', id: user.id, token: generateToken(user) })
-                    else return res.status(403).json({ error: 'passwords do not match' })
-                })
-            }
-        })
-        .catch(error => {
-            return res.status(500).json({ message: error.message })
-        })
-};
-
-exports.signUp = async (req, res) => {
-
-    const usernameExists = await authUsers.exists({ username: req.body.username });
-    const emailExists = await authUsers.exists({ email: req.body.email });
-
-    if (usernameExists) {
-        return res.status(400).json({ message: "username is taken"}) 
-    }
-
-    else if(emailExists) {
-        return res.status(400).json({ message: "email already exists" })
-
-    } else {
-        bcrypt.hash(req.body.password, rounds, (error, hash) => {
-            if (error) return res.status(500).json({ message: error.message })
-            else {
-                const newUser = authUsers({ username: req.body.username, email: req.body.email, password: hash })
-                newUser.save()
-                    .then(user => {
-                        res.status(200).json({ status: 'SUCCESS', message: 'successful signup', id: user.id, username: user.username, email: user.email, token: generateToken(user) })
-                    })
-                    .catch( error => {
-                        res.status(500).json(error.message)
-                    })
-                }
-            })
-        }
-};
-
-exports.getProtected = (req, res) => {
-    let required = req.headers.authorization
-
-    if(!required) {
-        return res.status(500).json({ message: "no token provided" })
-    } else {
-        jwt.verify(required.split(' ')[1], tokenSecret, (err, userData) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            res.send("authorized");
-        })
-    }
-
-}
-
-exports.updateUser = (req, res) => {
-   let userId = req.params.id;
-   if(!userId) return res.status(404).json({ message: "no id provided" }) 
-
-   // patch username , password
-   if(req.body.username != null){
-       res.user.username = req.body.username
-   }
-   
-}
-            
-exports.deleteAccount = async (req, res) => {
-    let required = req.headers.authorization
-
-    if(!required) {
-        return res.status(500).json({ message: "no token provided" })
-    } else {
-        jwt.verify(required.split(' ')[1], tokenSecret, (err, userData) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = userData.data 
-        })
-    }
-    
-    try {
-        await res.user.remove()
-        res.status(200).json({ message: "account successfully deleted"})
+        //const accessible = []
+        const userId = await User.find()
+        const stringed = JSON.parse(userId)
+        var ids = stringed._id
+        res.send(ids)
+        next()
+        
     } catch (error) {
         res.status(500).json({ message: error.message })
-    }
-}
-// exports.tester = (req, res) => {
-//     res.status(200).json(req.user);
-// };
+        next()
+    }    
+    //     for(var i = 0; i < userId.length; i++) 
+    //     {
+    //         accessible.push(userId);
+    //     }
+    //     res.send(accessible)
+        
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message })
+    //     next()
+    // }    
 
-function generateToken(user) {
-    return jwt.sign({ data: user }, tokenSecret, { expiresIn: '1h' });
-};
+    // function jsonParser(stringValue) {
+
+    //     var string = JSON.stringify(stringValue);
+    //     var objectValue = JSON.parse(string);
+    //     return objectValue['mm'];
+    //  }
+}
