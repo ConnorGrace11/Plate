@@ -25,7 +25,7 @@ exports.createMeal = async (req, res) => {
         name: req.body.name,
         category: req.body.category,
         todo: req.body.todo,
-        img: req.file.filename
+        imgMeal: req.file.filename
     })
 
     try {
@@ -66,10 +66,7 @@ exports.deleteMeal = async (req, res) => {
 }
 
 exports.upload = async (req, res) => {
-    res.json({
-        success : 1,
-        profile_url : `http://localhost:5000/profile/imgMeal/${req.file.filename}`
-    })
+    console.log(req.file)
 };
 
 exports.getMealImg = async (req, res) => {
