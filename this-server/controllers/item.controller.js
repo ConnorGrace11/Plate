@@ -17,9 +17,15 @@ exports.getItem = (req, res) => {
 // creating a new Item (POST request)
 exports.createItem = async (req, res) => {
     const added = new Item({
+        restaurantId: req.body.restaurantId,
         name: req.body.name,
-        location: req.body.location,
-        rating: req.body.rating,
+        price: req.body.price,
+        ingredients: req.body.ingredients,
+        allergens: req.body.allergens,
+        category: req.body.category,
+        subCategory: req.body.subCategory,
+        description: req.body.description,
+        review: req.body.review
     })
 
     try {
@@ -40,6 +46,9 @@ exports.deleteItem = async (req, res) => {
 }; 
 
 exports.editItem = async (req, res) => {
+    if(req.body.restaurantId != null) {
+        res.item.restaurantId = req.body.restaurantId
+    }
     if(req.body.name != null) {
         res.item.name = req.body.name
     }
@@ -47,7 +56,10 @@ exports.editItem = async (req, res) => {
         res.item.price = req.body.price
     }
     if(req.body.ingredients != null) {
-        res.item.rating = req.body.ingredients
+        res.item.ingredients = req.body.ingredients
+    } 
+    if(req.body.allergens != null) {
+        res.item.allergens = req.body.allergens
     }
     if(req.body.category != null) {
         res.item.category = req.body.category

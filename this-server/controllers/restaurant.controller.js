@@ -10,6 +10,15 @@ exports.getAll = async (req, res) => {
     }
 };
 
+exports.getAllRestaurantItems = async (req, res) => {
+    try {
+        const items = await Item.find({restaurantId:res.restaurant})
+        res.status(201).json(items);
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+};
+
 // getting one restaurant by id
 exports.getOne = (req, res) => {
     res.status(200).json(res.restaurant)
@@ -20,6 +29,7 @@ exports.createOne = async (req, res) => {
     const added = new Restaurant({
         name: req.body.name,
         location: req.body.location,
+        phoneNumber: req.body.phoneNumber,
         rating: req.body.rating,
     })
 
@@ -46,6 +56,9 @@ exports.updateOne = async (req, res) => {
     }
     if(req.body.location != null) {
         res.restaurant.location = req.body.location
+    }
+    if(req.body.phoneNumber != null) {
+        res.restaurant.phoneNumber = req.body.phoneNumber
     }
     if(req.body.rating != null) {
         res.restaurant.rating = req.body.rating

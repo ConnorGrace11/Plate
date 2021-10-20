@@ -1,8 +1,12 @@
 const Joi = require('joi');
-JOi.objectId = require('joi-objectid')(Joi);
+// Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 
 const ItemSchema = new mongoose.Schema({
+    restaurantId:{
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true
@@ -17,10 +21,13 @@ const ItemSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
+    allergens: {
+        type: [String]
+    },
     category: {
         type: [String],
         required: true,
-        enum: ['breakfast', 'lunch', 'dinner', 'beverage']
+        enum: ['breakfast', 'lunch', 'dinner','dessert', 'side', 'beverage']
 
     },
     subCategory: {
@@ -28,7 +35,6 @@ const ItemSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
     },
     review: {
         type: [String],
@@ -37,12 +43,14 @@ const ItemSchema = new mongoose.Schema({
 
 function validateItem(item) {
     const schema = {
+      restaurantId: Joi.string().min(20).max(30).required(),
       name: Joi.string().min(2).max(50).required(),
       price: Joi.number().min(0).required(),
       ingredients: Joi.string().min(2).max(50).required(),
+      allergens: Joi.string().min(2).max(50),
       category: Joi.string().min(2).max(50).required(),
       subCategory: Joi.string().min(2).max(50).required(),
-      description: Joi.string().min(2).max(50).required(),
+      description: Joi.string().min(2).max(50),
       review: Joi.string().min(2).max(100)
     };
     return Joi.validate(item, schema);
