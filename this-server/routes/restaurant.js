@@ -4,11 +4,11 @@ const Restaurants = require('../models/restaurants');
 const control = require('../controllers/restaurant.controller');
 const middleware = require('../middlewares/middleware.resaurants');
 
-router.get('/', control.getAll);
-router.get('/items', middleware.getId, control.getAllRestaurantItems);
-router.get('/:id', middleware.getId, control.getOne);
-router.post('/', control.createOne);
-router.patch('/:id', middleware.getId, control.updateOne);
-router.delete('/:id', middleware.getId, control.deleteOne);
+router.get('/', control.getAllRestaurants);
+router.get('/:id', middleware.getId, control.getARestaurant);
+router.get('/:restaurantId/items/', middleware.getId, control.getAllRestaurantItems);
+router.post('/', control.createRestaurant);
+router.patch('/:id', middleware.getId, control.editRestaurant);
+router.delete('/:id', middleware.getId, control.deleteRestaurant);
 
 module.exports = router

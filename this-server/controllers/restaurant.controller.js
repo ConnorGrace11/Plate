@@ -1,7 +1,7 @@
 const Restaurant = require('../models/restaurants')
 
 // getting all
-exports.getAll = async (req, res) => {
+exports.getAllRestaurants = async (req, res) => {
     try {
         const restaurants = await Restaurant.find()
         res.status(201).json(restaurants);
@@ -20,12 +20,12 @@ exports.getAllRestaurantItems = async (req, res) => {
 };
 
 // getting one restaurant by id
-exports.getOne = (req, res) => {
+exports.getARestaurant = (req, res) => {
     res.status(200).json(res.restaurant)
 };
 
 // creating a new restaurant (POST request)
-exports.createOne = async (req, res) => {
+exports.createRestaurant = async (req, res) => {
     const added = new Restaurant({
         name: req.body.name,
         location: req.body.location,
@@ -41,7 +41,7 @@ exports.createOne = async (req, res) => {
     }
 };
 
-exports.deleteOne = async (req, res) => {
+exports.deleteRestaurant = async (req, res) => {
     try{
         await res.restaurant.remove();
         res.json({ message: 'deleted restaurant' })
@@ -50,7 +50,7 @@ exports.deleteOne = async (req, res) => {
     }
 };
 
-exports.updateOne = async (req, res) => {
+exports.editRestaurant = async (req, res) => {
     if(req.body.name != null) {
         res.restaurant.name = req.body.name
     }
