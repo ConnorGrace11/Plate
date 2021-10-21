@@ -7,6 +7,7 @@ import AllMeals from './components/pages/AllMeals';
 import Signup from './components/pages/Signup';
 import Footer from './components/Footer';
 import AllRestaurants from './components/pages/AllRestaurants';
+import Profile from './components/pages/Profile'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/meals" component={AllMeals}></Route>
         <Route exact path="/restaurants" component={AllRestaurants}></Route>
         <Route exact path="/signup" component={Signup}></Route>
+        <Route exact path="/profile" component={Profile}></Route>
         </Router>
         <br></br>
         <Footer/>
