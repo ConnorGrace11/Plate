@@ -1,6 +1,6 @@
 const auth = require('../models/users')
 
-exports.getAuthId = async (req, res, next) => {
+exports.getUserId = async (req, res, next) => {
     let user;
     try {
         const name = ({ username: req.params.username})
@@ -16,3 +16,17 @@ exports.getAuthId = async (req, res, next) => {
     res.user = user
     next()
 }
+
+exports.restrictTo = (...roles) => {
+    return async (req, res, next) => {
+        const name = ({ username: req.params.username})
+        const findRole = await auth.findOne(name)
+        const role = findRole.role
+
+        if(roles.includes(role)) {
+            next()
+        } else {
+            return res.status(401).json({ error: "unauthorized" })
+        }
+    }
+};

@@ -6,11 +6,12 @@ const middleware = require('../middlewares/middleware.auth');
 
 // auth routes
 router.post('/login', control.logIn);
+router.get('/logout/:username', middleware.getUserId, control.authenticateToken, control.logOut);
 router.post('/signup', control.signUp);
 
-router.get('/user/:username', middleware.getAuthId, control.authenticateToken, control.getUserByName);
+router.get('/user/:username/protected', middleware.getUserId, control.authenticateToken, middleware.restrictTo('admin', 'basic'), control.getUserByName);
 
-router.patch('/user/:id', middleware.getAuthId, control.authenticateToken, control.updateUser);
-router.delete('/user/:id', middleware.getAuthId, control.authenticateToken, control.deleteAccount);
+router.patch('/user/:id', middleware.getUserId, control.authenticateToken, control.updateUser);
+router.delete('/user/:username', middleware.getUserId, control.authenticateToken, control.deleteAccount);
 
 module.exports = router;
