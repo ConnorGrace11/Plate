@@ -1,23 +1,16 @@
 const Restaurant = require('../models/restaurants')
+const Item = require('../models/items')
 
 // getting all
 exports.getAllRestaurants = async (req, res) => {
     try {
-        const restaurants = await Restaurant.find()
-        res.status(201).json(restaurants);
+        const restaurants = await Restaurant.find();
+        res.status(200).json(restaurants);
     } catch (error) {
-        return res.status(400).json({ message: error.message })
+        return res.status(400).json({ message: error.message });
     }
 };
 
-exports.getAllRestaurantItems = async (req, res) => {
-    try {
-        const items = await Item.find({restaurantId:res.restaurant})
-        res.status(201).json(items);
-    } catch (error) {
-        return res.status(400).json({ message: error.message })
-    }
-};
 
 // getting one restaurant by id
 exports.getARestaurant = (req, res) => {
@@ -62,5 +55,23 @@ exports.editRestaurant = async (req, res) => {
     }
     if(req.body.rating != null) {
         res.restaurant.rating = req.body.rating
+    }
+};
+
+exports.getAllRestaurantItems = async (req, res) => {
+    try {
+        const items = await Item.find({restaurantId:req.params.restaurantId});
+        res.status(200).json(items);
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
+    }
+};
+
+exports.getRestaurantItem = async (req, res) => {
+    try {
+        const items = await Item.findById(req.params. itemId);
+        res.status(200).json(items);
+    } catch (error) {
+        return res.status(400).json({ message: error.message })
     }
 };
