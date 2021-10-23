@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const Restaurants = require('../models/restaurants');
-const control = require('../controllers/restaurant.controller');
-const middleware = require('../middlewares/middleware.resaurants');
+const restaurantControl = require('../controllers/restaurant.controller');
+const itemControl = require('../controllers/item.controller');
+const restaurantMiddleware = require('../middlewares/middleware.restaurants');
+const itemMiddleware = require('../middlewares/middleware.items');
 
-router.get('/', control.getAllRestaurants);
-router.get('/:id', middleware.getId, control.getARestaurant);
-router.get('/:restaurantId/items/', middleware.getId, control.getAllRestaurantItems);
-router.post('/', control.createRestaurant);
-router.patch('/:id', middleware.getId, control.editRestaurant);
-router.delete('/:id', middleware.getId, control.deleteRestaurant);
+
+router.get('/', restaurantControl.getAllRestaurants);
+router.get('/:restaurantId', restaurantMiddleware.getRestaurantId, restaurantControl.getARestaurant);
+router.post('/', restaurantControl.createRestaurant);
+router.patch('/:restaurantId', restaurantMiddleware.getRestaurantId, restaurantControl.editRestaurant);
+router.delete('/:restaurantId', restaurantMiddleware.getRestaurantId, restaurantControl.deleteRestaurant);
+
+router.get('/:restaurantId/items/', restaurantMiddleware.getRestaurantId, itemControl.getAllItems);
+router.get('/:restaurantId/items/:itemId', restaurantMiddleware.getRestaurantId, itemMiddleware.getItemId,itemControl.getItem);
+router.post('/:restaurantId/items/', restaurantMiddleware.getRestaurantId, itemControl.createItem);
+router.patch('/:restaurantId/items/:itemId', itemMiddleware.getItemId, itemControl.editItem);
+router.delete('/:restaurantId/items/:itemId', itemMiddleware.getItemId, itemControl.deleteItem);
 
 module.exports = router
