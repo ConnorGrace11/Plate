@@ -2,8 +2,8 @@ const Item = require('../models/items')
 
 exports.getAllItems = async (req, res) => {
     try {
-        const items = await Item.find()
-        res.status(201).json(items);
+        const items = await Item.find({restaurantId:req.params.restaurantId})
+        res.status(200).json(items);
     } catch (error) {
         return res.status(400).json({ message: error.message })
     }
@@ -39,7 +39,7 @@ exports.createItem = async (req, res) => {
 exports.deleteItem = async (req, res) => {
     try{
         await res.item.remove();
-        res.json({ message: 'deleted Item' })
+        res.json({ message: 'Item deleted' })
     } catch (error) {
         res.status(500).json({ message: error.message })
     }

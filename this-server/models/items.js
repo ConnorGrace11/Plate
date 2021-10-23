@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const ItemSchema = new mongoose.Schema({
     restaurantId:{
         type: String,
-        required: true,
+        required: true
     },
     name: {
         type: String,

@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const auth = require('./routes/auth');
 const meals = require('./routes/meal');
 const restaurants = require('./routes/restaurant');
-const items = require('./routes/item');
 // const fs = require('fs');
 // const path = require('path');
 // const multer = require('multer');
@@ -25,7 +24,6 @@ app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/meals', meals);
 app.use('/restaurants', restaurants);
-app.use('/items', items);
 
 const PORT = process.env.PORT || 3031;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
