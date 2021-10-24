@@ -4,6 +4,7 @@ const rounds = 10;
 const jwt = require('jsonwebtoken');
 const { double } = require('webidl-conversions');
 const { db } = require('../models/users');
+const { check } = require('prettier');
 const tokenSecret = process.env.SECRET;
 
 exports.getUserByName = async (req, res) => {
@@ -49,8 +50,8 @@ exports.logIn = (req, res) => {
                 bcrypt.compare(req.body.password, user.password, (error, match) => {
                     if (error) return res.status(500).json(error)
                     else if (match) {
-                        updateRole(user)
-                        res.status(200).json({ status: 'Successful login', id: user.id, token: generateToken(user), role: user.role })
+                        // updateRole(user)
+                        res.status(200).json({ status: 'Successful login', id: user.id, token: generateToken(user) })
                     }
                     else return res.status(403).json({ error: 'passwords do not match' })
                 })
@@ -133,17 +134,17 @@ function generateToken(user) {
     return jwt.sign({ _id: user._id, username: user.username, email: user.email }, tokenSecret, { expiresIn: '1h' });
 };
 
-updateRole = async (user, req, res) => {
-    try {
-        const changeUser = await authUsers.findOne({ email: user.email })
-        const checkAdmin = ({ role: "admin" })
+// async function updateRole(user, req, res) {
+//     try {
+//         // if(user.role == 'admin') return res.send("error")
+//         const currentRole = await authUsers.findOne({ email: user.email })
 
-        const role = ({ role: changeUser.role });
-        const newRole = {$set: { role: "user" } };
+//         const role = ({ role: currentRole.role });
+//         const newRole = {$set: { role: "admin" } };
 
-        db.collection("users").updateOne(role, newRole)
+//         db.collection("users").updateOne(role, newRole)
 
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }  
-}
+//     } catch (error) {
+//         res.status(500).json({ message: error.message })
+//     }  
+// }

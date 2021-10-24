@@ -14,7 +14,6 @@ function Navbar() {
             <a href='/login' className="nav-links"><Link to='/login'className='nav-links'>Log in</Link></a>
             <a href='/signup' className="nav-links"><Link to='/signup'className='nav-links'>Sign Up</Link></a>
             <a href='/meals' className="nav-links"><Link to='/meals'className='nav-links'>Post a Meal</Link></a>
-            <a href='/protected' className="nav-links"><Link to='/protected'className='nav-links'>Protected</Link></a>
           </div>
         </div>
       </nav>

@@ -9,7 +9,7 @@ router.post('/login', control.logIn);
 router.get('/logout/:username', middleware.getUserId, control.authenticateToken, control.logOut);
 router.post('/signup', control.signUp);
 
-router.get('/user/:username/protected', middleware.getUserId, control.authenticateToken, middleware.restrictTo('admin', 'basic'), control.getUserByName);
+router.get('/user/:username/protected', middleware.getUserId, control.authenticateToken, middleware.restrictTo('user', 'admin'), control.getUserByName);
 
 router.patch('/user/:id', middleware.getUserId, control.authenticateToken, control.updateUser);
 router.delete('/user/:username', middleware.getUserId, control.authenticateToken, control.deleteAccount);

@@ -5,7 +5,6 @@ import HomePage from './components/HomePage';
 import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import MealPost from "./components/MealPost";
-import Protected from "./components/Protected";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
           <Route path="/login" component={LoginForm}></Route>
           <Route path="/signup" component={FormSignup}></Route>
           <Route path="/meals" component={MealPost}></Route>
-          <Route path="/protected" component={Protected}></Route>
         </Switch>
       </div>
     </Router>
