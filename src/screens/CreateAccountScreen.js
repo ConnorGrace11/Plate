@@ -6,8 +6,8 @@ const CreateAccount = ({ navigation }) => {
   return (
     <EmailForm
       buttonText="Sign up"
-      onSubmit={createAccount}
-      onAuthentication={() => navigation.navigate('Home')}
+      //onSubmit={createAccount}
+      //onAuthentication={() => navigation.navigate('Home')}
     >
       <Button
         title="Back to log in"
