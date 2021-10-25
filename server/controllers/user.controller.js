@@ -107,53 +107,42 @@ exports.updateUser = async (req, res) => {
     let userId = req.params.username;
     if(!userId) return res.status(404).json({ message: "can't find user" }) 
 
-    if(!req.body.username || !req.body.password) return res.json({ message: "can't leave fields blank "})
+    if(!req.body.username) return res.json({ message: "can't leave fields blank "})
    // patch username , password
     if(req.body.username != null){
         res.user.username = req.body.username
     }
-
-    if(req.body.password != null){
-        bcrypt.hash(req.body.password, rounds, async (error, hash) => {
-            if (error) return res.status(500).json({ message: error.message })
-            else {
-                res.user.password = hash
-            }
-        })
-    }
     
     try {
-        console.log(res.user.password)
         const modifiedUser = await res.user.save();
         res.json(modifiedUser)
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
 }
-   
             
 exports.deleteAccount = async (req, res) => {
     try {
         await res.user.remove()
-        res.status(200).json({ message: "account successfully deleted"})   
+        res.status(200).json({ message: "account successfully deleted"})
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
 }
 
-exports.authenticateToken = (req, res, next) => {
-    const required = req.headers.authorization.split(' ')[1];
+// exports.authenticateToken = (req, res, next) => {
+//     const required = req.headers.authorization.split(' ')[1];
     
-    if(!required) {
-        return res.status(500).json({ message: "no token provided" })
-    } else {
-        jwt.verify(required, tokenSecret, async (err, user) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = user
-            next()
-        })
-    }
-}
+//     if(!required) {
+//         return res.status(500).json({ message: "no token provided" })
+//     } else {
+//         jwt.verify(required, tokenSecret, async (err, user) => {
+//             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
+//             req.user = user
+//             next()
+//         })
+//     }
+// }
 
 function generateToken(user) {
     return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { expiresIn: '1h' });
