@@ -9,6 +9,8 @@ const FormSignup = () => {
   const [signupDetails, setSignupDetails] = useState({ username: "", email: "", password: "" });
   const [registered, setRegistered] = useState(false);
   const [showing, setShowing] = useState(false);
+  const [error, setError] = useState("");
+  
 
   const handleChange = (e) => {
       const creds = {...signupDetails}
@@ -33,6 +35,7 @@ const FormSignup = () => {
           console.log(error.response.data)
           setRegistered(false)
           setShowing(true)
+          setError(error.response.data.message)
       })
     
   }
@@ -71,7 +74,7 @@ const FormSignup = () => {
                     </div>
                         <button type="submit" value="LOGIN"> Signup </button>          
                 </div>
-                {showing ? <div> {registered ? <div>Successful Registration</div> : <div>an error occured</div>} </div> :
+                {showing ? <div> {registered ? <div>Successful Registration</div> : <div>{ error }</div>} </div> :
                 <div></div> }
                 
             </form>

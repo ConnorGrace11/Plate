@@ -21,14 +21,14 @@ exports.getUserByName = async (req, res) => {
         const name = ({ username: req.params.username })
         const user = await authUsers.findOne(name)
         if(user.username != req.params.username) {
-            return res.status(400).json({ message: "no user with that username" });
+            return res.status(404).json({ message: "no user with that username" });
 
         } else {
-            res.status(200).send(user);
+            res.status(200).send({ user: user, token: req.headers.authorization.split(' ')[1]});
         }
 
     } catch (error) {
-        return res.status(400).json({ message: error.message })
+        return res.status(500).json({ message: error.message })
     }
 };
 
@@ -52,6 +52,7 @@ exports.getUserByName = async (req, res) => {
 exports.logIn = (req, res) => {
     authUsers.findOne({ email: req.body.email })
         .then(user => {
+            if(!req.body.email || !req.body.password) return res.status(400).json({ message: "fields can't be blank" })
             if (!user) return res.status(404).json({ error: 'no user with that email found' })
             // if(user.role != 'user' || 'admin') return res.status(403).json({ messsge: "you need to be signed in to view this"})
             else {
@@ -60,6 +61,7 @@ exports.logIn = (req, res) => {
                     else if (match) {
                         // updateRole(user)
                         res.status(200).json({ status: 'Successful login', id: user.id, token: generateToken(user) })
+                        
                     }
                     else return res.status(403).json({ error: 'passwords do not match' })
                 })
@@ -74,8 +76,10 @@ exports.logOut = async (req, res) => {
     
 }
 
-exports.signUp = async (req, res) => {
+exports.signUp = async (req, res, next) => {
 
+    if(req.body.username == '' || req.body.email == '' || req.body.password == '') return res.status(400).json({ message: "fields can't be blank" })
+  
     const usernameExists = await authUsers.exists({ username: req.body.username });
     const emailExists = await authUsers.exists({ email: req.body.email });
 
@@ -93,7 +97,7 @@ exports.signUp = async (req, res) => {
                 const newUser = authUsers({ role: req.body.role, username: req.body.username, email: req.body.email, password: hash })
                 newUser.save()
                     .then(user => {
-                        res.status(200).json({ status: 'SUCCESS', message: 'successful signup', id: user.id, username: user.username, email: user.email, token: generateToken(user) })
+                        res.status(200).json({ status: 'SUCCESS', message: 'successful signup', id: user.id, username: user.username, email: user.email })
                     })
                     .catch( error => {
                         res.status(500).json(error.message)

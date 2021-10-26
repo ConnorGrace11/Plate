@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Route, Redirect } from 'react-router-dom';
+// import Cookies from 'universal-cookie'
+// const cookies = new Cookies()
 // reference: https://www.youtube.com/watch?v=9KaMsGSxGno
 
 const LoginForm = () => {
     const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
     const [loggedIn, setLoggedIn] = useState(false);
     const [showing, setShowing] = useState(false);
+    // const [token, setToken] = useState("")
+
+    // const authAxios = axios.create({
+    //     baseURL: `http://localhost:5000`,
+    //     headers: {
+    //         Authorization: `Bearer ${token}`
+    //     }
+    // })
 
     const handleChange = (e) => {
         const creds = {...loginDetails}
@@ -25,13 +35,13 @@ const LoginForm = () => {
             console.log(response.data)
             setLoggedIn(true)
             setShowing(true)
+            // setToken(response.data)
         })
         .catch(error => {
             console.log(error.response.data)
             setLoggedIn(false)
             setShowing(true)
         })
-      
     }
     
         return (

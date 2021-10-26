@@ -2,27 +2,30 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 
+const token = ""
 
 const authAxios = axios.create({
-    baseURL: `http://localhost:5000/api/auth/user`,
+    baseURL: `http://localhost:5000`,
     headers: {
-        Authorization: `Bearer`
+        Authorization: `Bearer ${token}`
     }
 })
 
-
 function Protected(){
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    // console.log(token)
+    
     useEffect(() => {
         protect()
     }, [])
 
     const protect = async () => {
         try {
-            const userProfile = await authAxios.get("/admin/protected")
-            setUser(userProfile.data)
+            const userProfile = await authAxios.get("/api/auth/user/info")
+            setUser([userProfile.data])
+            // setToken()
             setLoading(true)
         } catch (error) {
             console.log(error.message)
@@ -32,13 +35,15 @@ function Protected(){
     return (
         <>
         <div className="all-items">
-            <h1>User</h1>
+            <h1>User Details</h1>
         </div>
         <div className="allmeals">
             {loading && user.map((item) => (
                 <div className="meal">
-                    <h2>{ item.username }</h2>
-                    <h2>{ item.email }</h2> 
+                    <h2>User: { item.user.username }</h2>
+                    <h5>ID: { item.user._id }</h5>
+                    <h5>Email: { item.user.email }</h5> 
+                    <h5>token: { item.token }</h5>
                 </div>
             ))}      
         </div>
