@@ -57,21 +57,3 @@ exports.editRestaurant = async (req, res) => {
         res.restaurant.rating = req.body.rating
     }
 };
-
-exports.getAllRestaurantItems = async (req, res) => {
-    try {
-        const items = await Item.find({restaurantId:req.params.restaurantId});
-        res.status(200).json(items);
-    } catch (error) {
-        return res.status(400).json({ message: error.message })
-    }
-};
-
-exports.getRestaurantItem = async (req, res) => {
-    try {
-        const items = await Item.findById(req.params. itemId);
-        res.status(200).json(items);
-    } catch (error) {
-        return res.status(400).json({ message: error.message })
-    }
-};

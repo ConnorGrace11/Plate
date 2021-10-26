@@ -36,8 +36,17 @@ const ItemSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    review: {
-        type: [String],
+    ratingCount: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 255
+    },
+    ratingNumber: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 5
     },
 })
 
@@ -51,7 +60,8 @@ function validateItem(item) {
       category: Joi.string().min(2).max(50).required(),
       subCategory: Joi.string().min(2).max(50).required(),
       description: Joi.string().min(2).max(50),
-      review: Joi.string().min(2).max(100)
+      ratingCount: Joi.number().min(0).required(),
+      ratingNumber: Joi.number().min(0).max(5).required(),
     };
     return Joi.validate(item, schema);
   }
