@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AllMeals.css';
+import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch} from 'react-router-dom';
 
 const AllRestaurants = () => {
     
+    let { url } = useRouteMatch();
+
     useEffect(() => {
         getRestaurants()
     }, [])
@@ -32,14 +35,15 @@ const AllRestaurants = () => {
         </div>
         <div>
         {loading && 
-            restaurants.map( (item) => (
-                <div>
-                    <h2>{ item.name }</h2>
-                    <h5>{ item.location }</h5>
-                    <p>{ item.rating }</p>   
+            restaurants.map(item => (
+                <div key={item._id}>
+                    <h2><Link to={`/restaurants/${item._id}/items`}>{ item.name }</Link></h2>
+                    <h5>{item.location}</h5> 
+                    <br></br>
                 </div>
             ))}      
         </div>
+        
         </>
     );
 }
