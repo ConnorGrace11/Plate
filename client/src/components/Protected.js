@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-const token = ""
+const token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTc2MWRhM2MyNDE5NjkwMmY3ODJjZTEiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhQGEuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjM1NzQxNjM0fQ.OcLiJS7inZAoyjq2ADPmkl8Caes_jwZFKbRq9VEj-7H2eQmhsKsHHa9ovvKBCu2fixE25yX49E9Oot63mg1vCg"
 
 const authAxios = axios.create({
     baseURL: `http://localhost:5000`,

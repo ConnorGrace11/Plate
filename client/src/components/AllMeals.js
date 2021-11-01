@@ -31,7 +31,8 @@ const AllMeals = () => {
                 <div className="meal">
                     <h2>{ item.name }</h2>
                     <h5>{ item.category }</h5>
-                    <p>{ item.todo }</p>   
+                    <p>{ item.todo }</p>
+                    <h5>{ item.img }</h5>   
                 </div>
             ))}      
         </div>

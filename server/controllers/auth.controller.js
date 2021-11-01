@@ -24,7 +24,7 @@ exports.getUserByName = async (req, res) => {
             return res.status(404).json({ message: "no user with that username" });
 
         } else {
-            res.status(200).send({ user: user, token: req.headers.authorization.split(' ')[1]});
+            res.status(200).send({ user: user });
         }
 
     } catch (error) {

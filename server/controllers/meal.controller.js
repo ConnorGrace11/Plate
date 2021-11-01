@@ -3,7 +3,7 @@ const Meal = require('../models/meals')
 exports.getAllMeals = async (req, res) => {
     try {
         const grabMeals = await Meal.find();
-        res.status(201).json(grabMeals);
+        res.status(200).json(grabMeals);
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -19,17 +19,19 @@ exports.getAMeal = async (req, res) => {
 };
 
 exports.createMeal = async (req, res) => {
+    console.log(req.file)
+
+    const url = req.protocol + "://" + req.get('host')
     const newMeal = new Meal({
-        id: req.body.id,
         name: req.body.name,
         category: req.body.category,
         todo: req.body.todo,
-        // img: req.file.filename
+        img: url + "/public/" + req.file.filename
     })
 
     try {
         const meal = await newMeal.save();
-        res.json(meal);
+        res.status(201).json(meal)
     } catch (error) {
         return res.status(500).send({ message: error.message })
     }

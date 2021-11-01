@@ -1,7 +1,7 @@
 const auth = require('../models/users')
 const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.SECRET;
-const privileged = process.env.SPECIAL
+const privileged = process.env.SPECIAL;
 
 // checks if there's a valid user with the 
 // username provided in params
@@ -51,7 +51,7 @@ exports.userDataFromToken = (req, res, next) => {
 
             await auth.findOne({ email: req.user.email })
                 .then((user) => {
-                    res.status(200).json({ user: user, token: required })
+                    res.status(200).json({ user: user })
                 }).catch((error) => {
                     res.status(500).json({ error: error.message })
                 })

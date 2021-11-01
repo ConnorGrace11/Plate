@@ -14,3 +14,11 @@ exports.getMealId = async (req, res, next) => {
     res.editMeal = editMeal
     next()
 }
+
+exports.getImage = async (req, res, next) => {
+    meals.findOne({}, 'img createdAt', function(error, img) {
+        if (error) return res.send(error);
+        res.contentType('json');
+        res.send(img);
+    })
+};
