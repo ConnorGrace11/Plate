@@ -23,10 +23,9 @@ exports.getAMeal = async (req, res) => {
 
 exports.createMeal = async (req, res) => {
     console.log(req.file)
-    var img = fs.readFileSync(req.file.path)
     var encodeImg = img.toString('base64')
     var finalImg = {
-        data: img,
+        data: fs.readFileSync(req.file.path),
         contentType: 'image/jpg'
     };
     // const finalImg = Buffer.from(encodeImg, 'base64')
