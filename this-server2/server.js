@@ -7,9 +7,16 @@ const auth = require('./routes/auth');
 const meals = require('./routes/meal');
 const restaurants = require('./routes/restaurant');
 const cors = require('cors');
-const path = require('path')
-// const path = require('path');
-// const multer = require('multer');
+const path = require('path');
+const multer = require('multer')
+//const cloudinary = require('cloudinary').v2;
+const bodyParser = require('body-parser');
+
+// cloudinary.config({
+//     cloud_name: process.env.CLOUD_NAME,
+//     api_key: process.env.API_KEY,
+//     api_secret: process.env.API_SECRET
+// });
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 

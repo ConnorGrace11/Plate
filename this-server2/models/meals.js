@@ -18,6 +18,10 @@ const mealSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     }
+    // imgMeal: 
+    // {
+    //     type: String,
+    // }
 })
 
 module.exports = mongoose.model('Meals', mealSchema)
