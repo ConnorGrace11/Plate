@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
-import EmailForm from '../forms/EmailForm';
+import React, { useState } from 'react'
+import { View, Text, Button, TouchableOpacity } from 'react-native'
+import EmailForm from '../forms/EmailForm'
 
 const CreateAccount = ({ navigation }) => {
   return (
-    <EmailForm
+    <CreateAccount
       buttonText="Sign up"
       //onSubmit={createAccount}
       //onAuthentication={() => navigation.navigate('Home')}
@@ -13,8 +13,8 @@ const CreateAccount = ({ navigation }) => {
         title="Back to log in"
         onPress={() => navigation.navigate('Login')}
       />
-    </EmailForm>
-  );
-};
+    </CreateAccount>
+  )
+}
 
-export default CreateAccount;
+export default CreateAccount
