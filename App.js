@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Adminlogin from './src/screens/Adminlogin';
 import AdminHome from './src/screens/AdminHome';
 import RandomMeals from './src/screens/RandomMeals';
+import RandomRestaurants from './src/screens/RandomRestaurants';
 import mainScreen from './src/screens/mainScreen';
 
 const AppNavigator = createStackNavigator(
@@ -32,6 +33,9 @@ const AppNavigator = createStackNavigator(
       Meals: {
         screen: RandomMeals,
       },
+      Restaurants: {
+        screen: RandomRestaurants,
+      },  
     },
   );
 
