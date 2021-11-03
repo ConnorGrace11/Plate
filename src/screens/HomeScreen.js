@@ -13,6 +13,10 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('Meals')}
       />
       <Button
+        title="Go to Restaurants Screen"
+        onPress={() => navigation.navigate('Restaurants')}
+      />
+      <Button
         title="Back to log in"
         onPress={() => navigation.navigate('Login')}
       />
