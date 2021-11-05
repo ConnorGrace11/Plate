@@ -11,7 +11,7 @@ const GridFsStorage = require('multer-gridfs-storage')
 const storage = multer.diskStorage({
     //setting the destination for the file
     destination: (req, file, cb) => {
-        cb(null, 'imgMeal')
+        cb(null, 'Uploads/')
     },
     //adding back the extension
     filename: (req, file, cb)=>{
@@ -22,14 +22,14 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     limits:{
-        fieldSize: 1024 * 1024 * 3
+        fileSize: 1000000 * 1000
     }
 })
 
 router.get('/', control.getAllMeals);
 router.get('/:id', middleware.getMealId, control.getAMeal);
 router.get('/', control.getMealImg);
-router.post('/createMeal', upload.single('imgMeal'), control.createMeal);
+router.post('/createMeal', upload.array('imgMeal'), control.createMeal);
 router.patch('/:id', middleware.getMealId, control.editMeal);
 router.delete('/:id', middleware.getMealId, control.deleteMeal);
 

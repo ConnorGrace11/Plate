@@ -1,6 +1,7 @@
 const Meal = require('../models/meals')
+const _ = require('underscore')
 const fs = require('fs')
-const path = require('path')
+const upload = require("../cloudHelper").upload;
 
 
 exports.getAllMeals = async (req, res) => {
@@ -22,29 +23,40 @@ exports.getAMeal = async (req, res) => {
 };
 
 exports.createMeal = async (req, res) => {
-    console.log(req.file)
-    var encodeImg = img.toString('base64')
-    var finalImg = {
-        data: fs.readFileSync(req.file.path),
-        contentType: 'image/jpg'
-    };
-    // const finalImg = Buffer.from(encodeImg, 'base64')
-    // var fileUrl = 'http://localhost:5000/' + req.file.path
-
-    const newMeal = new Meal({
-        id: req.body.id,
-        name: req.body.name,
-        category: req.body.category,
-        todo: req.body.todo,
-        imgMeal: finalImg
-        //imgMeal: fileUrl
-    })
-
+    const files = req.files
     try {
-        const meal = await newMeal.save();
-        res.json(meal);
+        let urls = [];
+        let multiple = async (path) => await upload(path);
+        for (const file of files){
+            const {path} = file;
+            console.log("path" , file);
+            
+            const newPath = await multiple(path);
+            urls.push(newPath);
+            fs.unlinkSync(path);
+        }
+        if (urls) {
+            const newMeal = new Meal({
+                id: req.body.id,
+                name: req.body.name,
+                category: req.body.category,
+                todo: req.body.todo,
+                imgMeal: urls
+            });
+            await newMeal.save()
+                .then(saved => {
+                    return res.json(saved)
+                }).catch(error => {
+                    return res.json(error);
+                })
+        }
+        if (!urls) {
+            return res.status(400)
+        }
+        
     } catch (error) {
-        return res.status(500).send({ message: error.message })
+        console.log("error:  ", error);
+        return next(error);
     }
 };
 
