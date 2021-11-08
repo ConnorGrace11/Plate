@@ -20,14 +20,14 @@ exports.getAReview = (req, res) => {
 exports.createReview = async (req, res) => {
     try {
         const reviewedBefore = await Review.findOne({username:req.body.username, itemId:req.body.itemId}).count();
-        console.log(reviewedBefore);
         if (reviewedBefore == "0"){
             const added = new Review({
                 username: req.body.username,
                 itemId: req.body.itemId,
                 rating: req.body.rating,
                 description: req.body.description,
-                date: req.body.date
+                date: req.body.date,
+                imgItem: req.body.imgItem
             })
             
             try {
@@ -55,16 +55,22 @@ exports.deleteReview = async (req, res) => {
 };
 
 exports.editReview = async (req, res) => {
-    if(req.body.name != null) {
-        res.restaurant.name = req.body.name
+    if(req.body.username != null) {
+        res.restaurant.username = req.body.username
     }
-    if(req.body.location != null) {
-        res.restaurant.location = req.body.location
-    }
-    if(req.body.phoneNumber != null) {
-        res.restaurant.phoneNumber = req.body.phoneNumber
+    if(req.body.itemId != null) {
+        res.restaurant.itemId = req.body.itemId
     }
     if(req.body.rating != null) {
         res.restaurant.rating = req.body.rating
+    }
+    if(req.body.description != null) {
+        res.restaurant.description = req.body.description
+    }
+    if(req.body.date != null) {
+        res.restaurant.date = req.body.date
+    }
+    if(req.body.imgItem != null) {
+        res.restaurant.imgItem = req.body.imgItem
     }
 };

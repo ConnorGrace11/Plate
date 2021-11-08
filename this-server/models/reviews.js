@@ -25,6 +25,9 @@ const ReviewSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imgItem: {
+        type: String,
+    },
 })
 
 function validateReview(review) {
@@ -34,6 +37,7 @@ function validateReview(review) {
       rating: Joi.number().min(0).max(5).required(),
       description: Joi.string().min(2).max(50).required(),
       date: Joi.string().min(2).max(50),
+      imgItem: Joi.string().min(50).max(80)
     };
     return Joi.validate(review, schema);
   }
