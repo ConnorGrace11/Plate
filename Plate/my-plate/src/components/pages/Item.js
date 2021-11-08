@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch} from 'react-router-dom';
 
 
-const Restaurant = () => {
+const Item = () => {
     
     useEffect(() => {
         getItems()
@@ -14,7 +14,7 @@ const Restaurant = () => {
 
     const getItems = async () => {
         try {
-            const itemsResponse = await axios.get("http://localhost:3001/restaurants/?restaurantId/items"/* ,{
+            const itemsResponse = await axios.get("http://localhost:3001/restaurants/6179c52b1e4a49345028acc6/items/6170328555f355d9f1f0250b"/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
@@ -29,13 +29,13 @@ const Restaurant = () => {
     return (
         <>
         <div >
-            <h1>Meal Items</h1>
+            <h1>Meal Item</h1>
         </div>
         <div>
         {loading && 
             items.map( (item) => (
                 <div>
-                    <h2>Name: { item.name }</h2>
+                    <h2>Name: <Link to={`/restaurants/${item._id}/items/${item._id}`}>{ item.name }</Link></h2>
                     <h5>Price: { item.price }</h5>
                     <p>Ingredients: { item.ingredients }</p>
                     <p>Allergens: { item.allergens }</p>
@@ -44,9 +44,10 @@ const Restaurant = () => {
                     <p>Review: { item.review }</p>
                     <p>Description: { item.description }</p>
                 </div>
-            ))}      
+            ))}  
+            <Link to='/'>Back</Link>    
         </div>
         </>
     );
 }
-export default Restaurant;
+export default Item;
