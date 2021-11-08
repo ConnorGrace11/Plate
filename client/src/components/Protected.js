@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
-import Cookies from 'js-cookie'
+import Cookies from 'universal-cookie'
+const cookies = new Cookies();
 
 function Protected(){
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const token = Cookies.get("access_token")
+    const token = cookies.get("access_token")
     
     const authAxios = axios.create({
         baseURL: "http://localhost:5000",
@@ -42,8 +43,8 @@ function Protected(){
             {loading && user.map((item) => (
                 <div className="meal">
                     <h2>User: { item.user.username }</h2>
-                    <h5>ID: { item.user._id }</h5>
-                    <h5>Email: { item.user.email }</h5>
+                    <h2>ID: { item.user._id }</h2>
+                    <h2>Email: { item.user.email }</h2>
                 </div>
             ))}      
         </div>

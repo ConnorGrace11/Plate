@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const rounds = 10;
 const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.SECRET;
+const Cookies = require('universal-cookie');
 
 // need to fix
 exports.getUsers = async (req, res) => {
@@ -48,6 +49,13 @@ exports.getUserByName = async (req, res) => {
 //         return res.status(400).json({ message: error.message })
 //     }
 // };
+exports.checkLogIn = (req, res) => {
+    if(req.cookies.access_token) {
+        res.json({ loggedIn: true })
+    } else {
+        res.json({ loggedIn: false })
+    }
+}
 
 exports.logIn = (req, res) => {
     authUsers.findOne({ email: req.body.email })
@@ -64,8 +72,7 @@ exports.logIn = (req, res) => {
                         //     secure: true,
                         //     withCredentials: true
                         // }).json({ message: "logged in" })
-                        
-                        res.status(200).cookie("access_token", { httpOnly: true }, { secure: true }).json({ status: 'Successful login', id: user.id, token: generateToken(user) })
+                        res.status(200).json({ status: 'Successful login', id: user.id, username: user.username, token: generateToken(user), isAuth: true })
                         // await authUsers.updateOne({ email: req.body.email, accessToken: generateToken(user) })
                         //await addToken.save()
                     }
@@ -158,6 +165,14 @@ function generateToken(user) {
     return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512' }, { expiresIn: '1h' });
 };
 
+exports.isAuth = (req, res, next) => {
+    const cookies = new Cookies(req.headers.cookie);
+    if(cookies.get("access_token")) {
+        next()
+    } else {
+        res.status(403).json({ message: "must login"})
+    }
+}
 // async function updateRole(user, req, res) {
 //     try {
 //         // if(user.role == 'admin') return res.send("error")

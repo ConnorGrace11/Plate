@@ -8,6 +8,8 @@ const meals = require('./routes/meal');
 const restaurants = require('./routes/restaurant');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+// const bodyParser = require('body-parser');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -22,8 +24,23 @@ db.once('open', () => console.log('Connected to database!'))
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 
 app.use(express.json());
-app.use(cors());
+
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET, POST, PATCH, DELETE"],
+    credentials: true 
+}));
+
 app.use(cookieParser());
+app.use(session({
+    key: "user",
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60 * 60* 8
+    }
+}))
 app.use('/public', express.static('public'));
 app.use('/api/auth', auth);
 app.use('/meals', meals);
