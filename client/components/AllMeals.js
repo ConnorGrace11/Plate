@@ -8,7 +8,7 @@ const AllMeals = () => {
         getMeals()
     }, [])
     
-    const [meals, setMeals] = useState("");
+    const [meals, setMeals] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const getMeals = async () => {
@@ -32,6 +32,7 @@ const AllMeals = () => {
                     <h2>{ item.name }</h2>
                     <h5>{ item.category }</h5>
                     <p>{ item.todo }</p>   
+                    <img src={item.imgMeal[0]} alt="test"/>
                 </div>
             ))}      
         </div>
