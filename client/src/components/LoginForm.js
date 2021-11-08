@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Route, Redirect } from 'react-router-dom';
-// import Cookies from 'universal-cookie'
+import Cookies from 'js-cookie'
 // const cookies = new Cookies()
 // reference: https://www.youtube.com/watch?v=9KaMsGSxGno
 
@@ -9,20 +9,12 @@ const LoginForm = () => {
     const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
     const [loggedIn, setLoggedIn] = useState(false);
     const [showing, setShowing] = useState(false);
-    // const [token, setToken] = useState("")
-
-    // const authAxios = axios.create({
-    //     baseURL: `http://localhost:5000`,
-    //     headers: {
-    //         Authorization: `Bearer ${token}`
-    //     }
-    // })
+    // const [cookie, setCookie] = useState('');
 
     const handleChange = (e) => {
         const creds = {...loginDetails}
         creds[e.target.name] = e.target.value
         setLoginDetails(creds)
-        console.log(creds)
     }
 
     const submitHandler = (e) => {
@@ -32,10 +24,11 @@ const LoginForm = () => {
             password: loginDetails.password
         })
         .then(response => {
+            const { token } = response.data;
+            Cookies.set("access_token", token)
             console.log(response.data)
             setLoggedIn(true)
             setShowing(true)
-            // setToken(response.data)
         })
         .catch(error => {
             console.log(error.response.data)
@@ -68,7 +61,7 @@ const LoginForm = () => {
                     </div>
                         <button type="submit" value="LOGIN"> Login </button>          
                 </div>
-                {showing ? <div> {loggedIn ? <div><Route><Redirect to="/" />Successful Login</Route></div> : <div>email or password is incorrect</div>} </div> :
+                {showing ? <div> {loggedIn ? <div><Route><Redirect to="/protected" />Successful Login</Route></div> : <div>email or password is incorrect</div>} </div> :
                 <div></div> }
                 
             </form>

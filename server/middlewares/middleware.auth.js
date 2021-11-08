@@ -40,12 +40,12 @@ exports.getUserId = async (req, res, next) => {
 // to get the special token
 
 exports.userDataFromToken = (req, res, next) => {
-    const required = req.headers.authorization.split(' ')[1];
+    const required = req.headers.authorization;
     
     if(!required) {
         return res.status(500).json({ message: "no token provided" })
     } else {
-        jwt.verify(required, tokenSecret, async (err, user) => {
+        jwt.verify(required.split(' ')[1], tokenSecret, async (err, user) => {
             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
             req.user = user
 

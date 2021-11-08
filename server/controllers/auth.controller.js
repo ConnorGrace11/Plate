@@ -56,12 +56,18 @@ exports.logIn = (req, res) => {
             if (!user) return res.status(404).json({ error: 'no user with that email found' })
             // if(user.role != 'user' || 'admin') return res.status(403).json({ messsge: "you need to be signed in to view this"})
             else {
-                bcrypt.compare(req.body.password, user.password, (error, match) => {
+                bcrypt.compare(req.body.password, user.password, async (error, match) => {
                     if (error) return res.status(500).json(error)
                     else if (match) {
-                        // updateRole(user)
-                        res.status(200).json({ status: 'Successful login', id: user.id, token: generateToken(user) })
+                        // return res.cookie('access_token', generateToken(user), {
+                        //     httpOnly: true,
+                        //     secure: true,
+                        //     withCredentials: true
+                        // }).json({ message: "logged in" })
                         
+                        res.status(200).cookie("access_token", { httpOnly: true }, { secure: true }).json({ status: 'Successful login', id: user.id, token: generateToken(user) })
+                        // await authUsers.updateOne({ email: req.body.email, accessToken: generateToken(user) })
+                        //await addToken.save()
                     }
                     else return res.status(403).json({ error: 'passwords do not match' })
                 })
