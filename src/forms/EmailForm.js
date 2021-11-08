@@ -16,6 +16,8 @@ import Color from 'color'
 const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
   const [email, onChangeEmail] = useState('')
   const [password, onChangePassword] = useState('')
+  const [token, setToken] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [loggedIn, setLoggedIn] = useState(false)
   const [showing, setShowing] = useState(false)
   // const [goHome, setHome] = useState(false);
@@ -31,12 +33,15 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
       })
       .then((response) => {
         console.log(response.data)
+        setToken(response.data.token)
+        console.log(token)
         setLoggedIn(true)
         setShowing(true)
         // setHome(true)
       })
       .catch((error) => {
         console.log(error.response.data)
+        setErrorMessage(error.response.data.error)
         setLoggedIn(false)
         setShowing(true)
       })
@@ -60,19 +65,8 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
         />
         <Button title={buttonText} onPress={submit} />
       </ScrollView>
-      {showing ? (
-        <Text>
-          {loggedIn ? (
-            <Text style={styles.loginmsg}>Success!!</Text>
-          ) : (
-            <Text style={styles.errormsg}>
-              {' '}
-              Your username or Password did not match please try again!{' '}
-            </Text>
-          )}{' '}
-        </Text>
-      ) : null}
-    </>
+      {showing ? <Text>{loggedIn ?  <Text style={styles.loginmsg}>Success!!</Text> : <Text style={styles.errormsg}> Error! {errorMessage} </Text> } </Text> : null}
+      </>
   )
 }
 
