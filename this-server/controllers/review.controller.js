@@ -18,19 +18,30 @@ exports.getAReview = (req, res) => {
 
 // creating a new review (POST request)
 exports.createReview = async (req, res) => {
-    const added = new Review({
-        username: req.body.username,
-        itemId: req.body.itemId,
-        rating: req.body.rating,
-        description: req.body.description,
-        date: req.body.date
-    })
-
     try {
-        const newReview = await added.save();
-        res.json(newReview);
+        const reviewedBefore = await Review.findOne({username:req.body.username, itemId:req.body.itemId}).count();
+        console.log(reviewedBefore);
+        if (reviewedBefore == "0"){
+            const added = new Review({
+                username: req.body.username,
+                itemId: req.body.itemId,
+                rating: req.body.rating,
+                description: req.body.description,
+                date: req.body.date
+            })
+            
+            try {
+                const newReview = await added.save();
+                res.json(newReview);
+            } catch (error) {
+                return res.status(500).send({ message: error.message })
+            }
+        }
+        else{
+            return res.status(200).send({ message: "Item already reviewed" });
+        }
     } catch (error) {
-        return res.status(500).send({ message: error.message })
+        return res.status(400).json({ message: error.message })
     }
 };
 
