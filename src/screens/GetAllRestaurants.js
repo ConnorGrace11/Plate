@@ -3,7 +3,7 @@ import { useEffect , useState} from "react";
 import { View, Text, StyleSheet, ScrollView, TextView, Dimensions} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import axios from 'axios';
+
 
 
 const GetAllRestaurants = () => {
@@ -13,7 +13,7 @@ const GetAllRestaurants = () => {
 
     useEffect(()  => {
         setTimeout(function getMeals() {
-        fetch('http://10.66.3.140:3000/restaurants')                                                    //192.168.1.214
+        fetch('http://192.168.0.8:5000/restaurants')                                                    //192.168.1.214
             .then((response) => response.json())
             .then((json) => setRestaurants(json))
             .catch((error) => console.error(error))
@@ -24,7 +24,7 @@ const GetAllRestaurants = () => {
     return (
         <>
             {loading ? <Text style={styles.loading}>Loading Restaurants...</Text> : restaurants.map((item) => (
-                <ScrollView key={item._id} contentConstainerStyle={styles.container}>
+                <ScrollView contentConstainerStyle={styles.container}>
                         <Text style={styles.header}> { item.name } </Text>
                         <Text style={styles.subHeader}> { item.location } </Text>
                         <Text style={styles.body}>Restaurant Rating: { item.rating }/5 </Text>

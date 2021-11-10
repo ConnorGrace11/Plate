@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Component } from 'react'
 import {
   ScrollView,
   StyleSheet,
@@ -12,22 +12,26 @@ import {
 } from 'react-native'
 import axios from 'axios'
 import Color from 'color'
-
-const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
+import Home from '../screens/HomeScreen'
+import _login from '../screens/_login'
+import HomeScreen from '../screens/HomeScreen'
+const loginn = ({ navigation }) => {
+  this.props.navigation.navigate("Home");
+      };
+const EmailForm = ({ buttonText, children, onAuthentication, navigation, navigate}) => {
   const [email, onChangeEmail] = useState('')
   const [password, onChangePassword] = useState('')
   const [token, setToken] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loggedIn, setLoggedIn] = useState(false)
   const [showing, setShowing] = useState(false)
-  // const [goHome, setHome] = useState(false);
-
+  
   async function submit(e) {
     e.preventDefault()
     console.log(email)
     console.log(password)
     axios
-      .post('http://10.66.134.197:5000/api/auth/login', {
+      .post('http://192.168.0.8:5000/api/auth/login', {
         email: email,
         password: password,
       })
@@ -37,7 +41,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
         console.log(token)
         setLoggedIn(true)
         setShowing(true)
-        // setHome(true)
+        
       })
       .catch((error) => {
         console.log(error.response.data)
@@ -46,7 +50,6 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
         setShowing(true)
       })
   }
-
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
@@ -56,6 +59,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
           onChangeText={(text) => onChangeEmail(text)}
           value={email}
           keyboardType="email-address"
+          autoCapitalize="none"
         />
         <TextInput
           style={styles.input}
@@ -63,11 +67,16 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
           value={password}
           secureTextEntry
         />
-        <Button title={buttonText} onPress={submit} />
+        <Button title={buttonText} onPress={submit}/>
+
+       
       </ScrollView>
-      {showing ? <Text>{loggedIn ?  <Text style={styles.loginmsg}>Success!!</Text> : <Text style={styles.errormsg}> Error! {errorMessage} </Text> } </Text> : null}
+      
+      {showing ? <Text>{loggedIn ?  <Text style = {styles.loginmsg}>Success!!</Text> : <Text style={styles.errormsg}> Error! {errorMessage} </Text> } </Text> : null}
       </>
+      
   )
+  
 }
 
 const styles = StyleSheet.create({

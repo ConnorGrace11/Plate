@@ -32,7 +32,7 @@ const CreateAccountForm = ({
     console.log(email)
     console.log(password)
     axios
-      .post('http://10.66.134.197:5000/api/auth/signup', {
+      .post('http://192.168.0.8:5000/api/auth/signup', {
         email: email,
         username: username,
         password: password,

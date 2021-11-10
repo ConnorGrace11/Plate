@@ -3,8 +3,8 @@ import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import CreateAccountScreen from './src/screens/CreateAccountScreen';
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import Adminlogin from './src/screens/Adminlogin';
+import { createStackNavigator, navigate} from 'react-navigation-stack';
+import _login from './src/screens/_login';
 import AdminHome from './src/screens/AdminHome';
 import RandomMeals from './src/screens/RandomMeals';
 import RandomRestaurants from './src/screens/RandomRestaurants';
@@ -24,8 +24,8 @@ const AppNavigator = createStackNavigator(
       CreateAccount: {
         screen: CreateAccountScreen,
       },
-      Adminlogin: {
-        screen: Adminlogin,
+      _login: {
+        screen: _login,
       },
       Adhome: {
         screen: AdminHome,
@@ -38,5 +38,10 @@ const AppNavigator = createStackNavigator(
       },  
     },
   );
+  // <Router>
+  //       <Route exact path="./HomeScreen" component={Home}></Route>
+  //       <Route exact path="/login" component={Login}></Route>
+  //       <Route exact path="/meals" component={AllMeals}></Route>
+  // </Router>
 
   export default createAppContainer(AppNavigator);
