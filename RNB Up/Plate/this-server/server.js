@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const auth = require('./routes/auth');
 const meals = require('./routes/meal');
 const restaurants = require('./routes/restaurant');
-const reviews = require('./routes/reviews');
 
 const cors = require('cors');
 // const fs = require('fs');
@@ -28,7 +27,6 @@ app.use(cors());
 app.use('/api/auth', auth);
 app.use('/meals', meals);
 app.use('/restaurants', restaurants);
-app.use('/reviews', reviews);
 
 
 const PORT = process.env.PORT || 3031;
