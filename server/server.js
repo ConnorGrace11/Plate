@@ -41,6 +41,7 @@ app.use(session({
         expires: 60 * 60* 8
     }
 }))
+
 app.use('/public', express.static('public'));
 app.use('/api/auth', auth);
 app.use('/meals', meals);

@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const mealSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true, 
-        trim: true
+        required: true
     },
     category: {
         type: String,
@@ -14,10 +13,14 @@ const mealSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    img: {
-        data: Buffer,
-        type: String
+    imgMeal:
+    {
+        type: []
     }
+    // imgMeal: 
+    // {
+    //     type: String,
+    // }
 })
 
 module.exports = mongoose.model('Meals', mealSchema)

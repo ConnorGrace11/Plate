@@ -1,28 +1,25 @@
 const Restaurant = require('../models/restaurants')
-const Item = require('../models/items')
 
 // getting all
-exports.getAllRestaurants = async (req, res) => {
+exports.getAll = async (req, res) => {
     try {
-        const restaurants = await Restaurant.find();
-        res.status(200).json(restaurants);
+        const restaurants = await Restaurant.find()
+        res.status(201).json(restaurants);
     } catch (error) {
-        return res.status(400).json({ message: error.message });
+        return res.status(400).json({ message: error.message })
     }
 };
 
-
 // getting one restaurant by id
-exports.getARestaurant = (req, res) => {
+exports.getOne = (req, res) => {
     res.status(200).json(res.restaurant)
 };
 
 // creating a new restaurant (POST request)
-exports.createRestaurant = async (req, res) => {
+exports.createOne = async (req, res) => {
     const added = new Restaurant({
         name: req.body.name,
         location: req.body.location,
-        phoneNumber: req.body.phoneNumber,
         rating: req.body.rating,
     })
 
@@ -34,7 +31,7 @@ exports.createRestaurant = async (req, res) => {
     }
 };
 
-exports.deleteRestaurant = async (req, res) => {
+exports.deleteOne = async (req, res) => {
     try{
         await res.restaurant.remove();
         res.json({ message: 'deleted restaurant' })
@@ -43,15 +40,12 @@ exports.deleteRestaurant = async (req, res) => {
     }
 };
 
-exports.editRestaurant = async (req, res) => {
+exports.updateOne = async (req, res) => {
     if(req.body.name != null) {
         res.restaurant.name = req.body.name
     }
     if(req.body.location != null) {
         res.restaurant.location = req.body.location
-    }
-    if(req.body.phoneNumber != null) {
-        res.restaurant.phoneNumber = req.body.phoneNumber
     }
     if(req.body.rating != null) {
         res.restaurant.rating = req.body.rating
