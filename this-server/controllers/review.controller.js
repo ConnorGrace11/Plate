@@ -10,6 +10,24 @@ exports.getAllReviews = async (req, res) => {
     }
 };
 
+exports.getAllRestaurantReviews = async (req, res) => {
+    try {
+        const reviews = await Review.find({restaurantId:req.params.restaurantId});
+        res.status(200).json(reviews);
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+
+exports.getAllItemReviews = async (req, res) => {
+    try {
+        const reviews = await Review.find({itemId:req.params.itemId});
+        res.status(200).json(reviews);
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+
 
 // getting one review by id
 exports.getAReview = (req, res) => {
@@ -24,6 +42,7 @@ exports.createReview = async (req, res) => {
             const added = new Review({
                 username: req.body.username,
                 itemId: req.body.itemId,
+                restaurantId: req.body.restaurantId,
                 rating: req.body.rating,
                 description: req.body.description,
                 date: req.body.date,
@@ -56,21 +75,30 @@ exports.deleteReview = async (req, res) => {
 
 exports.editReview = async (req, res) => {
     if(req.body.username != null) {
-        res.restaurant.username = req.body.username
+        res.review.username = req.body.username
     }
     if(req.body.itemId != null) {
-        res.restaurant.itemId = req.body.itemId
+        res.review.itemId = req.body.itemId
+    }
+    if(req.body.restaurantId != null) {
+        res.review.restaurantId = req.body.restaurantId
     }
     if(req.body.rating != null) {
-        res.restaurant.rating = req.body.rating
+        res.review.rating = req.body.rating
     }
     if(req.body.description != null) {
-        res.restaurant.description = req.body.description
+        res.review.description = req.body.description
     }
     if(req.body.date != null) {
-        res.restaurant.date = req.body.date
+        res.review.date = req.body.date
     }
     if(req.body.imgItem != null) {
-        res.restaurant.imgItem = req.body.imgItem
+        res.review.imgItem = req.body.imgItem
+    }
+    try{
+        const modifiedReview = await res.review.save();
+        res.json(modifiedReview)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
     }
 };
