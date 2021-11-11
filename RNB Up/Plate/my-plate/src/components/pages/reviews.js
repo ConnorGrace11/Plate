@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './AllMeals.css';
 
 const AllRestaurants = () => {
     
@@ -13,7 +12,7 @@ const AllRestaurants = () => {
 
     const getRestaurants = async () => {
         try {
-            const restaurantResponse = await axios.get("http://localhost:3000/restaurants"/* ,{
+            const restaurantResponse = await axios.get("http://localhost:3000/reviews"/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
