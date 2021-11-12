@@ -28,7 +28,7 @@ const upload = multer({
 
 router.get('/', control.getAllMeals);
 router.get('/:id', middleware.getMealId, control.getAMeal);
-router.get('/', control.getMealImg);
+router.get('/getMealImg/:id', middleware.getMealId, control.getMealImg);
 router.post('/createMeal', upload.array('imgMeal'), control.createMeal);
 router.patch('/:id', middleware.getMealId, control.editMeal);
 router.delete('/:id', middleware.getMealId, control.deleteMeal);

@@ -9,18 +9,26 @@ const mealSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    todo: {
+    description: {
         type: String,
         required: true
     },
     imgMeal:
     {
         type: []
+    },
+    calories:
+    {
+        type: String
+    },
+    allergens:
+    {
+        type: []
+    },
+    ingredients:
+    {
+        type: String
     }
-    // imgMeal: 
-    // {
-    //     type: String,
-    // }
 })
 
 module.exports = mongoose.model('Meals', mealSchema)

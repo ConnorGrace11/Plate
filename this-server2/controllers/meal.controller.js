@@ -40,8 +40,11 @@ exports.createMeal = async (req, res) => {
                 id: req.body.id,
                 name: req.body.name,
                 category: req.body.category,
-                todo: req.body.todo,
-                imgMeal: urls
+                description: req.body.description,
+                imgMeal: urls,
+                calories: req.body.calories,
+                allergens: req.body.allergens,
+                ingredients: req.body.ingredients
             });
             await newMeal.save()
                 .then(saved => {
@@ -67,8 +70,22 @@ exports.editMeal = async (req, res) => {
     if(req.body.category != null) {
         res.editMeal.category = req.body.category
     }
-    if(req.body.todo != null) {
-        res.editMeal.todo = req.body.todo
+    if(req.body.description != null) {
+        res.editMeal.description = req.body.description
+    }
+    if(req.body.imgMeal != null){
+        res.editMeal.imgMeal = req.body.imgMeal
+    }
+    if(req.body.calories != null) {
+        res.editMeal.calories = req.body.calories
+    }
+    if(req.body.allergens != null){
+        // res.editMeal.allergens.push(req.editMeal.allergens)
+        // consol.log('This passed')
+        res.editMeal.allergens = req.editMeal.allergens 
+    }
+    if(req.body.ingredients != null) {
+        res.editMeal.ingredients = req.body.ingredients
     }
     try{
         const modifiedMeal = await res.editMeal.save();
@@ -90,21 +107,12 @@ exports.deleteMeal = async (req, res) => {
 }
 
 exports.getMealImg = async (req, res) => {
-    // try {
-    //     const oneMeal = await Meal.findById(req.params.id)
-
-    // } catch (error) {
-    //     res.status(400).json({ message: error.message });
-    // } 
-    Meal.find({}, (err, items) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            res.send({items : items})
-        }
-    });
+    try {
+        const selectedMeal = await Meal.findById(req.params.id)
+        return res.status(200).json({ imgMeal: selectedMeal.imgMeal})
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    } 
 }
 
 // https://www.youtube.com/watch?v=jn3tYh2QQ-g
