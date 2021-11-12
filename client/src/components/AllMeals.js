@@ -32,7 +32,7 @@ const AllMeals = () => {
                     <h2>{ item.name }</h2>
                     <h5>{ item.category }</h5>
                     <p>{ item.todo }</p>
-                    <h5>{ item.img }</h5>   
+                    <img src={ item.imgMeal }></img>
                 </div>
             ))}      
         </div>
