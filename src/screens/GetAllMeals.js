@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect , useState} from "react"; 
-import { View, Text, StyleSheet, ScrollView, TextView, Dimensions} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextView, Dimensions, Image} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -25,7 +25,11 @@ const GetAllMeals = () => {
                 <ScrollView contentConstainerStyle={styles.container}>
                         <Text style={styles.header}> { item.name } </Text> 
                         <Text style={styles.subHeader}> { item.category } </Text> 
-                        <Text style={styles.body}> { item.todo } </Text> 
+                        <Image style={{width: 200, height: 200}} source={{uri: item.imgMeal[0]}}/>
+                        <Text style={styles.body}> { item.todo } </Text>
+                        <Text style={styles.body}> { item.calories } </Text>
+                        <Text style={styles.body}> { item.allergens } </Text>
+                        <Text style={styles.body}> { item.ingredients } </Text>
                 </ScrollView>
             ))}      
        </>
