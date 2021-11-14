@@ -25,7 +25,7 @@ const GetAllMeals = () => {
                 <ScrollView contentConstainerStyle={styles.container}>
                         <Text style={styles.header}> { item.name } </Text> 
                         <Text style={styles.subHeader}> { item.category } </Text> 
-                        <Image style={{width: 200, height: 200}} source={{uri: item.imgMeal[0]}}/>
+                        <Image style={styles.images} source={{uri: item.imgMeal[0]}}/>
                         <Text style={styles.body}> { item.todo } </Text>
                         <Text style={styles.body}> { item.calories } </Text>
                         <Text style={styles.body}> { item.allergens } </Text>
@@ -66,6 +66,14 @@ const styles = StyleSheet.create({
 
     loading: {
         fontSize: 35
+    },
+    images: {
+        resizeMode: "contain",
+        alignContent: 'center',
+        height: 200,
+        width: 200,
+        flex: 1,
+        margin: 10,
     }
 })
 

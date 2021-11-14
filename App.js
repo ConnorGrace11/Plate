@@ -9,6 +9,7 @@ import AdminHome from './src/screens/AdminHome';
 import RandomMeals from './src/screens/RandomMeals';
 import RandomRestaurants from './src/screens/RandomRestaurants';
 import mainScreen from './src/screens/mainScreen';
+import profileScreen from './src/screens/profileScreen';
 
 const AppNavigator = createStackNavigator(
     {
@@ -35,7 +36,10 @@ const AppNavigator = createStackNavigator(
       },
       Restaurants: {
         screen: RandomRestaurants,
-      },  
+      },
+      Profile: {
+        screen: profileScreen,
+      },    
     },
   );
   // <Router>

@@ -20,6 +20,10 @@ const HomeScreen = ({ navigation }) => {
         title="Back to log in"
         onPress={() => navigation.navigate('Login')}
       />
+      <Button
+        title="Go to Profile Screen"
+        onPress={() => navigation.navigate('Profile')}
+      />
     </SafeAreaView>
 
   );
