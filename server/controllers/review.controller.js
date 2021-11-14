@@ -3,7 +3,25 @@ const Review = require('../models/reviews')
 // getting all reviews
 exports.getAllReviews = async (req, res) => {
     try {
-        const reviews = await Review.find();
+        const reviews = await Review.find().sort({date: 1});
+        res.status(200).json(reviews);
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+
+exports.getAllRestaurantReviews = async (req, res) => {
+    try {
+        const reviews = await Review.find({restaurantId:req.params.restaurantId});
+        res.status(200).json(reviews);
+    } catch (error) {
+        return res.status(400).json({ message: error.message });
+    }
+};
+
+exports.getAllItemReviews = async (req, res) => {
+    try {
+        const reviews = await Review.find({itemId:req.params.itemId});
         res.status(200).json(reviews);
     } catch (error) {
         return res.status(400).json({ message: error.message });
@@ -18,19 +36,31 @@ exports.getAReview = (req, res) => {
 
 // creating a new review (POST request)
 exports.createReview = async (req, res) => {
-    const added = new Review({
-        username: req.body.username,
-        itemId: req.body.itemId,
-        rating: req.body.rating,
-        description: req.body.description,
-        date: req.body.date
-    })
-
     try {
-        const newReview = await added.save();
-        res.json(newReview);
+        const reviewedBefore = await Review.findOne({username:req.body.username, itemId:req.body.itemId}).count();
+        if (reviewedBefore == "0"){
+            const added = new Review({
+                username: req.body.username,
+                itemId: req.body.itemId,
+                restaurantId: req.body.restaurantId,
+                rating: req.body.rating,
+                description: req.body.description,
+                date: req.body.date,
+                imgItem: req.body.imgItem
+            })
+            
+            try {
+                const newReview = await added.save();
+                res.json(newReview);
+            } catch (error) {
+                return res.status(500).send({ message: error.message })
+            }
+        }
+        else{
+            return res.status(200).send({ message: "Item already reviewed" });
+        }
     } catch (error) {
-        return res.status(500).send({ message: error.message })
+        return res.status(400).json({ message: error.message })
     }
 };
 
@@ -44,16 +74,31 @@ exports.deleteReview = async (req, res) => {
 };
 
 exports.editReview = async (req, res) => {
-    if(req.body.name != null) {
-        res.restaurant.name = req.body.name
+    if(req.body.username != null) {
+        res.review.username = req.body.username
     }
-    if(req.body.location != null) {
-        res.restaurant.location = req.body.location
+    if(req.body.itemId != null) {
+        res.review.itemId = req.body.itemId
     }
-    if(req.body.phoneNumber != null) {
-        res.restaurant.phoneNumber = req.body.phoneNumber
+    if(req.body.restaurantId != null) {
+        res.review.restaurantId = req.body.restaurantId
     }
     if(req.body.rating != null) {
-        res.restaurant.rating = req.body.rating
+        res.review.rating = req.body.rating
+    }
+    if(req.body.description != null) {
+        res.review.description = req.body.description
+    }
+    if(req.body.date != null) {
+        res.review.date = req.body.date
+    }
+    if(req.body.imgItem != null) {
+        res.review.imgItem = req.body.imgItem
+    }
+    try{
+        const modifiedReview = await res.review.save();
+        res.json(modifiedReview)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
     }
 };
