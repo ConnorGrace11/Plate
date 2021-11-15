@@ -51,7 +51,7 @@ const ItemSchema = new mongoose.Schema({
         min: 0,
         max: 5
     },
-    img: {
+    imgMeal: {
         type: [String]
     }
 })

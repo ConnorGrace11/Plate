@@ -1,4 +1,6 @@
 const Item = require('../models/items')
+const fs = require('fs')
+const upload = require("../cloudHelper").upload;
 
 exports.getAllItems = async (req, res) => {
     try {
@@ -16,23 +18,38 @@ exports.getItem = (req, res) => {
 
 // creating a new Item (POST request)
 exports.createItem = async (req, res) => {
-    const added = new Item({
-        restaurantId: req.body.restaurantId,
-        name: req.body.name,
-        price: req.body.price,
-        ingredients: req.body.ingredients,
-        allergens: req.body.allergens,
-        category: req.body.category,
-        subCategory: req.body.subCategory,
-        description: req.body.description,
-        review: req.body.review
-    })
-
-    try {
-        const newItem = await added.save();
-        res.json(newItem);
-    } catch (error) {
-        return res.status(500).send({ message: error.message })
+    const files = req.files
+    let urls = [];
+    let multiple = async (path) => await upload(path);
+    for (const file of files){
+        const {path} = file;
+        console.log("path" , file);
+        
+        const newPath = await multiple(path);
+        urls.push(newPath);
+        fs.unlinkSync(path);
+    }
+    if (urls) {
+        const newItem = new Item({
+            restaurantId: req.body.restaurantId,
+            name: req.body.name,
+            price: req.body.price,
+            calories: req.body.calories,
+            ingredients: req.body.ingredients,
+            allergens: req.body.allergens,
+            category: req.body.category,
+            subCategory: req.body.subCategory,
+            description: req.body.description,
+            ratingCount: req.body.ratingCount,
+            ratingNumber: req.body.ratingNumber,
+            imgMeal: urls
+        })
+        try {
+            const item = await newItem.save();
+            res.json(item);
+        } catch (error) {
+            return res.status(500).send({ message: error.message })
+        }
     }
 };
 
