@@ -17,6 +17,9 @@ const ItemSchema = new mongoose.Schema({
         min: 0,
         max: 255
     },
+    calories:{
+        type: String,
+    },
     ingredients: {
         type: [String],
         required: true
@@ -48,6 +51,9 @@ const ItemSchema = new mongoose.Schema({
         min: 0,
         max: 5
     },
+    img: {
+        type: [String]
+    }
 })
 
 function validateItem(item) {
@@ -55,6 +61,7 @@ function validateItem(item) {
       restaurantId: Joi.string().min(20).max(30).required(),
       name: Joi.string().min(2).max(50).required(),
       price: Joi.number().min(0).required(),
+      calories: Joi.number().min(1).max(50),
       ingredients: Joi.string().min(2).max(50).required(),
       allergens: Joi.string().min(2).max(50),
       category: Joi.string().min(2).max(50).required(),
@@ -62,6 +69,7 @@ function validateItem(item) {
       description: Joi.string().min(2).max(50),
       ratingCount: Joi.number().min(0).required(),
       ratingNumber: Joi.number().min(0).max(5).required(),
+      imgMeal: Joi.string().min(2).max(50),
     };
     return Joi.validate(item, schema);
   }
