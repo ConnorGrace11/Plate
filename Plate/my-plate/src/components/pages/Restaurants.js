@@ -5,29 +5,26 @@ import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams}
 
 const Restaurant = () => {
 
-  //  const [meals, setMeals] = useState("");
-    //const { restaurantId } = useParams();
-
     const { restaurantId } = useParams()
     
     useEffect(() => {
-        getMeals();
+        getRestaurant();
     }, []);
     
 
-    const [meals, setMeals] = useState("");
+    const [restaurant, setRestaurant] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const getMeals = async () => { 
+    const getRestaurant = async () => { 
         try {
-            console.log(restaurantId)
-            const mealsResponse = await axios.get(`http://localhost:3001/restaurants/${restaurantId}`
+            //console.log(restaurantId)
+            const restaurantResponse = await axios.get(`http://localhost:3001/restaurants/${restaurantId}`
             /*   restaurantId?_id= ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
             } */)
-            setMeals(mealsResponse.data)
+            setRestaurant(restaurantResponse.data)
             setLoading(true) 
         } catch (error) {
             console.log(error.message)
@@ -38,16 +35,19 @@ const Restaurant = () => {
         <>
         <div >
         <br></br>
-            <h1>Meal Items</h1>
+            <h1>Restaurant</h1>
             <br></br>
         </div>
         <div>
         {loading && 
-            [meals].map( (meal) => (
-                <div key={meal._id}>
-                    <h2>Name: {<Link to={`/restaurants/${meal._id}/items/`}> </Link>}{ meal.name }</h2>
-                    <h5>Location: {meal.location}</h5>
-                    <p>Rating: {meal.rating} </p>
+            [restaurant].map( (place) => (
+                <div key={place._id}>
+                    <h2>Name: { place.name }</h2>
+                    <h5>Location: {place.location}</h5>
+                    <h7>Phone Number: {place.phoneNumber}</h7>
+                    <p><Link to={`/restaurants/${place._id}/items`}>Menu</Link></p>
+                    <p>Rating: {place.rating} </p>
+                    
                     
                 </div>
             ))}      

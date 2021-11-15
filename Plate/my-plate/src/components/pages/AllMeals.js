@@ -32,11 +32,12 @@ const AllMeals = () => {
         </div>
         <div className="allmeals">
             {loading && 
-            meals.map( (item) => (
+            meals.map( (meal) => (
                 <div className="meal">
-                    <h2>{ item.name }</h2>
-                    <h5>{ item.category }</h5>
-                    <p>{ item.todo }</p>   
+                    <h2>{ meal.name }</h2>
+                    <h5>{ meal.category }</h5>
+                    <p>{ meal.todo }</p>  
+                    
                 </div>
             ))}      
         </div>

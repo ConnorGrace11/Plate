@@ -5,8 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams}
 
 const AllRestaurants = () => {
     
-    let { url } = useRouteMatch();
-    const { restaurantId } = useParams();
+    //const { restaurantId } = useParams();
 
     useEffect(() => {
         getRestaurants()
@@ -39,7 +38,6 @@ const AllRestaurants = () => {
             restaurants.map(restaurant => (
                 <div key={restaurant._id}>
                     <h2><Link to={`/restaurants/${restaurant._id}`}>{ restaurant.name }</Link></h2>
-                    <h5>{restaurant.location}</h5>
                     <br></br>
                 </div>
             ))}      

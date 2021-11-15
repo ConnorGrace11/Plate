@@ -21,6 +21,9 @@ function Navigation() {
             <LinkContainer to="/restaurants" >
                 <Nav.Link><h3 className="colortext">Restaurants</h3></Nav.Link>
             </LinkContainer>
+            {/* <LinkContainer to="/reviews" >
+                <Nav.Link><h3 className="colortext">Reviews</h3></Nav.Link>
+            </LinkContainer> */}
             </Nav>
             </Navbar.Collapse>
         </Navbar>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect }from 'react';
 import axios from 'axios';
 import { Link, Redirect, Route } from "react-router-dom"; 
+//reference: https://www.youtube.com/watch?v=W-sZo6Gtx_E
 
 //const register = async () => {
   //await axios.post("http://localhost:3001/api/auth/signup")
@@ -79,7 +80,7 @@ const submitHandler = (e) => {
                 <div></div> }
             <br></br>
               <span className='form-input-login'>
-                Already have an account? Login <Link to={'/login'}>here</Link>
+                Already have an account? <Link to={'/login'}>Login here</Link>
               </span>
           </form>
           <br></br> <br></br>

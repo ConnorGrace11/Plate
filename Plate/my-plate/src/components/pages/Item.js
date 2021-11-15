@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams} from 'react-router-dom';
 
 
 const Item = () => {
-    
+    const { restaurantId } = useParams()
+    const { itemId } = useParams()
+
     useEffect(() => {
         getItems()
     }, [])
@@ -14,7 +16,7 @@ const Item = () => {
 
     const getItems = async () => {
         try {
-            const itemsResponse = await axios.get("http://localhost:3001/restaurants/6179c52b1e4a49345028acc6/items/6170328555f355d9f1f0250b"/* ,{
+            const itemsResponse = await axios.get(`http://localhost:3001/restaurants/${restaurantId}/items/${itemId}`/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
