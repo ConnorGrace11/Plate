@@ -1,5 +1,4 @@
 const Restaurant = require('../models/restaurants')
-const Item = require('../models/items')
 
 // getting all
 exports.getAllRestaurants = async (req, res) => {

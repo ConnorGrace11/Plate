@@ -10,6 +10,10 @@ const RestaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
     rating: {
         type: Number,
         required: true
@@ -20,6 +24,7 @@ function validateRestaurant(restaurant) {
     const schema = {
       name: Joi.string().min(2).max(50).required(),
       location: Joi.string().min(2).max(100).required(),
+      phoneNumber: Joi.string().min(10).max(15).required(),
       rating: Joi.number().min(1).required(),
     };
     return Joi.validate(restaurant, schema);
