@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams}
 
 const Restaurant = () => {
 
-    const { restaurantId } = useParams()
+    let { restaurantId } = useParams()
     
     useEffect(() => {
         getRestaurant();

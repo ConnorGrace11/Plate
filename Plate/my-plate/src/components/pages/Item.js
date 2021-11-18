@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams}
 
 
 const Item = () => {
-    const { restaurantId } = useParams()
-    const { itemId } = useParams()
+    let { restaurantId } = useParams()
+    let { itemId } = useParams()
 
     useEffect(() => {
         getItems()
@@ -16,6 +16,8 @@ const Item = () => {
 
     const getItems = async () => {
         try {
+            console.log(itemId)
+            console.log(restaurantId)
             const itemsResponse = await axios.get(`http://localhost:3001/restaurants/${restaurantId}/items/${itemId}`/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
@@ -35,11 +37,11 @@ const Item = () => {
         </div>
         <div>
         {loading && 
-            items.map( (item) => (
+            [items].map( (item) => (
                 <div>
-                    <h2>Name: <Link to={`/restaurants/${item._id}/items/${item._id}`}>{ item.name }</Link></h2>
+                    <h2>Name: { item.name }</h2>
                     <h5>Price: { item.price }</h5>
-                    <p>Ingredients: { item.ingredients }</p>
+                    <p>Ingredients: { item.ingredients}</p>
                     <p>Allergens: { item.allergens }</p>
                     <p>Category: { item.category }</p>
                     <p>Subcategory: { item.subCategory }</p>
@@ -47,7 +49,7 @@ const Item = () => {
                     <p>Description: { item.description }</p>
                 </div>
             ))}  
-            <Link to='/'>Back</Link>    
+            <Link to='/restaurants'>Back</Link>    
         </div>
         </>
     );

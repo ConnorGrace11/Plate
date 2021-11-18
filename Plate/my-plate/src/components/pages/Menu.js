@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams} from 'react-router-dom';
 
 const Menu = () => {
-    const { restaurantId } = useParams()
+    let { restaurantId } = useParams()
     const routeMatch = useRouteMatch("/restaurants/:restaurantId");
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const Menu = () => {
 
     const getMenu = async () => {
         try {
-            console.log(restaurantId)
+            //console.log(restaurantId)
             const menuResponse = await axios.get(`http://localhost:3001/restaurants/${restaurantId}/items`/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
@@ -35,9 +35,9 @@ const Menu = () => {
         </div>
         <div>
         {loading && 
-            [menu].map( (meal) => (
+            menu.map( (meal) => (
                 <div>
-                    <h2>Name:  <Link to={`/restaurants/${meal._id}/items/${meal._id}`}> {meal.name } </Link></h2>
+                    <h2>Name:  <Link to={`/restaurants/${meal.restaurantId}/items/${meal._id}`}> {meal.name } </Link></h2>
                     <h5>Price: { meal.price }</h5>
                     <p>Ingredients: { meal.ingredients }</p>
                     <p>Allergens: { meal.allergens }</p>
