@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ updated ]
 
+  workflow_dispatch:
+
 jobs:
   bulid:
     runs-on: self-hosted
@@ -16,7 +18,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run:
+      - run: |
           npm i
           npm start 
-          
