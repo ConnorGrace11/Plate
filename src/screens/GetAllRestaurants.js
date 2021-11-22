@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
-const GetAllRestaurants = () => {
+const GetAllRestaurants = ({navigation}) => {
 
     const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -22,15 +22,16 @@ const GetAllRestaurants = () => {
     }, []);
 
     return (
-        <>
+        <ScrollView>
             {loading ? <Text style={styles.loading}>Loading Restaurants...</Text> : restaurants.map((item) => (
-                <ScrollView contentConstainerStyle={styles.container}>
-                        <Text style={styles.header}> { item.name } </Text>
+                <View contentConstainerStyle={styles.container}>
+                        <Text style={styles.header} onPress={() => {navigation.navigate('Items')}}> { item.name } </Text>
                         <Text style={styles.subHeader}> { item.location } </Text>
                         <Text style={styles.body}>Restaurant Rating: { item.rating }/5 </Text>
-                </ScrollView>
+                        <Text style={styles.body}>Restaurant ID: { item._id } </Text>    
+                </View>
             ))}
-       </>
+       </ScrollView>
     )
 };
 
