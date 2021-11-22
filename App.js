@@ -7,7 +7,8 @@ import { createStackNavigator, navigate} from 'react-navigation-stack';
 import _login from './src/screens/_login';
 import AdminHome from './src/screens/AdminHome';
 import RandomMeals from './src/screens/RandomMeals';
-import RandomRestaurants from './src/screens/RandomRestaurants';
+import GetAllRestaurants from './src/screens/GetAllRestaurants';
+import RandomItems from './src/screens/randomItems';
 import mainScreen from './src/screens/mainScreen';
 import profileScreen from './src/screens/profileScreen';
 
@@ -35,11 +36,14 @@ const AppNavigator = createStackNavigator(
         screen: RandomMeals,
       },
       Restaurants: {
-        screen: RandomRestaurants,
+        screen: GetAllRestaurants,
       },
       Profile: {
         screen: profileScreen,
-      },    
+      },
+      Items: {
+        screen: RandomItems,
+      },  
     },
   );
   // <Router>
