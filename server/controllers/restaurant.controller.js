@@ -70,4 +70,10 @@ exports.editRestaurant = async (req, res) => {
     if(req.body.rating != null) {
         res.restaurant.rating = req.body.rating
     }
+    try {
+        const modifiedRestaurant = await res.restaurant.save();
+        res.json(modifiedRestaurant)
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
 };
