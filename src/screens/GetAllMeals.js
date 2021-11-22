@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect , useState} from "react"; 
-import { View, Text, StyleSheet, ScrollView, TextView, Dimensions, Image} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextView, Dimensions, Image, Button, Alert} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -20,9 +20,9 @@ const GetAllMeals = () => {
     }, []);
     
     return (
-        <>         
+        <ScrollView>         
             {loading ? <Text style={styles.loading}>Loading Meals...</Text> : meals.map((item) => (  
-                <ScrollView contentConstainerStyle={styles.container}>
+                <View key={item._id} contentConstainerStyle={styles.container}>
                         <Text style={styles.header}> { item.name } </Text> 
                         <Text style={styles.subHeader}> { item.category } </Text> 
                         <Image style={styles.images} source={{uri: item.imgMeal[0]}}/>
@@ -30,9 +30,14 @@ const GetAllMeals = () => {
                         <Text style={styles.body}> { item.calories } </Text>
                         <Text style={styles.body}> { item.allergens } </Text>
                         <Text style={styles.body}> { item.ingredients } </Text>
-                </ScrollView>
-            ))}      
-       </>
+                        <Button title="Add Review" onPress={() => Alert.alert('This will add a meal review ')}/>
+                </View>
+            ))}
+            <Button
+              title="Back to Home Screen"
+              onPress={() => navigation.navigate('Home')}
+            />
+       </ScrollView>
     )
 };
 
