@@ -1,6 +1,7 @@
 const Item = require('../models/items')
 const fs = require('fs')
 const upload = require("../cloudHelper").upload;
+const bodyParser = require("body-parser")
 
 exports.getAllItems = async (req, res) => {
     try {
@@ -18,13 +19,10 @@ exports.getItem = (req, res) => {
 
 // creating a new Item (POST request)
 exports.createItem = async (req, res) => {
-    const files = req.files
     let urls = [];
-    let multiple = async (path) => await upload(path);
-    for (const file of files){
+    let multiple = async (path) => await upload(path)
+    for (const file of req.files){
         const {path} = file;
-        console.log("path" , file);
-        
         const newPath = await multiple(path);
         urls.push(newPath);
         fs.unlinkSync(path);
@@ -44,6 +42,7 @@ exports.createItem = async (req, res) => {
             ratingNumber: req.body.ratingNumber,
             imgMeal: urls
         })
+        console.log(req.body.name)
         try {
             const item = await newItem.save();
             res.json(item);
@@ -63,37 +62,67 @@ exports.deleteItem = async (req, res) => {
 }; 
 
 exports.editItem = async (req, res) => {
-    if(req.body.restaurantId != null) {
-        res.item.restaurantId = req.body.restaurantId
-    }
-    if(req.body.name != null) {
-        res.item.name = req.body.name
-    }
-    if(req.body.price != null) {
-        res.item.price = req.body.price
-    }
-    if(req.body.ingredients != null) {
-        res.item.ingredients = req.body.ingredients
-    } 
-    if(req.body.allergens != null) {
-        res.item.allergens = req.body.allergens
-    }
-    if(req.body.category != null) {
-        res.item.category = req.body.category
-    }
-    if(req.body.subCategory != null) {
-        res.item.subCategory = req.body.subCategory
-    }
-    if(req.body.description != null) {
-        res.item.description = req.body.description
-    }
-    if(req.body.review != null) {
-        res.item.review = req.body.review
-    }
-    try{
-        const modifiedItem = await res.item.save();
-        res.json(modifiedItem)
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
+    let restaurantId = req.body.restaurantId
+    console.log(restaurantId)
+    // let updates = {}
+    // console.log(JSON.stringify(req.body.restaurantId))
+    // updates["restaurantId"] = req.body.restaurantId
+    // updates['name'] = req.body.name
+    // updates['price'] = req.body.price
+    // updates['ingredients'] = req.body.ingredients
+    // updates['allergens'] = req.body.allergens
+    // updates['category'] = req.body.category
+    // updates['subCategory'] = req.body.subCategory
+    // updates['description'] = req.body.description
+    // updates['ratingCount'] = req.body.ratingCount
+    // updates['ratingNumber'] = req.body.ratingNumber
+    // updates['imgMeal'] = req.body.imgMeal
+
+    // if (req.body.restaurantId) {
+    //     console.log("somebody")
+    //     updates["restaurantId"] = req.body.restaurantId
+    // }
+    // if (req.body.name) {
+    //     updates['name'] = req.body.name
+    // }
+    // if (req.body.price ) {
+    //     updates['price'] = req.body.price
+    // }
+    // if (req.body.calories ) {
+    //     updates['calories'] = req.body.calories
+    // }
+    // if (req.body.restaurantId ) {
+    //     updates['ingredients'] = req.body.ingredients
+    // }
+    // if (req.body.allergens ) {
+    //     updates['allergens'] = req.body.allergens
+    // }
+    // if (req.body.category ) {
+    //     updates['category'] = req.body.category
+    // }
+    // if (req.body.subCategory ) {
+    //     updates['subCategory'] = req.body.subCategory
+    // }
+    // if (req.body.description ) {
+    //     updates['description'] = req.body.description
+    // }
+    // if (req.body.ratingCount ) {
+    //     updates['ratingCount'] = req.body.ratingCount
+    // }
+    // if (req.body.ratingNumber ) {
+    //     updates['ratingNumber'] = req.body.ratingNumber
+    // }
+    // if (req.body.imgMeal ) {
+    //     updates['imgMeal'] = req.body.imgMeal
+    // }
+    // console.log(updates)
+    // Item.findByIdAndUpdate(req.params.itemId, updates,
+    //     function (err,docs){
+    //         if (err){
+    //             console.log(err)
+    //         }
+    //         else{
+    //             res.json(docs)
+    //         }
+    //     }) 
 };

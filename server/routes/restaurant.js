@@ -34,7 +34,7 @@ router.delete('/:restaurantId', restaurantMiddleware.getRestaurantId, restaurant
 router.get('/:restaurantId/items/', restaurantMiddleware.getRestaurantId, itemControl.getAllItems);
 router.get('/:restaurantId/items/:itemId', restaurantMiddleware.getRestaurantId, itemMiddleware.getItemId,itemControl.getItem);
 router.post('/:restaurantId/items/', upload.array('imgMeal'), restaurantMiddleware.getRestaurantId, itemControl.createItem);
-router.patch('/:restaurantId/items/:itemId', itemMiddleware.getItemId, itemControl.editItem);
+router.patch('/:restaurantId/items/:itemId', restaurantMiddleware.getRestaurantId, itemMiddleware.getItemId, itemControl.editItem);
 router.delete('/:restaurantId/items/:itemId', itemMiddleware.getItemId, itemControl.deleteItem);
 
 //Make post that allows users to submit image of there own in review

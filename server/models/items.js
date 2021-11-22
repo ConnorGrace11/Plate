@@ -21,7 +21,7 @@ const ItemSchema = new mongoose.Schema({
         type: String,
     },
     ingredients: {
-        type: [String],
+        type: [String, String],
         required: true
     },
     allergens: {
