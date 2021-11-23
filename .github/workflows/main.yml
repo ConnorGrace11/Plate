@@ -1,0 +1,57 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ updated ]
+  pull_request:
+    branches: [ updated ]
+
+
+jobs:
+  bulid:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm Install and Bulid
+        run: |
+          cd server
+          npm i
+      - name: Create .env File
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          API_SECRET: ${{ secrets.API_SECRET }}
+          CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PORT: ${{ secrets.PORT }}
+          SECRET: ${{ secrets.SECRET }}
+          SPECIAL: ${{ secrets.SPECIAL }}
+        run: |
+          cd server
+          touch .env
+          echo API_KEY="$API_KEY" >> .env
+          echo API_SECRET="$API_SECRET" >> .env
+          echo CLOUD_NAME="$CLOUD_NAME" >> .env
+          echo DATABASE_URL="$DATABASE_URL" >> .env
+          echo PORT="$PORT" >> .env
+          echo SECRET="$SECRET" >> .env
+          echo SPECIAL="$SPECIAL" >> .env
+          ls -a ${{ github.workspace }}
+        shell: bash
+      - name: pm2 Restart and Save
+        run: |
+          pm2 stop 0
+          pm2 start 0
+          pm2 save 
+      - name: Restart nginx 
+        run: |
+          sudo service nginx restart
+
+
+
+
+
