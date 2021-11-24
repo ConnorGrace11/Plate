@@ -44,14 +44,14 @@ jobs:
         shell: bash
       - name: pm2 Restart and Save
         run: |
-          pm2 stop 0
-          pm2 start 0
+          pm2 delete all
+          pm2 start server.js
           pm2 save 
       - name: Restart nginx 
         run: |
           sudo service nginx restart
 
-          
+
 
 
 
