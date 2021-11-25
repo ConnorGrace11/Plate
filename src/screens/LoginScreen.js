@@ -3,7 +3,7 @@ import { Pressable, ScrollView, StyleSheet, TextInput, Button, Text, Image, View
 import axios from 'axios';
 import Color from 'color';
 import { useNavigation } from '@react-navigation/native';
-
+import deviceStorage from '../api/token';
 
 
 const EmailForm = ({ buttonText, children, onAuthentication, navigation}) => {
@@ -29,6 +29,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation}) => {
           console.log(response.data)
           setToken(response.data.token)
           console.log(token)
+          deviceStorage.saveItem("token", response.data.token)
           setIsLoggedIn(response.data.status)
           console.log(isLoggedIn)
           setLoggedIn(true)
