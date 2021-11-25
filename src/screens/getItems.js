@@ -1,20 +1,19 @@
 import React from 'react';
 import { useEffect , useState} from "react";
-import { View, Text, StyleSheet, ScrollView, TextView, Dimensions} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextView, Dimensions, Image, Button, AsyncStorage} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
-import getID from './GetAllRestaurants';
 
 
-const GetAllItems = () => {
+const GetAllItems = ({navigation, route}) => {
 
     const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(()  => {
         setTimeout(function getMeals() {
-        fetch('http://10.66.3.140:5000/restaurants')                                                    //192.168.1.214
+        fetch('http://10.66.3.140:5000/restaurants/6179c52b1e4a49345028acc6/items')                                                    //192.168.1.214
             .then((response) => response.json())
             .then((json) => setRestaurants(json))
             .catch((error) => console.error(error))
@@ -27,8 +26,15 @@ const GetAllItems = () => {
             {loading ? <Text style={styles.loading}>Loading Restaurants...</Text> : restaurants.map((item) => (
                 <View key={item._id} contentConstainerStyle={styles.container}>
                         <Text style={styles.header}> { item.name } </Text>
-                        <Text style={styles.subHeader}> Restaurant ID: {getID} </Text>
-                        <Text style={styles.body}>{ item.location } </Text>
+                        <Text style={styles.subHeader}> Restaurant ID:   </Text>
+                        <Image style={styles.image} source={{uri: item.imgMeal[0]}}/>
+                        <Text style={styles.body}> Calories: { item.calories } </Text>
+                        <Text style={styles.body}> Allergens: { item.allergens[0] } </Text>
+                        <Text style={styles.body}> Ingredients: {item.ingredients}</Text>
+                        <Text style={styles.body}> Rating Count: { item.ratingCount } </Text>
+                        <Text style={styles.body}> Subcategory: { item.subCategory } </Text>
+                        <Text style={styles.body}> Rating: { item.ratingNumber }/5 </Text>
+                        <Text style={styles.body}> Description: { item.description } </Text>
                 </View>
             ))}
        </ScrollView>
@@ -65,6 +71,11 @@ const styles = StyleSheet.create({
 
     loading: {
         fontSize: 35
-    }
+    },
+    image: {
+      marginTop: 10,
+      width: 200,
+      height: 200,
+    },
 })
 export default GetAllItems;
