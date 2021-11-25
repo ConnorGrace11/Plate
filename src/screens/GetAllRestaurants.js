@@ -24,7 +24,7 @@ const GetAllRestaurants = ({navigation}) => {
     return (
         <ScrollView>
             {loading ? <Text style={styles.loading}>Loading Restaurants...</Text> : restaurants.map((item) => (
-                <View contentConstainerStyle={styles.container}>
+                <View key={item._id} contentConstainerStyle={styles.container}>
                         <Text style={styles.header} onPress={() => {navigation.navigate('Items')}}> { item.name } </Text>
                         <Text style={styles.subHeader}> { item.location } </Text>
                         <Text style={styles.body}>Restaurant Rating: { item.rating }/5 </Text>
