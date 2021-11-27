@@ -9,17 +9,18 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import axios from 'axios';
+import deviceStorage from '../api/token';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-
-
-const profileScreen = () => {
+const profileScreen = async() => {
     const [errorMessage, setErrorMessage] = useState('');
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    axios.get("http://192.168.0.8:5000/api/auth/user/info")
+    const value = await AsyncStorage.getItem('token');
+    console.log(value);
+    axios.get("http://192.168.0.8:5000/api/auth/user/info",{ headers: { Authorization:"Bearer "+ value } })
     .then((response) => {
         setUsers(response.data)
         console.log(response.data)
@@ -32,13 +33,13 @@ const profileScreen = () => {
         })
     return (
         <>
-    {loading ? <Text> Loading profile.. </Text> : users.map((item) => (  
-        <ScrollView contentContainerStyle={styles.container}>
-        <Text> { item.email } </Text> 
-        </ScrollView>
-    ))}
-    </>
-    );
+      {loading ? <Text> Loading profile.. </Text> : users.map((item) => (  
+          <ScrollView contentContainerStyle={styles.container}>
+          <Text style={styles.menuItemText}> { item.user.email } </Text> 
+          </ScrollView>
+          ))}
+          </>
+          );
 }
 export default profileScreen;
 

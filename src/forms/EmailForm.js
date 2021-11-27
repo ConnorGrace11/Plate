@@ -13,7 +13,6 @@ import {
 import axios from 'axios'
 import Color from 'color'
 import Home from '../screens/HomeScreen'
-import _login from '../screens/_login'
 import HomeScreen from '../screens/HomeScreen'
 const loginn = ({ navigation }) => {
   this.props.navigation.navigate("Home");
