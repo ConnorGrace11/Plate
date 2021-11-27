@@ -1,45 +1,42 @@
-import {View, SafeAreaView, StyleSheet} from 'react-native';
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TouchableRipple,
-  ScrollView, TextInput, Button, Image,
-} from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { Text, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import deviceStorage from '../api/token';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const profileScreen = () => {
 
-
-const profileScreen = async() => {
     const [errorMessage, setErrorMessage] = useState('');
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
-    const value = await AsyncStorage.getItem('token');
-    console.log(value);
-    axios.get("http://192.168.0.8:5000/api/auth/user/info",{ headers: { Authorization:"Bearer "+ value } })
-    .then((response) => {
-        setUsers(response.data)
-        console.log(response.data)
+
+    useEffect(() => {
+        profile()
+    }, [])
+
+    const profile = async () => {
+      try {
+        const value = await AsyncStorage.getItem('token');
+        const userProfile = await axios.get("http://localhost:5000/api/auth/user/info", { headers: { Authorization: "Bearer " + value }} )
+        setUsers([userProfile.data])
         setLoading(true)
-        })
-        .catch((error) => {
-            console.log(error.response.data)
-            setErrorMessage(error.response.data.error)
-            setLoading(false)
-        })
+
+      } catch (error) {
+          console.log(error.message)
+      }
+    }
+    
     return (
         <>
-      {loading ? <Text> Loading profile.. </Text> : users.map((item) => (  
+      {loading && users.map((item) => (  
           <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.menuItemText}> { item.user.email } </Text> 
+            <Text style={styles.menuItemText}> { item.user.email } </Text> 
+            <Text style={styles.menuItemText}> { item.user.username } </Text> 
+            <Text style={styles.menuItemText}> { item.user.role } </Text> 
           </ScrollView>
-          ))}
-          </>
-          );
+        ))}
+      </>
+    );
 }
 export default profileScreen;
 
