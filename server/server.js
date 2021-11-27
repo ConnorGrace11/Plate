@@ -33,15 +33,15 @@ app.use(cors({
 }));
 
 app.use(cookieParser());
-app.use(session({
-    key: "user",
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 60 * 60* 8
-    }
-}))
+// app.use(session({
+//     key: "user",
+//     secret: "secret",
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//         expires: 60 * 60 * 8
+//     }
+// }))
 
 app.use('/public', express.static('public'));
 app.use('/api/auth', auth);

@@ -12,7 +12,6 @@ exports.getAllRestaurants = async (req, res) => {
     }
 };
 
-
 // getting one restaurant by id
 exports.getARestaurant = (req, res) => {
     res.status(200).json(res.restaurant)
@@ -24,8 +23,8 @@ exports.createRestaurant = async (req, res) => {
     let urls = [];
     let multiple = async (path) => await upload(path);
     for (const file of files){
-        const {path} = file;
-        console.log("path" , file);
+        const { path } = file;
+        // console.log("path" , file);
         
         const newPath = await multiple(path);
         urls.push(newPath);
@@ -70,8 +69,8 @@ exports.editRestaurant = async (req, res) => {
     if(req.body.rating != null) {
         res.restaurant.rating = req.body.rating
     }
-    try {
-        const modifiedRestaurant = await res.restaurant.save();
+    try{
+        const modifiedRestaurant= await res.restaurant.save();
         res.json(modifiedRestaurant)
     } catch (error) {
         res.status(400).json({ message: error.message })

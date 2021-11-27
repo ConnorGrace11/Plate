@@ -147,19 +147,6 @@ exports.deleteAccount = async (req, res) => {
     }
 }
 
-// exports.authenticateToken = (req, res, next) => {
-//     const required = req.headers.authorization.split(' ')[1];
-    
-//     if(!required) {
-//         return res.status(500).json({ message: "no token provided" })
-//     } else {
-//         jwt.verify(required, tokenSecret, async (err, user) => {
-//             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-//             req.user = user
-//             next()
-//         })
-//     }
-// }
 
 function generateToken(user) {
     return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512' }, { expiresIn: '1h' });
@@ -187,3 +174,29 @@ exports.isAuth = (req, res, next) => {
 //         res.status(500).json({ message: error.message })
 //     }  
 // }
+
+// POST authorization, gets the data from the authorization header
+// to check if the current user is who they say they are
+
+exports.authenticateToken = (req, res, next) => {
+    const required = req.headers.authorization;
+
+    if(!required) {
+        return res.status(500).json({ message: "no token provided" })
+    } else {
+        jwt.verify(required.split(' ')[1], tokenSecret, async (err, user) => {
+            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
+            req.user = user
+
+            verifier = await authUsers.findById({ _id: req.user._id})
+            // console.log(req.user._id)
+
+            if(req.user._id == verifier.id) {
+                next()
+            } else {
+                res.status(401).json({ message: "unauthorized" })
+            }
+            next()
+        })
+    }
+}
