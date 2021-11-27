@@ -10,7 +10,6 @@ const reviews = require('./routes/review');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-// const bodyParser = require('body-parser');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -25,6 +24,7 @@ db.once('open', () => console.log('Connected to database!'))
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true}))
 
 app.use(cors({
     origin: ["http://localhost:3000"],
