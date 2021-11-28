@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { View, Text, Button, TouchableOpacity } from 'react-native'
 import EmailForm from '../forms/EmailForm'
+import CreateAccountForm from '../forms/CreateAccountForm'
 
 const CreateAccount = ({ navigation }) => {
   return (
-    <CreateAccount
+    <CreateAccountForm
       buttonText="Sign up"
       //onSubmit={createAccount}
       //onAuthentication={() => navigation.navigate('Home')}
@@ -13,7 +14,7 @@ const CreateAccount = ({ navigation }) => {
         title="Back to log in"
         onPress={() => navigation.navigate('Login')}
       />
-    </CreateAccount>
+    </CreateAccountForm>
   )
 }
 

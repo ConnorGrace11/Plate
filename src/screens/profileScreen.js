@@ -1,44 +1,46 @@
-import { StyleSheet } from 'react-native';
-import { Text, ScrollView } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StyleSheet } from 'react-native'
+import { Text, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const profileScreen = () => {
+  const [errorMessage, setErrorMessage] = useState('')
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    const [errorMessage, setErrorMessage] = useState('');
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    profile()
+  }, [])
 
-    useEffect(() => {
-        profile()
-    }, [])
-
-    const profile = async () => {
-      try {
-        const value = await AsyncStorage.getItem('token');
-        const userProfile = await axios.get("http://localhost:5000/api/auth/user/info", { headers: { Authorization: "Bearer " + value }} )
-        setUsers([userProfile.data])
-        setLoading(true)
-
-      } catch (error) {
-          console.log(error.message)
-      }
+  const profile = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token')
+      const userProfile = await axios.get(
+        'http://172.16.224.93:5000/api/auth/user/info',
+        { headers: { Authorization: 'Bearer ' + value } },
+      )
+      setUsers([userProfile.data])
+      setLoading(true)
+    } catch (error) {
+      console.log(error.message)
     }
-    
-    return (
-        <>
-      {loading && users.map((item) => (  
+  }
+
+  return (
+    <>
+      {loading &&
+        users.map((item) => (
           <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.menuItemText}> { item.user.email } </Text> 
-            <Text style={styles.menuItemText}> { item.user.username } </Text> 
-            <Text style={styles.menuItemText}> { item.user.role } </Text> 
+            <Text style={styles.menuItemText}> {item.user.email} </Text>
+            <Text style={styles.menuItemText}> {item.user.username} </Text>
+            <Text style={styles.menuItemText}> {item.user.role} </Text>
           </ScrollView>
         ))}
-      </>
-    );
+    </>
+  )
 }
-export default profileScreen;
+export default profileScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -89,4 +91,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 26,
   },
-});
+})

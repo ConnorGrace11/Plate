@@ -22,10 +22,9 @@ const CreateAccountForm = ({
   const [email, onChangeEmail] = useState('')
   const [password, onChangePassword] = useState('')
   const [username, onChangeUsername] = useState('')
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
   const [showing, setShowing] = useState(false)
-  // const [goHome, setHome] = useState(false);
 
   async function submit(e) {
     e.preventDefault()
@@ -75,8 +74,18 @@ const CreateAccountForm = ({
         />
         <Button title={buttonText} onPress={submit} />
       </ScrollView>
-      {showing ? <Text>{loggedIn ?  <Text style={styles.loginmsg}>Account Created!! Please return to the login page to sign in!</Text> : <Text style={styles.errormsg}> Error: {errorMessage} </Text> } </Text> : null}
-      </>
+      {showing ? (
+        <Text>
+          {loggedIn ? (
+            <Text style={styles.loginmsg}>
+              Account Created!! Please return to the login page to sign in!
+            </Text>
+          ) : (
+            <Text style={styles.errormsg}> Error: {errorMessage} </Text>
+          )}{' '}
+        </Text>
+      ) : null}
+    </>
   )
 }
 
