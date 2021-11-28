@@ -13,12 +13,20 @@ const errorLog = createLogger({
             'timestamp':true,
             level: 'error'
         }),
+        new transports.Console({ 
+            colorize:true, 
+            prettyPrint: true 
+        })
     ],
     rejectionHandlers: [
         new transports.File({ 
             filename: ('logs/rejections.log'),
             'timestamp':true,
             handleRejections: true
+        }),
+        new transports.Console({ 
+            colorize:true, 
+            prettyPrint: true 
         })
     ]
 });
