@@ -4,12 +4,8 @@ const upload = require("../cloudHelper").upload;
 
 // getting all
 exports.getAllRestaurants = async (req, res) => {
-    try {
-        const restaurants = await Restaurant.find();
-        res.status(200).json(restaurants);
-    } catch (error) {
-        return res.status(400).json({ message: error.message });
-    }
+    const restaurants = await Restaurant.find();
+    res.status(200).json(restaurants);
 };
 
 
@@ -39,22 +35,14 @@ exports.createRestaurant = async (req, res) => {
             rating: req.body.rating,
             imgRestaurant: urls
         })
-        try {
-            const restaurant = await newRestaurant.save();
-            res.json(restaurant);
-        } catch (error) {
-            return res.status(500).send({ message: error.message })
-        }
+        const restaurant = await newRestaurant.save();
+        res.json(restaurant);
     }
 };
 
 exports.deleteRestaurant = async (req, res) => {
-    try{
-        await res.restaurant.remove();
-        res.json({ message: 'deleted restaurant' })
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
+    await res.restaurant.remove();
+    res.json({ message: 'deleted restaurant' })
 };
 
 exports.editRestaurant = async (req, res) => {
@@ -70,10 +58,6 @@ exports.editRestaurant = async (req, res) => {
     if(req.body.rating != null) {
         res.restaurant.rating = req.body.rating
     }
-    try {
-        const modifiedRestaurant = await res.restaurant.save();
-        res.json(modifiedRestaurant)
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
+    const modifiedRestaurant = await res.restaurant.save();
+    res.json(modifiedRestaurant)
 };

@@ -4,12 +4,8 @@ const upload = require("../cloudHelper").upload;
 const bodyParser = require("body-parser")
 
 exports.getAllItems = async (req, res) => {
-    try {
-        const items = await Item.find({restaurantId:req.params.restaurantId})
-        res.status(200).json(items);
-    } catch (error) {
-        return res.status(400).json({ message: error.message })
-    }
+    const items = await Item.find({restaurantId:req.params.restaurantId})
+    res.status(200).json(items);
 };
 
 // getting one item by id
@@ -43,22 +39,14 @@ exports.createItem = async (req, res) => {
             imgMeal: urls
         })
         console.log(req.body.name )
-        try {
-            const item = await newItem.save();
-            res.json(item);
-        } catch (error) {
-            return res.status(500).send({ message: error.message })
-        }
+        const item = await newItem.save();
+        res.json(item);
     }
 };
 
 exports.deleteItem = async (req, res) => {
-    try{
-        await res.item.remove();
-        res.json({ message: 'Item deleted' })
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
+    await res.item.remove();
+    res.json({ message: 'Item deleted' })
 }; 
 
 exports.editItem = async (req, res) => {
@@ -98,10 +86,6 @@ exports.editItem = async (req, res) => {
     if (req.body.imgMeal != null) {
         res.item.imgMeal = req.body.imgMeal
     }
-    try {
-        const modifiedItem= await res.item.save();
-        res.json(modifiedItem)
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
+    const modifiedItem= await res.item.save();
+    res.json(modifiedItem)
 };

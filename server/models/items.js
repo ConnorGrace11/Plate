@@ -30,7 +30,7 @@ const ItemSchema = new mongoose.Schema({
     category: {
         type: [String],
         required: true,
-        enum: ['breakfast', 'lunch', 'dinner','dessert', 'side', 'beverage']
+        enum: ['breakfast', 'lunch', 'dinner','dessert', 'appetizer', 'side', 'beverage']
 
     },
     subCategory: {

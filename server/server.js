@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('express-async-errors');
 
 const express = require('express');
 const app = express();
@@ -7,6 +8,7 @@ const auth = require('./routes/auth');
 const meals = require('./routes/meal');
 const restaurants = require('./routes/restaurant');
 const reviews = require('./routes/review');
+const error = require('./middlewares/middleware.error');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -48,6 +50,7 @@ app.use('/api/auth', auth);
 app.use('/meals', meals);
 app.use('/restaurants', restaurants);
 app.use('/reviews', reviews);
+app.use(error);
 
 const PORT = process.env.PORT || 3031;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
