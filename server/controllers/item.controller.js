@@ -4,7 +4,29 @@ const upload = require("../cloudHelper").upload;
 const bodyParser = require("body-parser")
 
 exports.getAllItems = async (req, res) => {
-    const items = await Item.find({restaurantId:req.params.restaurantId})
+
+    const query = {};
+    query.restaurantId = req.params.restaurantId;
+    if (req.query.name)query.name = req.query.name; 
+    if (req.query.price) query.price = req.query.price;
+    if (req.query.calories) query.calories = req.query.calories;
+    if (req.query.ingredients) query.ingredients = req.query.ingredients;
+    if (req.query.allergens) query.allergens = req.query.allergens;
+    if (req.query.category) query.category = req.query.category;
+    if (req.query.subCategory) query.subCategory = req.query.subCategory;
+    if (req.query.ratingCount) query.ratingCount = req.query.ratingCount;
+    if (req.query.ratingNumber) query.ratingNumber = req.query.rating;
+    if (req.query.price_lt){
+        query.price = query.price || {};
+        query.price.$lt = req.query.price_lt;
+    } 
+    if (req.query.price_gt){
+        query.price = query.price || {};
+        query.price.$gt = req.query.price_gt;
+    } 
+
+
+    const items = await Item.find(query);
     res.status(200).json(items);
 };
 
