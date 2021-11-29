@@ -10,7 +10,7 @@ import GetAllRestaurants from './src/screens/GetAllRestaurants'
 import RandomItems from './src/screens/randomItems'
 import mainScreen from './src/screens/mainScreen'
 import profileScreen from './src/screens/profileScreen'
-import starRating from './src/StarRating/starRating'
+import starRating from './src/screens/starRating'
 
 const AppNavigator = createStackNavigator({
   mainPg: {
@@ -40,7 +40,7 @@ const AppNavigator = createStackNavigator({
   Items: {
     screen: RandomItems,
   },
-  ratings: {
+  starRating: {
     screen: starRating,
   },
 })

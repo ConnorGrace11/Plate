@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import starRating from '../starRating/starRating'
+
 const GetAllMeals = () => {
   const [meals, setMeals] = useState([])
   const [loading, setLoading] = useState(true)
@@ -42,7 +42,7 @@ const GetAllMeals = () => {
             <Text style={styles.body}> {item.calories} </Text>
             <Text style={styles.body}> {item.allergens} </Text>
             <Text style={styles.body}> {item.ingredients} </Text>
-            <Button title="Add Review" onPress={() => Alert.alert('Hello')} />
+            <Button title="Add Review" />
           </View>
         ))
       )}
