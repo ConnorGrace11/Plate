@@ -60,23 +60,32 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
     <>
       <SafeAreaView contentContainerStyle={styles.container}>
         <Image style={styles.image} source={require('../forms/plate.png')} />
-        <TextInput
-          placeholder="E-mail"
-          style={styles.input}
-          onChangeText={(text) => onChangeEmail(text)}
-          value={email}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          placeholder="Password"
-          style={styles.input}
-          onChangeText={(text) => onChangePassword(text)}
-          value={password}
-          secureTextEntry
-          autoCapitalize="none"
-        />
-        <Button title={'Log In'} style={styles.loginmsg} onPress={submit} />
+        <View style={styles.body}>
+
+          <TextInput
+            placeholder="E-mail"
+            style={styles.input}
+            onChangeText={(text) => onChangeEmail(text)}
+            value={email}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            placeholder="Password"
+            style={styles.input}
+            onChangeText={(text) => onChangePassword(text)}
+            value={password}
+            secureTextEntry
+            autoCapitalize="none"
+          />
+          <Button 
+          title="Log In"
+          style={styles.loginmsg} 
+          onPress={submit}
+          color = 'black'
+          backgroundColor = 'blue'/>
+        </View>
+        
       </SafeAreaView>
       {showing ? (
         <Text>
@@ -97,17 +106,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },body: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 1,
+    position: 'absolute',
+    top:500,
+    left: 100
   },
   input: {
     height: 40,
-    width: 300,
-    borderColor: 'gray',
+    margin: 12,
     borderWidth: 1,
-    marginTop: 20,
-    paddingHorizontal: 30,
-    marginBottom: 25,
-    alignSelf:'baseline',
-    
+    padding: 20,
+    marginHorizontal: 40
   },
   image: {
     width: 230,
@@ -121,9 +134,15 @@ const styles = StyleSheet.create({
     marginTop:130
   },
   loginmsg: {
-    marginTop: 20,
-    textAlign: 'center',
-    backgroundColor: 'lightgreen',
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12
   },
   errormsg: {
     marginTop: 20,

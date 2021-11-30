@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native'
 
-const starRating = () => {
+const rating = () => {
   const [defaultRating, setDefaultRating] = useState(2)
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5])
 
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default starRating
+export default rating

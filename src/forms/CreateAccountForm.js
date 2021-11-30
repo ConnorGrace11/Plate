@@ -56,18 +56,21 @@ const CreateAccountForm = ({
         <Image style={styles.image} source={require('./plate.png')} />
         <TextInput
           style={styles.input}
+          placeholder="E-mail"
           onChangeText={(text) => onChangeEmail(text)}
           value={email}
           keyboardType="email-address"
         />
         <TextInput
           style={styles.input}
+          placeholder="Username"
           onChangeText={(text) => onChangeUsername(text)}
           value={username}
           keyboardType="default"
         />
         <TextInput
           style={styles.input}
+          placeholder="Passcode"
           onChangeText={(text) => onChangePassword(text)}
           value={password}
           secureTextEntry

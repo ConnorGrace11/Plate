@@ -15,7 +15,7 @@ import {
 import { FlatList } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import axios from 'axios'
-import starRating from './starRating'
+import rating from './rating'
 const GetAllItems = ({ navigation, route }) => {
   const [restaurants, setRestaurants] = useState([])
   const [loading, setLoading] = useState(true)
@@ -48,7 +48,7 @@ const GetAllItems = ({ navigation, route }) => {
             <Text style={styles.body}> Rating Count: {item.ratingCount} </Text>
             <Text style={styles.body}> Subcategory: {item.subCategory} </Text>
             <ImageBackground>
-              <starRating />
+              <rating />
             </ImageBackground>
             <Text style={styles.body}> Description: {item.description} </Text>
           </View>

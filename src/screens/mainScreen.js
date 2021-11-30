@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native'
-import EmailForm from '../forms/EmailForm'
+
 
 const mainScreen = ({ navigation }) => {
   return (
@@ -22,7 +22,7 @@ const mainScreen = ({ navigation }) => {
       <Button title="HomeTemp" onPress={() => navigation.navigate('Home')} />
       <Button
         title="ratings temp"
-        onPress={() => navigation.navigate('starRating')}
+        onPress={() => navigation.navigate('rating')}
       />
     </SafeAreaView>
   )
