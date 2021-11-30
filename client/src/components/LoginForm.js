@@ -37,7 +37,7 @@ const LoginForm = () => {
         })
         .then(response => {
             const { token } = response.data;
-            cookies.set('a', token, { path: '/', httpOnly: true });
+            cookies.set('access_token', token, { path: '/' });
             console.log(response.data)
             setLoggedIn(true)
             setShowing(true)

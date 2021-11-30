@@ -1,4 +1,4 @@
-const Review = require('../models/reviews')
+const Review = require('../models/review')
 
 // getting all reviews
 exports.getAllReviews = async (req, res) => {
@@ -36,31 +36,27 @@ exports.getAReview = (req, res) => {
 
 // creating a new review (POST request)
 exports.createReview = async (req, res) => {
-    try {
-        const reviewedBefore = await Review.findOne({username:req.body.username, itemId:req.body.itemId}).count();
-        if (reviewedBefore == "0"){
-            const added = new Review({
-                username: req.body.username,
-                itemId: req.body.itemId,
-                restaurantId: req.body.restaurantId,
-                rating: req.body.rating,
-                description: req.body.description,
-                date: req.body.date,
-                imgItem: req.body.imgItem
-            })
+    const reviewedBefore = await Review.findOne({ username:req.body.username, itemId:req.body.itemId }).count();
+    if (reviewedBefore == "0"){
+        const added = new Review({
+            username: req.body.username,
+            itemId: req.body.itemId,
+            restaurantId: req.body.restaurantId,
+            rating: req.body.rating,
+            description: req.body.description,
+            date: req.body.date,
+            // imgItem: req.body.imgItem
+        })
             
-            try {
-                const newReview = await added.save();
-                res.json(newReview);
-            } catch (error) {
-                return res.status(500).send({ message: error.message })
-            }
+        try {
+            const newReview = await added.save();
+            res.status(201).json({ review: newReview });
+        } catch (error) {
+            return res.status(500).send({ message: error.message })
         }
-        else{
-            return res.status(200).send({ message: "Item already reviewed" });
-        }
-    } catch (error) {
-        return res.status(400).json({ message: error.message })
+    }
+    else{
+        return res.status(400).send({ message: "Item already reviewed" });
     }
 };
 

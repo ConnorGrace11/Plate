@@ -17,28 +17,12 @@ exports.getUserId = async (req, res, next) => {
     }
 
     res.user = user
-    // console.log(res.user)
     next()
 }
-
-// exports.restrictTo = (...roles) => {
-//     return async (req, res, next) => {
-//         const name = ({ username: req.params.username})
-//         const findRole = await auth.findOne(name)
-//         const role = findRole.role
-
-//         if(roles.includes(role)) {
-//             next()
-//         } else {
-//             return res.status(401).json({ error: "unauthorized" })
-//         }
-//     }
-// };
 
 // reads everything it needs from the jwt token
 // to display user details, need to authenticate
 // to get the special token
-
 exports.userDataFromToken = (req, res, next) => {
     const required = req.headers.authorization;
     
@@ -46,18 +30,20 @@ exports.userDataFromToken = (req, res, next) => {
         return res.status(500).json({ message: "no token provided" })
     } else {
         jwt.verify(required.split(' ')[1], tokenSecret, async (err, user) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = user
-
-            await auth.findOne({ email: req.user.email })
-                .then((user) => {
-                    res.status(200).json({ user: user })
-                }).catch((error) => {
-                    res.status(500).json({ error: error.message })
-                })
-            })
-            next()
-        }
+            if (err) { return res.status(500).json({ error: 'failed to authenticate token' }) }
+            else {
+                req.user = user
+                await auth.findOne({ email: req.user.email })
+                    .then((user) => {
+                        res.status(200).json({ user: user })
+                    }).catch((error) => {
+                        res.status(500).json({ error: error.message })
+                    })
+                
+                next()
+            }
+        })
+    }
 }
 
 // restricting access to routes by checking the role of user
@@ -81,7 +67,7 @@ exports.restrictGet = (req, res, next) => {
 }
 
 // only allowing delete if the token matches the param value
-// given as well as the id
+// given as well as the id of user
 exports.restrictDelete = (req, res, next) => {
     const required = req.headers.authorization.split(' ')[1];
     let needed;
@@ -104,8 +90,7 @@ exports.restrictDelete = (req, res, next) => {
 }
 
 // only allowing updating of user if the token matches 
-// the username param value given as well as the id
-
+// the username param value given as well as the user id
 exports.restrictPatch = (req, res, next) => {
     const required = req.headers.authorization.split(' ')[1];
     let needed;

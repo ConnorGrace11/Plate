@@ -2,3 +2,5 @@ node_modules
 .env
 meal.rest
 users.rest
+logs
+restaurant.rest
