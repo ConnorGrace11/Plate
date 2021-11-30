@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 exports.getAllItems = async (req, res) => {
 
     const query = {};
+    const search = {};
     query.restaurantId = req.params.restaurantId;
     if (req.query.name)query.name = req.query.name; 
     if (req.query.price) query.price = req.query.price;
@@ -16,6 +17,14 @@ exports.getAllItems = async (req, res) => {
     if (req.query.subCategory) query.subCategory = req.query.subCategory;
     if (req.query.ratingCount) query.ratingCount = req.query.ratingCount;
     if (req.query.ratingNumber) query.ratingNumber = req.query.rating;
+    if (req.query.ratingNumber_lt){
+        query.ratingNumber = query.ratingNumber || {};
+        query.ratingNumber.$lt = req.query.ratingNumber_lt;
+    } 
+    if (req.query.ratingNumber_gt){
+        query.ratingNumber = query.ratingNumber || {};
+        query.ratingNumber.$gt = req.query.ratingNumber_gt;
+    } 
     if (req.query.price_lt){
         query.price = query.price || {};
         query.price.$lt = req.query.price_lt;
@@ -24,9 +33,33 @@ exports.getAllItems = async (req, res) => {
         query.price = query.price || {};
         query.price.$gt = req.query.price_gt;
     } 
+    if (req.query.calories_lt){
+        query.calories = query.calories || {};
+        query.calories.$lt = req.query.calories_lt;
+    } 
+    if (req.query.calories_gt){
+        query.calories = query.calories || {};
+        query.calories.$gt = req.query.calories_gt;
+    } 
+    if (req.query.ingredients_all){
+        query.ingredients = query.ingredients || {};
+        query.ingredients.$all = req.query.ingredients_all;
+    }
+    if (req.query.allergens_all){
+        query.allergens = query.allergens || {};
+        query.allergens.$all = req.query.allergens_all;
+    } 
+    if (req.query.category_all){
+        query.category = query.category || {};
+        query.category.$all = req.query.category_all;
+    }
+    if (req.query.subCategory_all){
+        query.subCategory = query.subCategory || {};
+        query.subCategory.$all = req.query.subCategory_all;
+    }
 
-
-    const items = await Item.find(query);
+    // console.log(query);
+    const items = await Item.find( query );
     res.status(200).json(items);
 };
 
@@ -37,33 +70,22 @@ exports.getItem = (req, res) => {
 
 // creating a new Item (POST request)
 exports.createItem = async (req, res) => {
-    let urls = [];
-    let multiple = async (path) => await upload(path)
-    for (const file of req.files){
-        const {path} = file;
-        const newPath = await multiple(path);
-        urls.push(newPath);
-        fs.unlinkSync(path);
-    }
-    if (urls) {
-        const newItem = new Item({
-            restaurantId: req.body.restaurantId,
-            name: req.body.name,
-            price: req.body.price,
-            calories: req.body.calories,
-            ingredients: req.body.ingredients,
-            allergens: req.body.allergens,
-            category: req.body.category,
-            subCategory: req.body.subCategory,
-            description: req.body.description,
-            ratingCount: req.body.ratingCount,
-            ratingNumber: req.body.ratingNumber,
-            imgMeal: urls
-        })
-        console.log(req.body.name )
-        const item = await newItem.save();
-        res.json(item);
-    }
+    const newItem = new Item({
+        restaurantId: req.body.restaurantId,
+        name: req.body.name,
+        price: req.body.price,
+        calories: req.body.calories,
+        ingredients: req.body.ingredients,
+        allergens: req.body.allergens,
+        category: req.body.category,
+        subCategory: req.body.subCategory,
+        description: req.body.description,
+        ratingCount: req.body.ratingCount,
+        ratingNumber: req.body.ratingNumber
+    })
+    console.log(req.body.name )
+    const item = await newItem.save();
+    res.json(item);
 };
 
 exports.deleteItem = async (req, res) => {

@@ -9,6 +9,7 @@ const ItemSchema = new mongoose.Schema({
     },
     name: {
         type: String,
+        index: true,
         required: true
     },
     price: {
