@@ -1,6 +1,7 @@
 import { Link, Route, Redirect } from "react-router-dom"; 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 // reference: //https://www.youtube.com/watch?v=91qEdc6dSUs&t=1062s
 // reference: https://www.youtube.com/watch?v=9KaMsGSxGno
 
@@ -8,10 +9,14 @@ const LoginForm = () => {
     const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
     const [loggedIn, setLoggedIn] = useState(false);
     const [showing, setShowing] = useState(false);
+    const [status, setStatus] = useState('');
 
    // useEffect(() => {
      //   loginUser();
     //})
+
+    //const token = `Bearer ${localStorage.getItem('jwt')}`;
+    const cookies = new Cookies();
 
     const handleChange = (e) => {
         const creds = {...loginDetails}
@@ -23,11 +28,15 @@ const LoginForm = () => {
 
     const submitHandler = e => {
         e.preventDefault();
-        axios.post("http://localhost:3001/api/auth/login", { 
+        axios.post("http://143.198.25.164:5000/api/auth/login", { 
             email: loginDetails.email,
             password: loginDetails.password
-        })
+        }/* ,{
+            headers: { Authorization: token }
+        } */)
         .then(response => {
+            const { token } = response.data;
+            cookies.set('access_token', token, { path: '/'});
             console.log(response.data)
             setLoggedIn(true)
             setShowing(true)
@@ -74,7 +83,7 @@ const LoginForm = () => {
                 </Link>
                 
             </div>
-            {showing ? <div> {loggedIn ? <div><Route><Redirect to="/profile" />Successful Login</Route></div> : <div>email or password is incorrect</div>} </div> :
+            {showing ? <div> {loggedIn ? <div><Route><Redirect to="/profile"/* /:id  *//>Successful Login</Route></div> : <div>email or password is incorrect</div>} </div> :
                 <div></div> }
             </form>
             <br></br> <br></br>

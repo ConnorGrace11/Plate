@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './AllMeals.css';
 import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams} from 'react-router-dom';
 
 const AllRestaurants = () => {
@@ -16,7 +15,7 @@ const AllRestaurants = () => {
 
     const getRestaurants = async () => {
         try {
-            const restaurantResponse = await axios.get("http://localhost:3001/restaurants"/* ,{
+            const restaurantResponse = await axios.get("http://143.198.25.164:5000/restaurants"/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }

@@ -13,7 +13,7 @@ const AllMeals = () => {
 
     const getMeals = async () => {
         try {
-            const mealResponse = await axios.get("http://localhost:3001/meals"/* ,{
+            const mealResponse = await axios.get("http://143.198.25.164:5000/meals"/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }

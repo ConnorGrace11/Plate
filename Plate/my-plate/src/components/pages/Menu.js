@@ -16,7 +16,7 @@ const Menu = () => {
     const getMenu = async () => {
         try {
             //console.log(restaurantId)
-            const menuResponse = await axios.get(`http://localhost:3001/restaurants/${restaurantId}/items`/* ,{
+            const menuResponse = await axios.get(`http://143.198.25.164:5000/restaurants/${restaurantId}/items`/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
@@ -39,11 +39,10 @@ const Menu = () => {
                 <div>
                     <h2>Name:  <Link to={`/restaurants/${meal.restaurantId}/items/${meal._id}`}> {meal.name } </Link></h2>
                     <h5>Price: { meal.price }</h5>
-                    <p>Ingredients: { meal.ingredients }</p>
+                    <img src={meal.imgMeal}/>
                     <p>Allergens: { meal.allergens }</p>
                     <p>Category: { meal.category }</p>
                     <p>Subcategory: { meal.subCategory }</p>
-                    <p>Review: { meal.review }</p>
                     <p>Description: { meal.description }</p>
                 </div>
             ))}      

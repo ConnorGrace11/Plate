@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams} from 'react-router-dom';
+import { BrowserRouter as Router, Route, useHistory, Link, useRouteMatch, useParams} from 'react-router-dom';
 
 
 const Item = () => {
     let { restaurantId } = useParams()
     let { itemId } = useParams()
+    let history = useHistory();
 
     useEffect(() => {
         getItems()
@@ -18,7 +19,7 @@ const Item = () => {
         try {
             console.log(itemId)
             console.log(restaurantId)
-            const itemsResponse = await axios.get(`http://localhost:3001/restaurants/${restaurantId}/items/${itemId}`/* ,{
+            const itemsResponse = await axios.get(`http://143.198.25.164:5000/restaurants/${restaurantId}/items/${itemId}`/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
@@ -41,6 +42,7 @@ const Item = () => {
                 <div>
                     <h2>Name: { item.name }</h2>
                     <h5>Price: { item.price }</h5>
+                    <img src={item.imgMeal}/>
                     <p>Ingredients: { item.ingredients}</p>
                     <p>Allergens: { item.allergens }</p>
                     <p>Category: { item.category }</p>
@@ -48,8 +50,12 @@ const Item = () => {
                     <p>Review: { item.review }</p>
                     <p>Description: { item.description }</p>
                 </div>
-            ))}  
-            <Link to='/restaurants'>Back</Link>    
+            ))}
+            <button type="submit" class="btn btn-success"><Link to='/reviews'>Add a Review to this Item</Link></button>
+            <br></br>  
+            <br></br> 
+            <h3><Link to='/restaurants'>Restaurants</Link></h3>
+            {/* <Link onClick={() => history.goBack()}>Back</Link>     */}
         </div>
         </>
     );
