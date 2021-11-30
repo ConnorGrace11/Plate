@@ -23,7 +23,7 @@ const GetAllItems = ({ navigation, route }) => {
   useEffect(() => {
     setTimeout(function getMeals() {
       fetch(
-        'http://172.16.224.93:5000/restaurants/6179c52b1e4a49345028acc6/items',
+        'http://192.168.0.8:5000/restaurants/6179c52b1e4a49345028acc6/items',
       ) //192.168.1.214
         .then((response) => response.json())
         .then((json) => setRestaurants(json))

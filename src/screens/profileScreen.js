@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Image, Button, View,} from 'react-native'
 import { Text, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -17,7 +17,7 @@ const profileScreen = () => {
     try {
       const value = await AsyncStorage.getItem('token')
       const userProfile = await axios.get(
-        'http://172.16.224.93:5000/api/auth/user/info',
+        'http://192.168.0.8:5000/api/auth/user/info',
         { headers: { Authorization: 'Bearer ' + value } },
       )
       setUsers([userProfile.data])
@@ -31,11 +31,16 @@ const profileScreen = () => {
     <>
       {loading &&
         users.map((item) => (
-          <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.menuItemText}> {item.user.email} </Text>
-            <Text style={styles.menuItemText}> {item.user.username} </Text>
-            <Text style={styles.menuItemText}> {item.user.role} </Text>
-          </ScrollView>
+          <View style={styles.container}>
+            <View style={styles.header}></View>
+              <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+              <View style={styles.body}>
+                <View style={styles.bodyContent}></View>
+                <Text style={styles.name}> Email: {item.user.email} </Text>
+                <Text style={styles.info}> Username: {item.user.username} </Text>
+                <Text style={styles.description}> Role: {item.user.role} </Text>
+              </View>
+          </View>
         ))}
     </>
   )
@@ -49,6 +54,10 @@ const styles = StyleSheet.create({
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 25,
+  },
+  header:{
+    backgroundColor: "#00BFFF",
+    height:200,
   },
   title: {
     fontSize: 24,
@@ -90,5 +99,50 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
     lineHeight: 26,
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:130
+  },
+  bodyContent: {
+    flex: 1,
+    alignItems: 'center',
+    padding:30,
+  },
+  name:{
+    fontSize:22,
+    color: "#696969",
+    fontWeight:'600',
+    alignItems: 'center',
+    
+  },
+  body:{
+    marginTop:40,
+    alignItems: 'center',
+    color: 'lightblue'
+  },
+  bodyContent: {
+    flex: 1,
+    alignItems: 'center',
+    padding:30,
+  },
+  info:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:10,
+    alignItems: 'center',
+  },
+  description:{
+    fontSize:16,
+    color: "#696969",
+    marginTop:10,
+    textAlign: 'center'
   },
 })

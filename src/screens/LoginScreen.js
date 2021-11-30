@@ -32,7 +32,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
     console.log(password)
 
     axios
-      .post('http://172.16.224.93:5000/api/auth/login', {
+      .post('http://192.168.0.8:5000/api/auth/login', {
         //192.168.0.8
         email: email,
         password: password,
@@ -58,7 +58,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
 
   return (
     <>
-      <ScrollView contentContainerStyle={styles.container}>
+      <SafeAreaView contentContainerStyle={styles.container}>
         <Image style={styles.image} source={require('../forms/plate.png')} />
         <TextInput
           placeholder="E-mail"
@@ -76,8 +76,8 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
           secureTextEntry
           autoCapitalize="none"
         />
-        <Button title={'Log In'} onPress={submit} />
-      </ScrollView>
+        <Button title={'Log In'} style={styles.loginmsg} onPress={submit} />
+      </SafeAreaView>
       {showing ? (
         <Text>
           {loggedIn ? (
@@ -90,33 +90,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
     </>
   )
 }
-//   return (
-//     <>
-//     <ScrollView contentContainerStyle={styles.container}>
-//       <Image style={styles.image} source={require("./plate.png")} />
-//       <TextInput
-//         placeholder="E-mail"
-//         style={styles.input}
-//         onChangeText={(text) => onChangeEmail(text)}
-//         value={email}
-//         keyboardType="email-address"
-//       />
-//       <TextInput
-//         placeholder="Password"
-//         style={styles.input}
-//         onChangeText={(text) => onChangePassword(text)}
-//         value={password}
-//         secureTextEntry
-//       />
-//       <Button title={buttonText} onPress={submit} />
-//
-//     </ScrollView>
-//     {showing ? <Text>{loggedIn ?  <Text style={styles.loginmsg}>Success!!</Text> : <Text style={styles.errormsg}> Error! {errorMessage} </Text> } </Text> : null}
-//     </>
-//
-//   );
-//
-// };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -130,10 +104,21 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 20,
-    marginBottom: 20,
+    paddingHorizontal: 30,
+    marginBottom: 25,
+    alignSelf:'baseline',
+    
   },
   image: {
-    marginBottom: 20,
+    width: 230,
+    height: 230,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop:130
   },
   loginmsg: {
     marginTop: 20,
