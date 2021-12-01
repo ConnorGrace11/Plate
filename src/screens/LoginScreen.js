@@ -89,6 +89,14 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
             color='black'
             backgroundColor='blue' />
         </View>
+        <View style={styles.loginBtn}>
+          <Button
+            title="Create Account"
+            style={styles.loginBtn}
+            onPress={() => navigation.navigate('CreateAccount')}
+            color='black' />
+        </View>
+
 
 
       </ScrollView>
@@ -142,7 +150,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#FF1493",
+
   },
   errormsg: {
     marginTop: 20,
@@ -153,7 +161,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: "#00BFFF",
     borderRadius: 30,
-    width: "50%",
+    width: "60%",
     height: 45,
     marginBottom: 10,
   },
@@ -163,7 +171,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     backgroundColor: '#00BFFF',
-    width: "50%",
+    width: "70%",
   }
 })
 

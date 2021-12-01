@@ -7,8 +7,6 @@ const CreateAccount = ({ navigation }) => {
   return (
     <CreateAccountForm
       buttonText="Sign up"
-      //onSubmit={createAccount}
-      //onAuthentication={() => navigation.navigate('Home')}
     >
       <Button
         title="Back to log in"

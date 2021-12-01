@@ -3,8 +3,8 @@
   "expoServerPort": 19000,
   "packagerPort": 19000,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://wc-u5n.anonymous.reactnativebasics.exp.direct",
-  "packagerNgrokUrl": "https://packager.wc-u5n.anonymous.reactnativebasics.exp.direct",
-  "ngrokPid": 7492,
-  "webpackServerPort": 19006
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

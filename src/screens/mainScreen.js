@@ -20,10 +20,6 @@ const mainScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('CreateAccount')}
       />
       <Button title="HomeTemp" onPress={() => navigation.navigate('Home')} />
-      <Button
-        title="ratings temp"
-        onPress={() => navigation.navigate('rating')}
-      />
     </SafeAreaView>
   )
 }
