@@ -4,7 +4,18 @@ const upload = require("../cloudHelper").upload;
 
 // getting all
 exports.getAllRestaurants = async (req, res) => {
-    const restaurants = await Restaurant.find();
+    const query = {};
+    if (req.query.name)query.name = req.query.name;
+    if (req.query.rating)query.rating = req.query.rating;
+    if (req.query.search_name){
+        query.name = query.name || {};
+        query.name.$regex = new RegExp(req.query.search_name, 'i');
+    } 
+    if (req.query.rating_gt){
+        query.rating = query.rating || {};
+        query.rating.$gt = req.query.rating_gt;
+    }  
+    const restaurants = await Restaurant.find(query);
     res.status(200).json(restaurants);
 };
 

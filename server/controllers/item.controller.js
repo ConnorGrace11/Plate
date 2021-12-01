@@ -65,7 +65,7 @@ exports.getAllItems = async (req, res) => {
         query.subCategory.$all = req.query.subCategory_all;
     }
 
-    const items = await Item.find( query);
+    const items = await Item.find( query );
     res.status(200).json(items);
 };
 
