@@ -10,6 +10,7 @@ import {
   View,
   SafeAreaView,
   Alert,
+  TouchableOpacity,
 
 } from 'react-native'
 import axios from 'axios'
@@ -27,6 +28,12 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
   const [showing, setShowing] = useState(false)
   // const [goHome, setHome] = useState(false);
 
+  const AppButton = ({ onPress, title }) => (
+      <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
+        <Text style={styles.appButtonText}>{title}</Text>
+      </TouchableOpacity>
+  );
+  
   async function submit(e) {
     e.preventDefault()
     console.log(email)
@@ -82,31 +89,12 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
           />
         </View>
         <View>
-          <Button
-            title="Log In"
-            style={styles.loginBtn}
-            onPress={submit}
-            color='black'
-            backgroundColor='blue' />
-        </View>
-        <View style={styles.loginBtn}>
-          <Button
-            title="Create Account"
-            style={styles.loginBtn}
-            onPress={() => navigation.navigate('CreateAccount')}
-            color='black' />
+          <AppButton title="Login" onPress={submit} size="sm" backgroundColor="#007bff" />
+          <AppButton title="Create Account" onPress={() => navigation.navigate('CreateAccount')} size="sm" backgroundColor="#007bff" />
         </View>
 
       </ScrollView>
-      {showing ? (
-        <Text>
-          {loggedIn ? (
-            <Text color="blue">Success!!</Text>
-          ) : (
-            <Text style={styles.errormsg}> Error! {errorMessage} </Text>
-          )}{' '}
-        </Text>
-      ) : null}
+        {showing ? <Text>{loggedIn ?  <Text style={styles.loginmsg}>Success</Text> : <Text style={styles.errormsg}> Error: Incorrect Email or Password </Text> } </Text> : null}
     </>
   )
 }
@@ -170,7 +158,22 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     backgroundColor: '#00BFFF',
     width: "70%",
-  }
+  },
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#00BFFF",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 10,
+    },
+   appButtonText: {
+      fontSize: 18,
+      color: "#fff",
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase"
+    },
 })
 
 export default EmailForm
