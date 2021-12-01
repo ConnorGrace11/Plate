@@ -26,8 +26,8 @@ exports.getUserId = async (req, res, next) => {
 // to display user details, need to authenticate
 // to get the special token
 
-exports.userDataFromToken = (req, res, next) => {
-    const required = req.headers.authorization;
+exports.userDataFromToken = async (req, res, next) => {
+    const required = req.headers.authorization.split(' ')[1];
     
     if(!required) {
         return res.status(500).json({ message: "no token provided" })
@@ -44,7 +44,6 @@ exports.userDataFromToken = (req, res, next) => {
                     }).catch((error) => {
                         res.status(500).json({ error: error.message })
                     })
-                
                 next()
             }
         })
