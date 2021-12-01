@@ -8,7 +8,7 @@ router.post('/login', control.logIn);
 router.post('/signup', control.signUp);
 // router.get('/logout/:username', middleware.getUserId, control.authenticateToken, control.logOut);
 
-router.get('/login', control.isAuth, control.checkLogIn)
+router.get('/login', control.checkLogIn)
 router.get('/users', middleware.restrictGet, control.getUsers)
 router.get('/user/info', middleware.userDataFromToken);
 

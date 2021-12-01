@@ -63,10 +63,6 @@ exports.logIn = (req, res) => {
         })
 };
 
-exports.logOut = async (req, res) => {
-    
-}
-
 exports.signUp = async (req, res, next) => {
 
     if(req.body.username == '' || req.body.email == '' || req.body.password == '') return res.status(400).json({ message: "fields can't be blank" })
@@ -129,11 +125,11 @@ function generateToken(user) {
     return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512' }, { expiresIn: '1h' });
 };
 
-exports.isAuth = (req, res, next) => {
-    const cookies = new Cookies(req.headers.cookie);
-    if(cookies.get("access_token")) {
-        next()
-    } else {
-        res.status(403).json({ message: "must login"})
-    }
-}
+// exports.isAuth = (req, res, next) => {
+//     const cookies = new Cookies(req.headers.cookie);
+//     if(cookies.get("access_token")) {
+//         next()
+//     } else {
+//         res.status(403).json({ message: "must login"})
+//     }
+// }
