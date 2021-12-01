@@ -32,7 +32,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
     console.log(password)
 
     axios
-      .post('http://192.168.0.8:5000/api/auth/login', {
+      .post('http://143.198.25.164:5000/api/auth/login', {
         //192.168.0.8
         email: email,
         password: password,
