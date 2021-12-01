@@ -34,7 +34,7 @@ const Item = () => {
 
     return (
         <>
-        <div >
+        <div className="all-items">
             <h1>Meal Item</h1>
         </div>
         <div>
@@ -52,7 +52,7 @@ const Item = () => {
                     <p>Description: { item.description }</p>
                     <button type="submit" class="btn btn-success"><Link to={`/restaurants/${item.restaurantId}/items/${item._id}/reviews`}>Add a Review to this Item</Link></button>
                     <br></br>
-                    <button type="submit" class="btn btn-success"><Link to={`/reviews`}>Look at Reviews</Link></button>
+                    {/* <button type="submit" class="btn btn-success"><Link to={`/reviews`}>Look at Reviews</Link></button> */}
                 </div>
             ))}
             

@@ -3,6 +3,7 @@
     text-align: center;
     padding: 50px;
     color: #000000;
+    text-decoration: underline;     
   }
   
   .meal h2 {
@@ -19,3 +20,5 @@
     margin-left: 300px;
     margin-right: 300px;
   }
+
+  

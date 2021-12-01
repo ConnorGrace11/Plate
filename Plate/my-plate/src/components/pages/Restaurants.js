@@ -35,11 +35,9 @@ const Restaurant = () => {
     return (
         <>
         <div >
-        <br></br>
-        <br></br>
-        <br></br>
+        <div className="all-items">
             <h1>Restaurant</h1>
-            <br></br>
+            </div>
         </div>
         <div>
         {loading && 
@@ -59,10 +57,6 @@ const Restaurant = () => {
             <h2><Link to='/restaurants'>Back to All Restaurants</Link></h2>
         </div>
         <br></br>
-        <br></br>
-        
-        
-        
         
         </>
     );
