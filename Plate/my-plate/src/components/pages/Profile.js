@@ -1,5 +1,5 @@
 import React, { useReducer, useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -27,10 +27,11 @@ const Profile = () => {
       //const user = JSON.parse(localStorage.getItem('username'));
       //const token = `Bearer ${localStorage.getItem('jwt')}`;
       //console.log(token)
-    const Logout = () => {
-            localStorage.clear();
-            //localCookies.clear();
-            window.location.href = '/';
+      const logout = () => {
+        var token = cookies.get("access_token")
+        cookies.remove("access_token", token, { path: '/' })
+        //localCookies.clear();
+        window.location.href = '/';
       }
 
       const protect = async () => {
@@ -57,13 +58,18 @@ const Profile = () => {
           {loading && user.map((item) => (
               <div className="meal">
                   <h2>User: { item.user.username }</h2>
-                  <h2>ID: { item.user._id }</h2>
                   <h2>Email: { item.user.email }</h2>
+                  <h2>Role: {item.user.role}</h2>
                   
               </div>
           ))}      
       </div>
-     <button onClick={Logout}>Logout</button>
+     <button class="btn btn-success" onClick={logout}><Redirect to="/profile"/>Logout</button>
+     <br></br>
+     <div className="all-items">
+          <h1>Favorite Restaurants</h1>
+      </div>
+     <br></br>
       </>
     );
 }

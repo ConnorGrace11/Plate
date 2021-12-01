@@ -40,6 +40,7 @@ const LoginForm = () => {
             console.log(response.data)
             setLoggedIn(true)
             setShowing(true)
+            window.location.reload(false);
         })
         .catch(error => {
             console.log(error.response.data)
@@ -83,7 +84,7 @@ const LoginForm = () => {
                 </Link>
                 
             </div>
-            {showing ? <div> {loggedIn ? <div><Route><Redirect to="/profile"/* /:id  *//>Successful Login</Route></div> : <div>email or password is incorrect</div>} </div> :
+            {showing ? <div> {loggedIn ? <div><Route><Redirect to="/profile" /* /:id  *//>Successful Login</Route></div> : <div>email or password is incorrect</div>} </div> :
                 <div></div> }
             </form>
             <br></br> <br></br>
