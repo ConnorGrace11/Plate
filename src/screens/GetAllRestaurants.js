@@ -31,6 +31,7 @@ const GetAllRestaurants = ({navigation, route}) => {
             {loading ? <Text style={styles.loading}>Loading Restaurants...</Text> : restaurants.map((item) => (
                 <View key={item._id} contentConstainerStyle={styles.container}>
                         <Text style={styles.header} onPress={() => {navigation.navigate('Items', {data: item._id})}}> { item.name } </Text>
+                        <Image style={styles.image} source={{uri: item.imgRestaurant[0]}}/>
                         <Text style={styles.subHeader}> { item.location } </Text>
                         <Text style={styles.body}>Restaurant Rating: { item.rating }/5 </Text>
                 </View>
@@ -44,27 +45,33 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 50,
         flex: 1,
-        backgroundColor: 'yellow'
+        backgroundColor: 'lightblue'
+    },
+
+    container2: {
+        flex: 1,
+        backgroundColor: '#87CEFA'
     },
 
     header: {
         textAlign: 'center',
-        padding: 15,
+        padding: 20,
         fontSize: 20,
-        backgroundColor: 'darkorange'
+        backgroundColor: '#00BFFF'
     },
 
     subHeader: {
         textAlign: 'center',
         padding: 5,
         fontSize: 20,
-        backgroundColor: 'goldenrod'
+        backgroundColor: 'lightblue'
     },
 
     body: {
         textAlign: 'center',
         padding: 5,
         margin: 20,
+        marginBottom: 100,
         fontSize: 15,
     },
 
@@ -76,6 +83,37 @@ const styles = StyleSheet.create({
       marginTop: 10,
       width: 200,
       height: 200,
+    },
+    inputView: {
+      textAlign: 'center',
+      backgroundColor: "#00BFFF",
+      borderRadius: 30,
+      width: "50%",
+      height: 45,
+      marginBottom: 10,
+    },
+    TextInput: {
+      height: 50,
+      flex: 1,
+      padding: 10,
+      marginLeft: 20,
+      backgroundColor: '#00BFFF',
+      width: "50%",
+    },
+    appButtonContainer: {
+      elevation: 8,
+      backgroundColor: "#00BFFF",
+      borderRadius: 10,
+      paddingVertical: 10,
+      paddingHorizontal: 12,
+      marginBottom: 10,
+    },
+    appButtonText: {
+        fontSize: 18,
+        color: "#fff",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase"
     },
 })
 
