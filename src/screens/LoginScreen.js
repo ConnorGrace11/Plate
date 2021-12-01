@@ -10,6 +10,7 @@ import {
   View,
   SafeAreaView,
   Alert,
+
 } from 'react-native'
 import axios from 'axios'
 import Color from 'color'
@@ -58,7 +59,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
 
   return (
     <>
-      <SafeAreaView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Image style={styles.image} source={require('../forms/plate.png')} />
         <View style={styles.inputView} color="#00BFFF">
           <TextInput
@@ -78,7 +79,6 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
             value={password}
             secureTextEntry
             autoCapitalize="none"
-            width="80%"
           />
         </View>
         <View>
@@ -91,7 +91,7 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
         </View>
 
 
-      </SafeAreaView>
+      </ScrollView>
       {showing ? (
         <Text>
           {loggedIn ? (
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#00BFFF',
+    backgroundColor: 'lightblue',
   }, body: {
     flex: 1,
     alignItems: 'center',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     backgroundColor: '#00BFFF',
-    width: "30%",
+    width: "50%",
   }
 })
 
