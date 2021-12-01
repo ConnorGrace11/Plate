@@ -6,7 +6,6 @@ const bodyParser = require("body-parser")
 exports.getAllItems = async (req, res) => {
 
     const query = {};
-    const search = {};
     query.restaurantId = req.params.restaurantId;
     if (req.query.name)query.name = req.query.name; 
     if (req.query.price) query.price = req.query.price;
@@ -17,6 +16,14 @@ exports.getAllItems = async (req, res) => {
     if (req.query.subCategory) query.subCategory = req.query.subCategory;
     if (req.query.ratingCount) query.ratingCount = req.query.ratingCount;
     if (req.query.ratingNumber) query.ratingNumber = req.query.rating;
+    if (req.query.search_name){
+        query.name = query.name || {};
+        query.name.$regex = new RegExp(req.query.search_name, 'i');
+    } 
+    if (req.query.ratingCount_gt){
+        query.ratingCount = query.ratingCount || {};
+        query.ratingCount.$gt = req.query.ratingCount_gt;
+    } 
     if (req.query.ratingNumber_lt){
         query.ratingNumber = query.ratingNumber || {};
         query.ratingNumber.$lt = req.query.ratingNumber_lt;
@@ -45,9 +52,9 @@ exports.getAllItems = async (req, res) => {
         query.ingredients = query.ingredients || {};
         query.ingredients.$all = req.query.ingredients_all;
     }
-    if (req.query.allergens_all){
+    if (req.query.allergens_not){
         query.allergens = query.allergens || {};
-        query.allergens.$all = req.query.allergens_all;
+        query.allergens.$nin = req.query.allergens_not;
     } 
     if (req.query.category_all){
         query.category = query.category || {};
@@ -58,8 +65,7 @@ exports.getAllItems = async (req, res) => {
         query.subCategory.$all = req.query.subCategory_all;
     }
 
-    // console.log(query);
-    const items = await Item.find( query );
+    const items = await Item.find( query);
     res.status(200).json(items);
 };
 
