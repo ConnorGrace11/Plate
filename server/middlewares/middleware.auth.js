@@ -32,18 +32,23 @@ exports.userDataFromToken = (req, res, next) => {
     if(!required) {
         return res.status(500).json({ message: "no token provided" })
     } else {
-        jwt.verify(required.split(' ')[1], tokenSecret, async (err, user) => {
-            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-            req.user = user
+        jwt.verify(required, tokenSecret, async (err, user) => {
+            if (err) {
+                res.status(500).json({ error: 'failed to authenticate token' })
+            } else {
+                req.user = user
 
-            await auth.findOne({ email: req.user.email })
-                .then((user) => {
-                    res.status(200).json({ user: user })
-                }).catch((error) => {
-                    res.status(500).json({ error: error.message })
-                })
-            })
-        }
+                await auth.findOne({ email: req.user.email })
+                    .then((user) => {
+                        res.status(200).json({ user: user })
+                    }).catch((error) => {
+                        res.status(500).json({ error: error.message })
+                    })
+                
+                next()
+            }
+        })
+    }
 }
 
 // restricting access to routes by checking the role of user
