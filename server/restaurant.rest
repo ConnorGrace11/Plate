@@ -1,0 +1,25 @@
+# GET ALL RESTAURANTS
+GET http://localhost:5000/restaurants
+
+# GET ALL ITEMS AT A RESTAURANT
+###
+GET http://localhost:5000/restaurants/6167505637f5210835c48572/items/
+
+###
+
+# GET A SINGLE ITEM AT A RESTAURANT
+GET http://localhost:5000/restaurants/6167505637f5210835c48572/items/616f53112498f7d447da92d2
+
+
+###
+POST http://localhost:5000/restaurants/6167505637f5210835c48572/items/616f53112498f7d447da92d2/reviews
+Content-Type: application/json
+
+{
+    "username": "test",
+    "itemId": "test",
+    "restaurantId": "test",
+    "rating": 1,
+    "description": "test",
+    "date": "test"
+}
