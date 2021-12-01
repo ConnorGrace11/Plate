@@ -1,0 +1,10 @@
+node_modules
+<<<<<<< Updated upstream
+=======
+cache
+this-server/.env
+node_modules
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
