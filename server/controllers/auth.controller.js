@@ -34,7 +34,7 @@ exports.getUserByName = async (req, res) => {
 };
 
 exports.checkLogIn = (req, res) => {
-    if(req.cookies.access_token) {
+    if(req.cookies) {
         res.json({ loggedIn: true })
     } else {
         res.json({ loggedIn: false })
