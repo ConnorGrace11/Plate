@@ -33,22 +33,6 @@ exports.getUserByName = async (req, res) => {
     }
 };
 
-// exports.getLoggedInStatus = async (req, res) => {
-//     try {
-//         const role = { role: 'guest' }
-//         const user = await authUsers.find({ role: 'guest'} )
-
-//         if(role == user) {
-//             return res.status(400).json({ message: "not logged in, you need to login to view this" });
-
-//         } else {
-//             res.status(200).json({ message: "you're logged in and can view this" })
-//         }
-
-//     } catch (error) {
-//         return res.status(400).json({ message: error.message })
-//     }
-// };
 exports.checkLogIn = (req, res) => {
     if(req.cookies.access_token) {
         res.json({ loggedIn: true })
@@ -62,19 +46,13 @@ exports.logIn = (req, res) => {
         .then(user => {
             if(!req.body.email || !req.body.password) return res.status(400).json({ message: "fields can't be blank" })
             if (!user) return res.status(404).json({ error: 'no user with that email found' })
-            // if(user.role != 'user' || 'admin') return res.status(403).json({ messsge: "you need to be signed in to view this"})
             else {
                 bcrypt.compare(req.body.password, user.password, async (error, match) => {
                     if (error) return res.status(500).json(error)
                     else if (match) {
-                        // return res.cookie('access_token', generateToken(user), {
-                        //     httpOnly: true,
-                        //     secure: true,
-                        //     withCredentials: true
-                        // }).json({ message: "logged in" })
+                   
                         res.status(200).json({ status: 'Successful login', id: user.id, username: user.username, token: generateToken(user), isAuth: true })
-                        // await authUsers.updateOne({ email: req.body.email, accessToken: generateToken(user) })
-                        //await addToken.save()
+                   
                     }
                     else return res.status(403).json({ error: 'passwords do not match' })
                 })
@@ -147,20 +125,6 @@ exports.deleteAccount = async (req, res) => {
     }
 }
 
-// exports.authenticateToken = (req, res, next) => {
-//     const required = req.headers.authorization.split(' ')[1];
-    
-//     if(!required) {
-//         return res.status(500).json({ message: "no token provided" })
-//     } else {
-//         jwt.verify(required, tokenSecret, async (err, user) => {
-//             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
-//             req.user = user
-//             next()
-//         })
-//     }
-// }
-
 function generateToken(user) {
     return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512' }, { expiresIn: '1h' });
 };
@@ -173,17 +137,3 @@ exports.isAuth = (req, res, next) => {
         res.status(403).json({ message: "must login"})
     }
 }
-// async function updateRole(user, req, res) {
-//     try {
-//         // if(user.role == 'admin') return res.send("error")
-//         const currentRole = await authUsers.findOne({ email: user.email })
-
-//         const role = ({ role: currentRole.role });
-//         const newRole = {$set: { role: "admin" } };
-
-//         db.collection("users").updateOne(role, newRole)
-
-//     } catch (error) {
-//         res.status(500).json({ message: error.message })
-//     }  
-// }

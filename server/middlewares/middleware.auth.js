@@ -21,19 +21,6 @@ exports.getUserId = async (req, res, next) => {
     next()
 }
 
-// exports.restrictTo = (...roles) => {
-//     return async (req, res, next) => {
-//         const name = ({ username: req.params.username})
-//         const findRole = await auth.findOne(name)
-//         const role = findRole.role
-
-//         if(roles.includes(role)) {
-//             next()
-//         } else {
-//             return res.status(401).json({ error: "unauthorized" })
-//         }
-//     }
-// };
 
 // reads everything it needs from the jwt token
 // to display user details, need to authenticate

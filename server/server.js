@@ -11,7 +11,6 @@ const reviews = require('./routes/review');
 const error = require('./middlewares/middleware.error');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true, 
@@ -23,7 +22,6 @@ const db = mongoose.connection;
 db.on('error', (error) => console.log(error))
 db.once('open', () => console.log('Connected to database!'))
 
-// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}))
@@ -35,15 +33,6 @@ app.use(cors({
 }));
 
 app.use(cookieParser());
-app.use(session({
-    key: "user",
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 60 * 60* 8
-    }
-}))
 
 app.use('/public', express.static('public'));
 app.use('/api/auth', auth);
