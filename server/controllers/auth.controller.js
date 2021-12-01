@@ -122,7 +122,7 @@ exports.deleteAccount = async (req, res) => {
 }
 
 function generateToken(user) {
-    return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512' }, { expiresIn: '1h' });
+    return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512', expiresIn: '2h' });
 };
 
 exports.isAuth = (req, res, next) => {
