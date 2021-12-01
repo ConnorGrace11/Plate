@@ -18,18 +18,17 @@ import rating from './src/screens/rating'
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
-  return(
+  return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="mainPg" component = {mainScreen}/>
-        <Stack.Screen name="Home" component = {HomeScreen}/>
-        <Stack.Screen name="Login" component = {LoginScreen}/>
-        <Stack.Screen name="CreateAccount" component = {CreateAccountScreen}/>
-        <Stack.Screen name="Meals" component = {GetAllMeals}/>
-        <Stack.Screen name="Restaurants" component = {GetAllRestaurants}/>
-        <Stack.Screen name="Profile" component = {ProfileScreen}/>
-        <Stack.Screen name="Items" component = {RandomItems}/>
-        <Stack.Screen name="Rating" component = {rating}/>
+        <Stack.Screen name="mainPg" component={mainScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
+        <Stack.Screen name="Restaurants" component={GetAllRestaurants} />
+        <Stack.Screen name="Profile" component={profileScreen} />
+        <Stack.Screen name="Items" component={RandomItems} />
+        <Stack.Screen name="Rating" component={rating} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -49,8 +49,8 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
         setShowing(true)
       })
       .catch((error) => {
-        console.log(error.response.data)
-        setErrorMessage(error.response.data.error)
+        console.log(error)
+        setErrorMessage(error)
         setLoggedIn(false)
         setShowing(true)
       })
@@ -60,37 +60,42 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
     <>
       <SafeAreaView contentContainerStyle={styles.container}>
         <Image style={styles.image} source={require('../forms/plate.png')} />
-        <View style={styles.body}>
-
+        <View style={styles.inputView} color="#00BFFF">
           <TextInput
             placeholder="E-mail"
-            style={styles.input}
+            style={styles.TextInput}
             onChangeText={(text) => onChangeEmail(text)}
             value={email}
             keyboardType="email-address"
             autoCapitalize="none"
           />
+        </View>
+        <View style={styles.inputView}>
           <TextInput
             placeholder="Password"
-            style={styles.input}
+            style={styles.TextInput}
             onChangeText={(text) => onChangePassword(text)}
             value={password}
             secureTextEntry
             autoCapitalize="none"
+            width="80%"
           />
-          <Button 
-          title="Log In"
-          style={styles.loginmsg} 
-          onPress={submit}
-          color = 'black'
-          backgroundColor = 'blue'/>
         </View>
-        
+        <View>
+          <Button
+            title="Log In"
+            style={styles.loginBtn}
+            onPress={submit}
+            color='black'
+            backgroundColor='blue' />
+        </View>
+
+
       </SafeAreaView>
       {showing ? (
         <Text>
           {loggedIn ? (
-            <Text style={styles.loginmsg}>Success!!</Text>
+            <Text color="blue">Success!!</Text>
           ) : (
             <Text style={styles.errormsg}> Error! {errorMessage} </Text>
           )}{' '}
@@ -106,13 +111,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },body: {
+    backgroundColor: '#00BFFF',
+  }, body: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 1,
     position: 'absolute',
-    top:500,
+    top: 500,
     left: 100
   },
   input: {
@@ -123,80 +129,42 @@ const styles = StyleSheet.create({
     marginHorizontal: 40
   },
   image: {
-    width: 230,
-    height: 230,
-    borderRadius: 63,
-    borderWidth: 4,
-    borderColor: "white",
-    marginBottom:10,
-    alignSelf:'center',
-    position: 'absolute',
-    marginTop:130
+    width: 130,
+    height: 130,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  loginmsg: {
-    height:45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#FF1493",
   },
   errormsg: {
     marginTop: 20,
     textAlign: 'center',
     backgroundColor: 'red',
   },
+  inputView: {
+    textAlign: 'center',
+    backgroundColor: "#00BFFF",
+    borderRadius: 30,
+    width: "50%",
+    height: 45,
+    marginBottom: 10,
+  },
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+    backgroundColor: '#00BFFF',
+    width: "30%",
+  }
 })
 
 export default EmailForm
-// import React, { useState } from 'react';
-// import { View, Text, Button, TouchableOpacity, onPress, ScrollView, ScrollViewComponent, StyleSheet} from 'react-native';
-// import EmailForm from '../forms/EmailForm';
-//
-// const LoginScreen = ({ navigation }) => {
-//   return (
-//     <ScrollView style={styles.container}>
-//     <EmailForm
-//       buttonText="Log in!!"
-//     >
-//     </EmailForm>
-//     <Button
-//       onPress={() => navigation.navigate('Home')}
-//       title="Home"
-//       color="#841584"
-//
-//     />
-//     </ScrollView>
-//   );
-// };
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: 'lightblue'
-//   },
-//   input: {
-//     height: 40,
-//     width: 300,
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginTop: 20,
-//     marginBottom: 20
-//   },
-//   image: {
-//     marginBottom: 20,
-//   },
-//   loginmsg: {
-//     marginTop: 20,
-//     textAlign: 'center',
-//     backgroundColor: 'lightgreen'
-//   },
-//   errormsg: {
-//     marginTop: 20,
-//     textAlign: 'center',
-//     backgroundColor: 'red'
-//   }
-//
-// });
-// export default LoginScreen;
