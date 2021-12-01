@@ -28,11 +28,9 @@ const RandomItems = ({ navigation, route }) => {
               {loading ? <Text style={styles.loading}>Loading Items...</Text> : restaurants.map((item) => (
                   <View key={item._id} contentConstainerStyle={styles.container}>
                           <Text style={styles.header}> { item.name } </Text>
-                          <Text style={styles.subHeader}> Restaurant ID: {data}</Text>
                           <Image style={styles.image} source={{uri: item.imgMeal[0]}}/>
                           <Text style={styles.body}> Calories: { item.calories } </Text>
                           <Text style={styles.body}> Allergens: { item.allergens[0] } </Text>
-                          <Text style={styles.body}> Ingredients: {item.ingredients}</Text>
                           <Text style={styles.body}> Rating Count: { item.ratingCount } </Text>
                           <Text style={styles.body}> Subcategory: { item.subCategory } </Text>
                           <Text style={styles.body}> Rating: { item.ratingNumber }/5 </Text>
