@@ -1,7 +1,7 @@
 import './Restaurant.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams} from 'react-router-dom';
+import { /* BrowserRouter as Router, */ Link, useParams} from 'react-router-dom';
 // reference: https://reactgo.com/react-router-useparams-hook/
 
 const Restaurant = () => {
@@ -36,6 +36,8 @@ const Restaurant = () => {
         <>
         <div >
         <br></br>
+        <br></br>
+        <br></br>
             <h1>Restaurant</h1>
             <br></br>
         </div>
@@ -46,15 +48,22 @@ const Restaurant = () => {
                     <h2>Name: { place.name }</h2>
                     <h5>Location: {place.location}</h5>
                     <h7>Phone Number: {place.phoneNumber}</h7>
-                    <br></br>
-                    <h7><Link to={`/restaurants/${place._id}/items`}>Menu</Link></h7>
+                    
                     <p>Rating: {place.rating} </p>
+                    <h3><Link to={`/restaurants/${place._id}/items`}>Menu</Link></h3>
                     
                     
                 </div>
-            ))}      
-            <h3><Link to='/restaurants'>Restaurants</Link></h3>
+            ))}  
+            <br></br>    
+            <h2><Link to='/restaurants'>Back to All Restaurants</Link></h2>
         </div>
+        <br></br>
+        <br></br>
+        
+        
+        
+        
         </>
     );
 }

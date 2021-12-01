@@ -1,6 +1,6 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState }from 'react';
 import axios from 'axios';
-import { Link, Redirect, Route } from "react-router-dom"; 
+import { Link} from "react-router-dom"; 
 //reference: https://www.youtube.com/watch?v=W-sZo6Gtx_E
 
 //const register = async () => {
@@ -23,7 +23,7 @@ const [passwordReg, setPasswordReg] = useState("");
 
 const submitHandler = (e) => {
   e.preventDefault()
-  axios.post("http://localhost:3001/api/auth/signup", { 
+  axios.post("http://143.198.25.164:5000/api/auth/signup", { 
       username: usernameReg,
       email: emailReg,
       password: passwordReg
@@ -46,7 +46,7 @@ const submitHandler = (e) => {
     <div class="container">  
       <br></br><br></br>
       <div class="row align-items-center">
-        <div class="col-md-8 offset-md-2 bg-warning border border-3 border-dark rounded">
+        <div class="col-md-8 offset-md-2 bg-secondary border border-3 border-dark rounded">
           <br></br> <br></br>
           <form onSubmit={submitHandler}>
             <div>
@@ -73,12 +73,12 @@ const submitHandler = (e) => {
                 </div>
               </div>
               <br></br>
-              <button type="submit" class="btn btn-success">Sign Up</button>
+              <button type="submit" class="btn btn-dark">Sign Up</button>
               
             </div>
             {showing ? <div> {registered ? <div>Successful Registration</div> : <div>an error occured</div>} </div> :
                 <div></div> }
-            <br></br>
+            <hr></hr>
               <span className='form-input-login'>
                 Already have an account? <Link to={'/login'}>Login here</Link>
               </span>

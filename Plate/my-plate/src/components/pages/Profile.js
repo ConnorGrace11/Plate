@@ -1,5 +1,5 @@
-import React, { useReducer, useState, useEffect } from 'react';
-import { useParams, Redirect } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import {  Redirect } from "react-router-dom";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -52,14 +52,15 @@ const Profile = () => {
     return(
       <>
       <div className="all-items">
-          <h1>User Details</h1>
+      <h1>Profile</h1>
       </div>
       <div className="allmeals">
           {loading && user.map((item) => (
               <div className="meal">
-                  <h2>User: { item.user.username }</h2>
-                  <h2>Email: { item.user.email }</h2>
-                  <h2>Role: {item.user.role}</h2>
+                  <h1>User Details</h1>
+                  <h3>Username: { item.user.username }</h3>
+                  <h3>Email: { item.user.email }</h3>
+                  <h3>Role: {item.user.role}</h3>
                   
               </div>
           ))}      
@@ -68,6 +69,9 @@ const Profile = () => {
      <br></br>
      <div className="all-items">
           <h1>Favorite Restaurants</h1>
+      </div>
+      <div className="allmeals">
+          <h2>Coming Soon!</h2>
       </div>
      <br></br>
       </>

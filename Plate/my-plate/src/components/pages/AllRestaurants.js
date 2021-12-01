@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams} from 'react-router-dom';
+import { /* BrowserRouter as Router, */ Link} from 'react-router-dom';
 
 const AllRestaurants = () => {
     
@@ -40,6 +40,11 @@ const AllRestaurants = () => {
                     <br></br>
                 </div>
             ))}      
+        </div>
+        <hr></hr>
+        <div>
+            <h2>Find Restaurants on a Map</h2>
+            <h4><Link to={'/map'}>Click Here</Link></h4>
         </div>
         
         </>

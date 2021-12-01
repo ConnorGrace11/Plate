@@ -1,10 +1,10 @@
 import './Navigation.css';
-import React, { useReducer, useState, useEffect } from 'react';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { LinkContainer, Form, FormControl, Button } from 'react-router-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Nav, Navbar } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import { BrowserRouter, Link} from 'react-router-dom';
+//import { BrowserRouter, Link} from 'react-router-dom';
 const cookies = new Cookies();
 //reference: https://www.youtube.com/watch?v=VlklL6TPlpw
 
@@ -62,15 +62,15 @@ function Navigation() {
                 <LinkContainer to="/restaurants" >
                     <Nav.Link><h3 className="colortext">Restaurants</h3></Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/">
-                    <Nav.Link onClick={logout}><h3 className="colortext">Logout</h3></Nav.Link>
-                </LinkContainer>
                 <LinkContainer to="/profile">
                     <Nav.Link>
                     {loading && user.map((item) => (
                     <h3 className="colortext"> { item.user.username }</h3>
                     ))}
                     </Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/">
+                    <Nav.Link onClick={logout}><h3 className="colortext">Logout</h3></Nav.Link>
                 </LinkContainer>
                 </>
                 :

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import { withAuth } from '@okta/okta-react';
 // import { BrewstrRef } from '../../firebase';
+import axios from 'axios';
+import {Link} from 'react-router-dom';
 import StarRating from './StarRating';
 import './RatingPage.css';
 
@@ -16,13 +18,32 @@ class RatingPage extends Component {
     };
   }
 
+  submitHandler = (e) => {
+    e.preventDefault()
+    axios.post("http://143.198.25.164:5000/restaurants/:restaurantId/items/:itemId/reviews/", { 
+        //description: descriptionReg,
+        //rating = ratingReg,
+        //review = reviewReg
+    })
+     .then(response => {
+        console.log(response.data)
+        //setRegistered(true)
+        //setShowing(true)
+    })
+    .catch(error => {
+        console.log(error.response.data)
+        //setRegistered(false)
+        //setShowing(true)
+    })
+  
+  }
   async componentDidMount(){
     // const user = await this.props.auth.getUser();
     // this.setState({user:user.email});
   }
 
 
-  handleChange = ev => {
+  /* handleChange = ev => {
     this.setState({
       [ev.target.name]: ev.target.value
     });
@@ -39,10 +60,11 @@ class RatingPage extends Component {
     //   .then(() => {
     //     this.props.history.push('/ratinglist');
     //   });
-  };
+  }; */
 
   render() {
     return (
+      <>
       <div className="rating-form">
         <div className="heading">Rate and Review</div>
         <div className="form-input rating">
@@ -50,7 +72,7 @@ class RatingPage extends Component {
           <StarRating
             numberOfStars="5"
             currentRating="0"
-            onClick={this.setRating}
+            onClick= {this.setRating}
           />
         </div>
         <div className="form-input">
@@ -58,16 +80,22 @@ class RatingPage extends Component {
           <textarea
             name="description"
             id="description"
-            onChange={this.handleChange}
+            //onChange={(e) => { setDescriptionReg(e.target.value);}}
             placeholder="Comments for the review"
           />
         </div>
         <div className="actions">
-          <button type="submit" onClick={this.saveRating}>
+          <button type="submit" class="btn btn-success" onClick={this.saveRating}>
             Submit Rating
           </button>
         </div>
       </div>
+      <br></br>
+      <div>
+      <h2><Link to='/restaurants'>Back to All Restaurants</Link></h2>
+    </div>
+    </>
+      
     );
   }
 }

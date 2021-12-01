@@ -12,6 +12,7 @@ import Menu from './components/pages/Menu';
 import Item from './components/pages/Item';
 import Profile from './components/pages/Profile';
 import Reviews from './components/pages/RatingPage';
+import ReviewItem from './components/pages/ReviewItem';
 import MapContainer from './components/pages/Map';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -32,7 +33,9 @@ function App() {
         <Route exact path="/signup" component={Signup}></Route>
         <Route exact path="/profile"/* /:id" */ component={Profile}></Route>
         <Route exact path="/map" component={MapContainer}></Route>
-        <Route exact path="/reviews" component={Reviews}></Route>
+        <Route exact path="/" component={Home}></Route>
+        <Route exact path="/restaurants/:restaurantId/items/:itemId/reviews" component={Reviews}></Route>
+        <Route exact path="/reviews" component={ReviewItem}></Route>
         </Switch>
         </Router>
         <br></br>

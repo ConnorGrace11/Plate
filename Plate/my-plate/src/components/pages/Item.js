@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, useHistory, Link, useRouteMatch, useParams} from 'react-router-dom';
+import { /* BrowserRouter as Router, useHistory, */ Link, useParams} from 'react-router-dom';
+import ReviewItem from './ReviewItem';
 
 
 const Item = () => {
     let { restaurantId } = useParams()
     let { itemId } = useParams()
-    let history = useHistory();
+    //let history = useHistory();
 
     useEffect(() => {
         getItems()
@@ -49,12 +50,15 @@ const Item = () => {
                     <p>Subcategory: { item.subCategory }</p>
                     <p>Review: { item.review }</p>
                     <p>Description: { item.description }</p>
+                    <button type="submit" class="btn btn-success"><Link to={`/restaurants/${item.restaurantId}/items/${item._id}/reviews`}>Add a Review to this Item</Link></button>
+                    <br></br>
+                    <button type="submit" class="btn btn-success"><Link to={`/reviews`}>Look at Reviews</Link></button>
                 </div>
             ))}
-            <button type="submit" class="btn btn-success"><Link to='/reviews'>Add a Review to this Item</Link></button>
+            
             <br></br>  
             <br></br> 
-            <h3><Link to='/restaurants'>Restaurants</Link></h3>
+            <h2><Link to='/restaurants'>Back to All Restaurants</Link></h2>
             {/* <Link onClick={() => history.goBack()}>Back</Link>     */}
         </div>
         </>

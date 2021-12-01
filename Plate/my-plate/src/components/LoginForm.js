@@ -1,5 +1,5 @@
 import { Link, Route, Redirect } from "react-router-dom"; 
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 // reference: //https://www.youtube.com/watch?v=91qEdc6dSUs&t=1062s
@@ -77,10 +77,10 @@ const LoginForm = () => {
                     </div>
                 </div>
                 <br></br> <br></br>
-                <input class="btn btn-info" type="submit" value="Login"/>
+                <input class="btn btn-dark" type="submit" value="Login"/>
                 <hr></hr>
                 <Link to={'/signup'}>
-                <button class="btn btn-info" > Sign Up </button>
+                <button class="btn btn-dark" > Sign Up </button>
                 </Link>
                 
             </div>

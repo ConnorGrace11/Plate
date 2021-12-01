@@ -1,8 +1,11 @@
 import React from 'react';
 import platelogo from "./platelogo.png";
 import { Link } from "react-router-dom"; 
+import Cookies from 'universal-cookie';
 
 function Home(){
+
+    const cookies = new Cookies();
     return(
         <div className="App container py-2">
         <div class="jumbotron border border-dark">
@@ -11,10 +14,21 @@ function Home(){
             <hr class="my-4"/>
                 <p>Cool things happen when you login or signup</p>
                 <p class="lead">
+                {
+                cookies.get("access_token") ?
+                <>
                 <Link to={'/map'}>
-                <img src={platelogo} alt="logo"/>
+                <img src={platelogo} class="img-fluid" alt="logo"/>
                 </Link>
-                {/* <img src="http://res.cloudinary.com/clouduser21/image/upload/v1636410860/y3mnfbvmtyipamd1snlp.png"/> */}
+                </>
+                :
+                <>
+                <Link to={'/login'}>
+                <img src={platelogo} class="img-fluid" alt="logo"/>
+                </Link>
+                </>
+            }
+                
                  </p>
         </div>
         </div>

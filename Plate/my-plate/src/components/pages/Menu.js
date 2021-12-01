@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useParams} from 'react-router-dom';
+import { /* BrowserRouter as Router, */ Link, useRouteMatch, useParams} from 'react-router-dom';
 
 const Menu = () => {
     let { restaurantId } = useParams()
@@ -46,7 +46,7 @@ const Menu = () => {
                     <p>Description: { meal.description }</p>
                 </div>
             ))}      
-            <h3><Link to='/restaurants'>Restaurants</Link></h3>
+            <h2><Link to='/restaurants'>Back to All Restaurants</Link></h2>
         </div>
         </>
     );
