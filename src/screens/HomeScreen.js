@@ -1,64 +1,52 @@
 import React from 'react';
-import { useEffect, useState } from "react";
-import { View, Text, Button, TouchableOpacity, FlatList, ActivityIndicator, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
-
+import { useEffect , useState} from "react";
+import { View, StyleSheet, Text, Button, TouchableOpacity, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
+import axios, { Axios } from 'axios';
+import GetAllMeals from './GetAllMeals';
 
 const HomeScreen = ({ navigation }) => {
+  const AppButton = ({ onPress, title }) => (
+    <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
+      <Text style={styles.appButtonText}>{title}</Text>
+    </TouchableOpacity>
+);
+
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.loading} >Welcome to the Home Screen</Text>
-      <TouchableOpacity style={styles.text} onPress={() => navigation.navigate('Restaurants')}>
-        <Text>Go to Restaurants Screen</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.text} onPress={() => navigation.navigate('Profile')}>
-        <Text>Go to Profile Screen</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.text} onPress={() => navigation.navigate('Login')} >
-        <Text>Back to log in</Text>
-      </TouchableOpacity>
+    <SafeAreaView style={styles.container }>
+      <Text style={styles.loading}>Welcome to the Home Screen</Text>
+      <AppButton title="Restaurants" onPress={() => navigation.navigate('Restaurants')} size="sm" backgroundColor="#007bff" />
+      <AppButton title="Profile" onPress={() => navigation.navigate('Profile')} size="sm" backgroundColor="#007bff" />
+      <AppButton title="Back to Login" onPress={() => navigation.navigate('Login')} size="sm" backgroundColor="#007bff" />
     </SafeAreaView>
 
   );
 };
-
-export default HomeScreen;
-
 const styles = StyleSheet.create({
+  loading: {
+      fontSize: 25
+  },
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'lightblue',
   },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: '#00BFFF',
-
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#00BFFF",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 10,
   },
-  text: {
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 200,
-    height: 150,
-    backgroundColor: '#00BFFF',
-    borderRadius: 50,
-    color: 'black',
-    marginBottom: 20,
-    textAlign: 'center',
-    textDecorationColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
-    opacity: 10,
-  },
-  loading: {
-    fontSize: 30,
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   },
 })
+
+export default HomeScreen;
