@@ -17,7 +17,7 @@ const GetAllRestaurants = ({navigation, route}) => {
 
     useEffect(()  => {
         setTimeout(function getMeals() {
-        fetch('http://192.168.1.214:5000/restaurants')                                                    //192.168.1.214
+        fetch('http://143.198.25.164:5000/restaurants')                                                    //192.168.1.214
             .then((response) => response.json())
             .then((json) => setRestaurants(json))
             .catch((error) => console.error(error))
