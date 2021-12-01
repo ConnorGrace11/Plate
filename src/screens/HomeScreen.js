@@ -6,29 +6,20 @@ import { View, Text, Button, TouchableOpacity, FlatList, ActivityIndicator, Safe
 const HomeScreen = ({ navigation }) => {
 
   return (
-    <ScrollView style={styles.container}>
-      <Text>Welcome to the Home Screen</Text>
-      <View>
-        <Button style={styles.button}
-          title="Go to Restaurants Screen"
-          onPress={() => navigation.navigate('Restaurants')}
-        />
-      </View>
-      <View>
-        <Button
-          title="Go to Profile Screen"
-          onPress={() => navigation.navigate('Profile')}
-        />
-      </View>
-      <View>
-        <Button
-          title="Back to log in"
-          onPress={() => navigation.navigate('Login')}
-        />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.loading} >Welcome to the Home Screen</Text>
+      <TouchableOpacity style={styles.text} onPress={() => navigation.navigate('Restaurants')}>
+        <Text>Go to Restaurants Screen</Text>
+      </TouchableOpacity>
 
+      <TouchableOpacity style={styles.text} onPress={() => navigation.navigate('Profile')}>
+        <Text>Go to Profile Screen</Text>
+      </TouchableOpacity>
 
-    </ScrollView>
+      <TouchableOpacity style={styles.text} onPress={() => navigation.navigate('Login')} >
+        <Text>Back to log in</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
 
   );
 };
@@ -47,13 +38,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'black',
+    backgroundColor: '#00BFFF',
+
   },
   text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-    color: 'white',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 200,
+    height: 150,
+    backgroundColor: '#00BFFF',
+    borderRadius: 50,
+    color: 'black',
+    marginBottom: 20,
+    textAlign: 'center',
+    textDecorationColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 10,
+  },
+  loading: {
+    fontSize: 30,
   },
 })

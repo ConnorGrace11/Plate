@@ -97,8 +97,6 @@ const EmailForm = ({ buttonText, children, onAuthentication, navigation }) => {
             color='black' />
         </View>
 
-
-
       </ScrollView>
       {showing ? (
         <Text>
