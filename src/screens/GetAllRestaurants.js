@@ -33,15 +33,11 @@ const GetAllRestaurants = ({navigation, route}) => {
                         <Text style={styles.header} onPress={() => {navigation.navigate('Items', {data: item._id})}}> { item.name } </Text>
                         <Text style={styles.subHeader}> { item.location } </Text>
                         <Text style={styles.body}>Restaurant Rating: { item.rating }/5 </Text>
-                        <Text style={styles.body} onPress={() => console.log(restaurantID)}>Restaurant ID: { item._id } </Text>
-                        <Button title="See Items" onPress={() => navigation.navigate('Items', {data: 'hello'})}/>
                 </View>
 
             ))}
        </ScrollView>
     )
-    console.log(restaurantID)
-    restaurantID
 };
 
 const styles = StyleSheet.create({
