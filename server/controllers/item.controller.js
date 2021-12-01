@@ -76,23 +76,38 @@ exports.getItem = (req, res) => {
 
 // creating a new Item (POST request)
 exports.createItem = async (req, res) => {
-    const newItem = new Item({
-        restaurantId: req.body.restaurantId,
-        name: req.body.name,
-        price: req.body.price,
-        calories: req.body.calories,
-        ingredients: req.body.ingredients,
-        allergens: req.body.allergens,
-        category: req.body.category,
-        subCategory: req.body.subCategory,
-        description: req.body.description,
-        ratingCount: req.body.ratingCount,
-        ratingNumber: req.body.ratingNumber
-    })
-    console.log(req.body.name )
-    const item = await newItem.save();
-    res.json(item);
+    let urls = [];
+    let multiple = async (path) => await upload(path)
+    for (const file of req.files){
+        const {path} = file;
+        const newPath = await multiple(path);
+        urls.push(newPath);
+        fs.unlinkSync(path);
+    }
+    if (urls) {
+        const newItem = new Item({
+            restaurantId: req.body.restaurantId,
+            name: req.body.name,
+            price: req.body.price,
+            calories: req.body.calories,
+            ingredients: req.body.ingredients,
+            allergens: req.body.allergens,
+            category: req.body.category,
+            subCategory: req.body.subCategory,
+            description: req.body.description,
+            ratingCount: req.body.ratingCount,
+            ratingNumber: req.body.ratingNumber,
+            imgMeal: urls
+        })
+        try {
+            const item = await newItem.save();
+            res.json(item);
+        } catch (error) {
+            return res.status(500).send({ message: error.message })
+        }
+    }
 };
+
 
 exports.deleteItem = async (req, res) => {
     await res.item.remove();
