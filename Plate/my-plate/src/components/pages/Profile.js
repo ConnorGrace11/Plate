@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {  Redirect } from "react-router-dom";
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import DeleteAccount from './DeleteAccount'
 const cookies = new Cookies();
 
 
@@ -66,6 +67,9 @@ const Profile = () => {
           ))}      
       </div>
      <button class="btn btn-success" onClick={logout}><Redirect to="/profile"/>Logout</button>
+     <br></br>
+     <br></br>
+     <DeleteAccount /> 
      <br></br>
      <div className="all-items">
           <h1>Favorite Restaurants</h1>
