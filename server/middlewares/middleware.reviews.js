@@ -1,4 +1,4 @@
-const Review = require('../models/reviews')
+const Review = require('../models/review')
 
 exports.getReviewId = async (req, res, next) => {
     let review;

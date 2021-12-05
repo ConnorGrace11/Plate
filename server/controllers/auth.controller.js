@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const tokenSecret = process.env.SECRET;
 const Cookies = require('universal-cookie');
 
-// need to fix
 exports.getUsers = async (req, res) => {
     await authUsers.find()
         .then(user => {
@@ -47,12 +46,13 @@ exports.logIn = (req, res) => {
             if(!req.body.email || !req.body.password) return res.status(400).json({ message: "fields can't be blank" })
             if (!user) return res.status(404).json({ error: 'no user with that email found' })
             else {
+
                 bcrypt.compare(req.body.password, user.password, async (error, match) => {
+
                     if (error) return res.status(500).json(error)
                     else if (match) {
-                   
                         res.status(200).json({ status: 'Successful login', id: user.id, username: user.username, token: generateToken(user), isAuth: true })
-                   
+                        
                     }
                     else return res.status(403).json({ error: 'passwords do not match' })
                 })
@@ -99,11 +99,11 @@ exports.updateUser = async (req, res) => {
     if(!userId) return res.status(404).json({ message: "can't find user" }) 
 
     if(!req.body.username) return res.json({ message: "can't leave fields blank "})
-   // patch username , password
+
     if(req.body.username != null){
         res.user.username = req.body.username
     }
-    
+
     try {
         const modifiedUser = await res.user.save();
         res.json(modifiedUser)
@@ -122,14 +122,39 @@ exports.deleteAccount = async (req, res) => {
 }
 
 function generateToken(user) {
-    return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512' }, { expiresIn: '1h' });
+    return jwt.sign({ _id: user._id, username: user.username, email: user.email , role: user.role }, tokenSecret, { algorithm: 'HS512', expiresIn: '2h' });
 };
 
-// exports.isAuth = (req, res, next) => {
-//     const cookies = new Cookies(req.headers.cookie);
-//     if(cookies.get("access_token")) {
-//         next()
-//     } else {
-//         res.status(403).json({ message: "must login"})
-//     }
-// }
+exports.isAuth = (req, res, next) => {
+    const cookies = new Cookies(req.headers.cookie);
+    if(cookies.get("access_token")) {
+        next()
+    } else {
+        res.status(403).json({ message: "must login"})
+    }
+}
+
+// gets the data from the authorization header
+// to check if the current user is who they say they are
+exports.authenticateToken = (req, res, next) => {
+    const required = req.headers.authorization;
+
+    if(!required) {
+        return res.status(500).json({ message: "no token provided" })
+    } else {
+        jwt.verify(required.split(' ')[1], tokenSecret, async (err, user) => {
+            if (err) return res.status(500).json({ error: 'failed to authenticate token' })
+            req.user = user
+
+            verifier = await authUsers.findById({ _id: req.user._id})
+            // console.log(req.user._id)
+
+            if(req.user._id == verifier.id) {
+                next()
+            } else {
+                res.status(401).json({ message: "unauthorized" })
+            }
+            next()
+        })
+    }
+}

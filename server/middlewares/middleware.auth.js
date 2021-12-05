@@ -17,7 +17,6 @@ exports.getUserId = async (req, res, next) => {
     }
 
     res.user = user
-    // console.log(res.user)
     next()
 }
 
@@ -71,7 +70,7 @@ exports.restrictGet = (req, res, next) => {
 }
 
 // only allowing delete if the token matches the param value
-// given as well as the id
+// given as well as the id of user
 exports.restrictDelete = (req, res, next) => {
     const required = req.headers.authorization.split(' ')[1];
     let needed;
@@ -94,8 +93,7 @@ exports.restrictDelete = (req, res, next) => {
 }
 
 // only allowing updating of user if the token matches 
-// the username param value given as well as the id
-
+// the username param value given as well as the user id
 exports.restrictPatch = (req, res, next) => {
     const required = req.headers.authorization.split(' ')[1];
     let needed;

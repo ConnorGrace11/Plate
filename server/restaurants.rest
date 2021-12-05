@@ -1,0 +1,30 @@
+GET http://localhost:5000/restaurants
+
+###
+
+POST http://localhost:5000/restaurants
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTc2MWQ1Y2MyNDE5NjkwMmY3ODJjZDMiLCJ1c2VybmFtZSI6ImVtYWlsIiwiZW1haWwiOiJlbWFpbEBlbWFpbC5jb20iLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Mzc2MjA5ODh9.F6HTiR7edl3AIyn7-STb_TCILx8F4id06gByv_RtuAP-oj3CnLl6UXVQ5iUeYh0d7HTL7YM1FM4Fmq1ZqFU_Jw
+
+{
+    "name": "t",
+    "location": "test",
+    "phoneNumber": "1",
+    "rating": "1",
+    "imgRestaurant": []
+}
+
+### 
+
+GET http://localhost:5000/restaurants
+
+### 
+
+
+PATCH http://localhost:5000/restaurants/61674f6437f5210835c4856b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTc2MWQ1Y2MyNDE5NjkwMmY3ODJjZDMiLCJ1c2VybmFtZSI6ImVtYWlsIiwiZW1haWwiOiJlbWFpbEBlbWFpbC5jb20iLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE2Mzc2MjA5ODh9.F6HTiR7edl3AIyn7-STb_TCILx8F4id06gByv_RtuAP-oj3CnLl6UXVQ5iUeYh0d7HTL7YM1FM4Fmq1ZqFU_Jw
+
+{
+    "rating": "4.4"
+}

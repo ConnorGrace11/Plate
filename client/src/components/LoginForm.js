@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Route, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie'
+import './LoginForm.css';
 // const cookies = new Cookies()
 // reference: https://www.youtube.com/watch?v=9KaMsGSxGno
 
@@ -37,7 +38,7 @@ const LoginForm = () => {
         })
         .then(response => {
             const { token } = response.data;
-            cookies.set('a', token, { path: '/', httpOnly: true });
+            cookies.set('access_token', token, { path: '/' });
             console.log(response.data)
             setLoggedIn(true)
             setShowing(true)
@@ -52,8 +53,8 @@ const LoginForm = () => {
         return (
             <>
                 <form onSubmit={submitHandler}>
-                    <div>
-                        <h2>Login</h2>
+                    <div className="all-inputs">
+                        <h2>LOGIN</h2>
                         <div className="form-group">
                             <label htmlFor="email">email: </label>
                             <input 

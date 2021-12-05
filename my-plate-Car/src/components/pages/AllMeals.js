@@ -13,9 +13,13 @@ const AllMeals = () => {
 
     const getMeals = async () => {
         try {
-            const mealResponse = await axios.get("http://localhost:5000/meals")
+            const mealResponse = await axios.get("http://143.198.25.164:5000/meals"/* ,{
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                }
+            } */)
             setMeals(mealResponse.data)
-            setLoading(true)
+            setLoading(true) 
         } catch (error) {
             console.log(error.message)
         }
@@ -27,12 +31,13 @@ const AllMeals = () => {
             <h1>MEALS!</h1>
         </div>
         <div className="allmeals">
-            {loading && meals.map((item) => (
+            {loading && 
+            meals.map( (meal) => (
                 <div className="meal">
-                    <h2>{ item.name }</h2>
-                    <h5>{ item.category }</h5>
-                    <p>{ item.todo }</p>
-                    <img src={ item.imgMeal }></img>
+                    <h2>{ meal.name }</h2>
+                    <h5>{ meal.category }</h5>
+                    <p>{ meal.todo }</p>  
+                    
                 </div>
             ))}      
         </div>

@@ -1,4 +1,4 @@
-const Review = require('../models/reviews')
+const Review = require('../models/review')
 
 // getting all reviews
 exports.getAllReviews = async (req, res) => {
@@ -40,13 +40,13 @@ exports.createReview = async (req, res) => {
             
         try {
             const newReview = await added.save();
-            res.json(newReview);
+            res.status(201).json({ review: newReview });
         } catch (error) {
             return res.status(500).send({ message: error.message })
         }
     }
     else{
-        return res.status(200).send({ message: "Item already reviewed" });
+        return res.status(400).send({ message: "Item already reviewed" });
     }
 };
 

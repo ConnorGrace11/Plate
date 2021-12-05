@@ -1,6 +1,8 @@
 import { BrowserRouter as Link} from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'universal-cookie'
+const cookies = new Cookies();
 
 import './NavBar.css';
 
@@ -19,6 +21,11 @@ function Navbar() {
           })
   }, [])
 
+  const logout = () => {
+    var token = cookies.get("access_token")
+    cookies.remove("access_token", token, { path: '/'})
+  }
+
   return (
     <>
       <nav className='navbar'>
@@ -30,7 +37,7 @@ function Navbar() {
             { !loggedIn && <a href='/signup' className="nav-links"><Link to='/signup'className='nav-links'>Sign Up</Link></a> }
             { loggedIn && <a href='/meals' className="nav-links"><Link to='/meals'className='nav-links'>Post a Meal</Link></a> }
             { loggedIn && <a href='/protected' className="nav-links"><Link to='/protected'className='nav-links'>Protected</Link></a> }
-            { loggedIn && <a href='/logout' className="nav-links"><Link to='/logout'className='nav-links'>Logout</Link></a> }
+            { loggedIn && <a href='/logout' className="nav-links" onClick={logout}><Link to='/logout'className='nav-links'>Logout</Link></a> }
           </div>
         </div>
       </nav>
