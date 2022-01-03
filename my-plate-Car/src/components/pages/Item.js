@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams} from 'react-router-dom';
 
-
 const Item = () => {
     const [items, setItems] = useState("");
     const [loading, setLoading] = useState(false);
@@ -15,7 +14,7 @@ const Item = () => {
             try {
                 console.log(itemId)
                 console.log(restaurantId)
-                const itemsResponse = await axios.get(`http://143.198.25.164:5000/restaurants/${restaurantId}/items/${itemId}`/* ,{
+                const itemsResponse = await axios.get(`http://localhost:5000/restaurants/${restaurantId}/items/${itemId}`/* ,{
                     headers: {
                         'Access-Control-Allow-Origin': '*'
                     }

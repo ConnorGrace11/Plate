@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import DeleteAccount from './DeleteAccount';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -14,7 +14,7 @@ const Profile = () => {
     const token = cookies.get("access_token")
     
     const authAxios = axios.create({
-        baseURL: "http://143.198.25.164:5000",
+        baseURL: "http://localhost:5000",
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -65,6 +65,7 @@ const Profile = () => {
           ))}      
       </div>
      <button onClick={Logout}>Logout</button>
+     <DeleteAccount />
       </>
     );
 }

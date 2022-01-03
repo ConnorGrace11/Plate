@@ -24,12 +24,12 @@ exports.getUserId = async (req, res, next) => {
 // to display user details, need to authenticate
 // to get the special token
 exports.userDataFromToken = (req, res, next) => {
-    const required = req.headers.authorization.split(' ')[1];
+    const required = req.headers.authorization;
     
     if(!required) {
         return res.status(500).json({ message: "no token provided" })
     } else {
-        jwt.verify(required, tokenSecret, async (err, user) => {
+        jwt.verify(required.split(' ')[1], tokenSecret, async (err, user) => {
             if (err) { return res.status(500).json({ error: 'failed to authenticate token' }) }
             else {
                 req.user = user
@@ -69,13 +69,13 @@ exports.restrictGet = (req, res, next) => {
 // only allowing delete if the token matches the param value
 // given as well as the id of user
 exports.restrictDelete = (req, res, next) => {
-    const required = req.headers.authorization.split(' ')[1];
+    const required = req.headers.authorization;
     let needed;
 
     if(!required) {
         return res.status(500).json({ message: "no token provided" })
     } else {
-        jwt.verify(required, tokenSecret, async (err, user) => {
+        jwt.verify(required.split(' ')[1], tokenSecret, async (err, user) => {
             if (err) return res.status(500).json({ error: 'failed to authenticate token' })
             req.user = user
 

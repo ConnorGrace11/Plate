@@ -9,7 +9,7 @@ function Navigation() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        axios.get("http://143.198.25.164:5000/api/auth/login")
+        axios.get("http://localhost:5000/api/auth/login")
             .then((response) => {
                 // setLoggedIn(response.data)
                 // console.log(response.data)

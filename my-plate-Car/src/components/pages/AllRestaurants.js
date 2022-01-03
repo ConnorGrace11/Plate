@@ -15,7 +15,7 @@ const AllRestaurants = () => {
 
     const getRestaurants = async () => {
         try {
-            const restaurantResponse = await axios.get("http://143.198.25.164:5000/restaurants"/* ,{
+            const restaurantResponse = await axios.get("http://localhost:5000/restaurants"/* ,{
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }

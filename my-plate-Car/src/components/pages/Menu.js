@@ -10,7 +10,7 @@ const Menu = () => {
         const getMenu = async () => {
             try {
                 //console.log(restaurantId)
-                const menuResponse = await axios.get(`http://143.198.25.164:5000/restaurants/${restaurantId}/items`/* ,{
+                const menuResponse = await axios.get(`http://localhost:5000/restaurants/${restaurantId}/items`/* ,{
                     headers: {
                         'Access-Control-Allow-Origin': '*'
                     }

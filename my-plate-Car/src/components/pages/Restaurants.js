@@ -12,7 +12,7 @@ const Restaurant = () => {
         const getRestaurant = async () => { 
             try {
                 //console.log(restaurantId)
-                const restaurantResponse = await axios.get(`http://143.198.25.164:5000/restaurants/${restaurantId}`
+                const restaurantResponse = await axios.get(`http://localhost:5000/restaurants/${restaurantId}`
                 /*   restaurantId?_id= ,{
                     headers: {
                         'Access-Control-Allow-Origin': '*'
