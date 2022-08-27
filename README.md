@@ -2,5 +2,5 @@
 
 # Plate Project for Software Development II
 
-### React native final code in Abdul 2 branch
+### React native final code in reactNative branch
 ### Backend final code in "updated" branch
