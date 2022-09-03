@@ -1,3 +1,4 @@
+//this is the screen users will see when signing up 
 import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, StyleSheet, TextInput, Button, Text, Image, View, SafeAreaView, Alert, } from 'react-native';
 import axios from 'axios';
