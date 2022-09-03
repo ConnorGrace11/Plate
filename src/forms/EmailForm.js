@@ -1,3 +1,4 @@
+//Form for sign up and login
 import React, { useState, Component } from 'react'
 import {
   ScrollView,
