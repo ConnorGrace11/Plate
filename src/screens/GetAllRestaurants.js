@@ -1,4 +1,5 @@
- import React from 'react';
+// this screen helps us pull our restaurants from our backend 
+import React from 'react';
  import { useEffect , useState} from "react";
  import { View, Text, StyleSheet, ScrollView, TextView, Dimensions, Image, Button} from 'react-native';
  import { FlatList } from 'react-native-gesture-handler';
