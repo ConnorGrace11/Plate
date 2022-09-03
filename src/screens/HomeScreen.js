@@ -1,3 +1,4 @@
+//Home Screen that users will see
 import React from 'react';
 import { useEffect , useState} from "react";
 import { View, StyleSheet, Text, Button, TouchableOpacity, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
