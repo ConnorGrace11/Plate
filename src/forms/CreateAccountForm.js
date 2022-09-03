@@ -1,3 +1,5 @@
+//Form for users to create an account
+
 import React, { useState } from 'react'
 import {
   ScrollView,
