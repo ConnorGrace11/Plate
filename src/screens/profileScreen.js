@@ -1,3 +1,4 @@
+//Profile screen for users
 import { StyleSheet, Image, Button, View, } from 'react-native'
 import { Text, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
