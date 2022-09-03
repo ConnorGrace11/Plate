@@ -1,3 +1,4 @@
+// this allows us to pull our meals from the backend
 import React from 'react'
 import { useEffect, useState } from 'react'
 import {
